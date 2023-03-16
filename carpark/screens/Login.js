@@ -1,7 +1,6 @@
 import { View, StyleSheet, Text, Dimensions, Pressable, TextInput } from "react-native";
 import { useEffect, useState } from "react";
 import PrimaryButton from "../components/PrimaryButton";
-import Input from "../components/Input";
 
 function Login(){
     const [filled, setfilled] = useState(false); // state to manage if all fields in the form has been filled
@@ -16,6 +15,11 @@ function Login(){
         setUsername(enteredUsername);
     }
 
+    useEffect(()=>{
+        if(username!=='' && password !== ''){
+            setfilled(true);
+        }
+    },[username,password])
     return(
             <View style={styles.form}>
                 <View style={styles.bigdescription}>
@@ -35,7 +39,7 @@ function Login(){
                         </Pressable>
                     </View>
                     <View style={styles.buttonContainer}>
-                        <PrimaryButton onSuccess={true}>Login</PrimaryButton>
+                        <PrimaryButton onSuccess={filled}>Login</PrimaryButton>
                     </View>
                 </View>
             </View>
