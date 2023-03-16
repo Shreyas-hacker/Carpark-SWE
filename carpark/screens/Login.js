@@ -1,4 +1,4 @@
-import { View, StyleSheet, Text, Dimensions, Pressable, TextInput } from "react-native";
+import { View, StyleSheet, Text, Dimensions, Pressable, TextInput, TouchableWithoutFeedback, Keyboard, ScrollView } from "react-native";
 import { useEffect, useState } from "react";
 import PrimaryButton from "../components/PrimaryButton";
 
@@ -21,7 +21,8 @@ function Login(){
         }
     },[username,password])
     return(
-            <View style={styles.form}>
+        <ScrollView style={styles.form} keyboardShouldPersistTaps='handled'>
+            <View>
                 <View style={styles.bigdescription}>
                     <Text style={styles.title}>Welcome!</Text>
                     <Text style={styles.description}>Finding Carparks in a jiffy!</Text>
@@ -43,6 +44,7 @@ function Login(){
                     </View>
                 </View>
             </View>
+        </ScrollView>
     )
 }
 
