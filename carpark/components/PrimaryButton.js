@@ -4,7 +4,7 @@ import { Text, View, Pressable, StyleSheet } from "react-native"
 function PrimaryButton({children, onSuccess}){
     return (
         <View style={styles.buttonOuterContainer}>
-            <Pressable style={()=> onSuccess ? [styles.buttonInnerContainer, styles.success]: styles.buttonInnerContainer}>
+            <Pressable style={()=> onSuccess ? [styles.buttonInnerContainer, styles.success]: styles.buttonInnerContainer} disabled={!onSuccess}>
                 <Text style={styles.buttonText}>{children}</Text>
             </Pressable>
         </View>
