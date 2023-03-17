@@ -18,13 +18,19 @@ function Login({navigation}){
     function loginAttempt(){
         if(username ==="Shreyas" && password === "Alphate217"){
             navigation.navigate('CreateAccount')
-        } else{
+        } else if (username !== "Shreyas"){
             Alert.alert(
                 "Unsuccessful",
-                "Invalid Username or Password!",
+                "Error: There is no user record corresponding to this identifier. The user may have been deleted",
                 [{ text: "Okay", style: "destructive"}]
             );
             return;
+        }else if(password !== "Alphate217"){
+            Alert.alert(
+                "Unsuccessful",
+                "Error: the password is invalid or the user does not have a password.",
+                [{ text: "Okay", style: "destructive"}]
+            );
         }
     }
     useEffect(()=>{
