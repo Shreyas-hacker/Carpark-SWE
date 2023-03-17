@@ -1,5 +1,6 @@
-import { View, StyleSheet, Text, Dimensions, Pressable, TextInput, TouchableWithoutFeedback, Keyboard, ScrollView, Alert, Picker } from "react-native";
+import { View, StyleSheet, Text, Dimensions, Pressable, TextInput, TouchableWithoutFeedback, Keyboard, ScrollView, Alert } from "react-native";
 import { useEffect, useState } from "react";
+import {Picker} from "@react-native-picker/picker"
 import PrimaryButton from "../components/PrimaryButton";
 
 
