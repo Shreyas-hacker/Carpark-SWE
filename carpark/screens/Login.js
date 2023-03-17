@@ -1,4 +1,4 @@
-import { View, StyleSheet, Text, Dimensions, Pressable, TextInput, TouchableWithoutFeedback, Keyboard, ScrollView, Alert } from "react-native";
+import { View, StyleSheet, Text, Dimensions, Pressable, TextInput, TouchableWithoutFeedback, Keyboard, ScrollView, Alert, Button } from "react-native";
 import { useEffect, useState } from "react";
 import PrimaryButton from "../components/PrimaryButton";
 
@@ -45,7 +45,7 @@ function Login({navigation}){
                     <Text style={styles.description}>Finding Carparks in a jiffy!</Text>
                 </View>
                 <View style={styles.inputContainer}>
-                    {/* This is the input component, wasnt working as a component so i broke it down further in thi file */}
+                    {/* This is the input component, wasnt working as a component so i broke it down further in this file */}
                     <TextInput style={styles.inputText} onChangeText={usernameHandler} placeholder='Username' value={username}/>
                     <TextInput style={styles.inputText} onChangeText={passwordHandler} placeholder='Password' value={password}/>
                 </View>
@@ -58,6 +58,18 @@ function Login({navigation}){
                     </View>
                     <View style={styles.buttonContainer}>
                         <PrimaryButton onSuccess={filled} onLogin={loginAttempt}>Login</PrimaryButton>
+                    </View>
+                </View>
+                <View style={styles.forgetpassword}>
+                    <Pressable onPress={()=>{navigation.navigate("ForgetPassword")}}>
+                        <Text style={styles.text}>Forget Password?</Text>
+                    </Pressable>
+                </View>
+                <View style={styles.socialmedia}>
+                    <Text style={styles.text}>Use a Social Platform to Login</Text>
+                    <View style={styles.socialMediaButton}>
+                        <Button title="Google"/>
+                        <Button title="Facebook"/>
                     </View>
                 </View>
             </View>
@@ -75,7 +87,7 @@ const styles = StyleSheet.create({
         flex:1,
     },
     bigdescription:{
-        marginTop: deviceHeight < 380 ? 60 : 170,
+        marginTop: deviceHeight < 380 ? 60 : 150,
         marginLeft: 15
     },
     title:{
@@ -109,6 +121,16 @@ const styles = StyleSheet.create({
         marginTop: 15,
         marginHorizontal: 20
     },
-    buttonContainer:{
+    forgetpassword:{
+        alignItems: 'center',
+        marginTop: 60,
+        marginBottom: 30
+    },
+    socialmedia:{
+        alignItems: 'center'
+    },
+    socialMediaButton:{
+        marginTop: 20,
+        flexDirection: 'row'
     }
 });
