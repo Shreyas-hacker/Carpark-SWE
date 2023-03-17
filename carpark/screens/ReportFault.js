@@ -8,7 +8,13 @@ function ReportFault(){
     const [filled, setfilled] = useState(false);
     const [carpark, setCarpark] = useState('');
     const [description, setDescription] = useState('');
-    const [selectedFaultType, setFaultType] = useState('');
+    const [value, setValue] = useState([]);
+    const [FaultTypes, setFaultType] = useState([
+        {label: 'Broken Light', value: 'BrokenLight'},
+        {label: 'Faulty Gantry Machine', value: 'FaultyGantryMachine'},
+        {label: 'Broken Barrrier', value: 'broken Barrier'},
+        {label: 'Others', value: 'Others'}
+      ]);
 
     function carparkHandler(enteredCarpark){
         setCarpark(enteredCarpark);
@@ -35,15 +41,24 @@ function ReportFault(){
                 <TextInput style={styles.inputText} onChangeText={carparkHandler} placeholder='-CarparkName-' value={carpark}/>
             </View>
 
-            <View>
-                <Picker
-                    selectedFaultType={selectedFaultType}
-                    onValueChange={(itemValue, itemIndex) =>
-                    setFaultType(itemValue)}>
-                    <Picker.Item label="Broken Light" value="BrokenLight" />
-                    <Picker.Item label="Broken Gantry" value="BrokenGantry" />
-                    <Picker.Item label="Broken Door" value="BrokenDoor" />
-                </Picker>
+            <View style={{
+                backgroundColor: '#171717',
+                flex: 1,
+                alignItems: 'center',
+                justifyContent: 'center',
+                paddingHorizontal: 15}}>
+                <DropDownPicker
+                    open={open}
+                    value={value}
+                    items={FaultTypes}
+                    setOpen={setOpen}
+                    setValue={setValue}
+                    setItems={setFaultType}
+
+                    theme="DARK"
+                    multiple={true}
+                    mode="BADGE"
+                    badgeDotColors={["#e76f51", "#00b4d8", "#e9c46a", "#e76f51", "#8ac926", "#00b4d8", "#e9c46a"]}/>
             </View>
 
             <View style={styles.inputContainer}>
