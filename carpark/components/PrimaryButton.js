@@ -1,10 +1,10 @@
 import { Children } from "react"
 import { Text, View, Pressable, StyleSheet } from "react-native"
 
-function PrimaryButton({children, onSuccess}){
+function PrimaryButton({children, onSuccess, onLogin}){
     return (
         <View style={styles.buttonOuterContainer}>
-            <Pressable style={()=> onSuccess ? [styles.buttonInnerContainer, styles.success]: styles.buttonInnerContainer} disabled={!onSuccess}>
+            <Pressable style={()=> onSuccess ? [styles.buttonInnerContainer, styles.success]: styles.buttonInnerContainer} disabled={!onSuccess} onPress={onLogin}>
                 <Text style={styles.buttonText}>{children}</Text>
             </Pressable>
         </View>

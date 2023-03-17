@@ -1,4 +1,4 @@
-import { View, StyleSheet, Text, Dimensions, Pressable, TextInput, TouchableWithoutFeedback, Keyboard, ScrollView } from "react-native";
+import { View, StyleSheet, Text, Dimensions, Pressable, TextInput, TouchableWithoutFeedback, Keyboard, ScrollView, Alert } from "react-native";
 import { useEffect, useState } from "react";
 import PrimaryButton from "../components/PrimaryButton";
 
@@ -15,6 +15,19 @@ function Login(){
         setUsername(enteredUsername);
     }
 
+    function loginAttempt(){
+        if(username==="Shreyas" && password==="Alphate217"){
+            console.log("Login")
+            return;
+        } else{
+            Alert.alert(
+                "Unsuccessful",
+                "Invalid Username or Password!",
+                [{ text: "Okay", style: "destructive"}]
+            );
+            return;
+        }
+    }
     useEffect(()=>{
         if(username!=='' && password !== ''){
             setfilled(true);
@@ -35,12 +48,12 @@ function Login(){
                 <View style={styles.container}>
                     <View>
                         <Text style={styles.text}>Don't have an account?</Text>
-                        <Pressable onPress={()=>{console.log(username)}}>
+                        <Pressable onPress={()=>{console.log("Create Account")}}>
                             <Text style={styles.text}>Create account</Text>
                         </Pressable>
                     </View>
                     <View style={styles.buttonContainer}>
-                        <PrimaryButton onSuccess={filled}>Login</PrimaryButton>
+                        <PrimaryButton onSuccess={filled} onLogin={loginAttempt}>Login</PrimaryButton>
                     </View>
                 </View>
             </View>
