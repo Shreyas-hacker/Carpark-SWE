@@ -26,7 +26,7 @@ function ReportFault(){
     return(
         <ScrollView>
             <View style={styles.bigdescription}>
-                    <Text style={styles.title}>Report Fault</Text>
+                <Text style={styles.title}>Report Fault</Text>
             </View>
 
             <View style={styles.inputContainer}>
