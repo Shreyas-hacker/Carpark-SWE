@@ -1,6 +1,6 @@
 import { View, StyleSheet, Text, Dimensions, Pressable, TextInput, TouchableWithoutFeedback, Keyboard, ScrollView, Alert } from "react-native";
 import { useEffect, useState } from "react";
-import {Picker} from "@react-native-picker/picker"
+import DropDownPicker from 'react-native-dropdown-picker';
 import PrimaryButton from "../components/PrimaryButton";
 
 
@@ -31,32 +31,34 @@ function ReportFault(){
             </View>
 
             <View style={styles.inputContainer}>
-                    {/* This is the input component, wasnt working as a component so i broke it down further in thi file */}
-                    <TextInput style={styles.inputText} onChangeText={carparkHandler} placeholder='-CarparkName-' value={carpark}/>
+                {/* This is the input component, wasnt working as a component so i broke it down further in thi file */}
+                <TextInput style={styles.inputText} onChangeText={carparkHandler} placeholder='-CarparkName-' value={carpark}/>
             </View>
 
             <View>
-            <Picker
-                selectedFaultType={selectedFaultType}
-                onValueChange={(itemValue, itemIndex) =>
-                setFaultType(itemValue)}>
-                <Picker.Item label="Broken Light" value="BrokenLight" />
-                <Picker.Item label="Broken Gantry" value="BrokenGantry" />
-                <Picker.Item label="Broken Door" value="BrokenDoor" />
-            </Picker>
+                <Picker
+                    selectedFaultType={selectedFaultType}
+                    onValueChange={(itemValue, itemIndex) =>
+                    setFaultType(itemValue)}>
+                    <Picker.Item label="Broken Light" value="BrokenLight" />
+                    <Picker.Item label="Broken Gantry" value="BrokenGantry" />
+                    <Picker.Item label="Broken Door" value="BrokenDoor" />
+                </Picker>
             </View>
 
             <View style={styles.inputContainer}>
-                    {/* This is the input component, wasnt working as a component so i broke it down further in thi file */}
-                    <TextInput style={styles.inputText} onChangeText={descriptionHandler} placeholder='Enter description here...' value={description}/>
+                {/* This is the input component, wasnt working as a component so i broke it down further in thi file */}
+                <TextInput style={styles.inputText} onChangeText={descriptionHandler} placeholder='Enter description here...' value={description}/>
             </View>
 
             <View style={styles.buttonContainer}>
-                        <PrimaryButton>Report Fault</PrimaryButton>
+                <PrimaryButton>Report Fault</PrimaryButton>
             </View>
         </ScrollView>
     )
 }
+
+export default ReportFault;
 
 const deviceHeight = Dimensions.get('window').height
 
@@ -103,5 +105,3 @@ const styles = StyleSheet.create({
     buttonContainer:{
     }
 });
-
-export default ReportFault;
