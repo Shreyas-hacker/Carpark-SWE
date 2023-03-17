@@ -2,7 +2,7 @@ import { View, StyleSheet, Text, Dimensions, Pressable, TextInput, TouchableWith
 import { useEffect, useState } from "react";
 import PrimaryButton from "../components/PrimaryButton";
 
-function Login(){
+function Login({navigation}){
     const [filled, setfilled] = useState(false); // state to manage if all fields in the form has been filled
     const [username,setUsername] = useState('');
     const [password, setPassword] = useState('');
@@ -16,9 +16,8 @@ function Login(){
     }
 
     function loginAttempt(){
-        if(username==="Shreyas" && password==="Alphate217"){
-            console.log("Login")
-            return;
+        if(username ==="Shreyas" && password === "Alphate217"){
+            navigation.navigate('CreateAccount')
         } else{
             Alert.alert(
                 "Unsuccessful",
