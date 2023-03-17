@@ -16,21 +16,20 @@ function Login({navigation}){
     }
 
     function loginAttempt(){
-        if(username ==="Shreyas" && password === "Alphate217"){
-            navigation.navigate('CreateAccount')
-        } else if (username !== "Shreyas"){
-            Alert.alert(
-                "Unsuccessful",
-                "Error: There is no user record corresponding to this identifier. The user may have been deleted",
-                [{ text: "Okay", style: "destructive"}]
-            );
-            return;
-        }else if(password !== "Alphate217"){
-            Alert.alert(
-                "Unsuccessful",
-                "Error: the password is invalid or the user does not have a password.",
-                [{ text: "Okay", style: "destructive"}]
-            );
+        if (username === "Shreyas" && password === "Alphate217") {
+          navigation.navigate("Home");
+        } else if (username !== "Shreyas") {
+          Alert.alert(
+            "Unsuccessful",
+            "Error: There is no user record corresponding to this identifier. The user may have been deleted",
+            [{ text: "Okay", style: "destructive" }]
+          );
+        } else if (password !== "Alphate217") {
+          Alert.alert(
+            "Unsuccessful",
+            "Error: the password is invalid or the user does not have a password.",
+            [{ text: "Okay", style: "destructive" }]
+          );
         }
     }
     useEffect(()=>{
@@ -53,7 +52,7 @@ function Login({navigation}){
                 <View style={styles.container}>
                     <View>
                         <Text style={styles.text}>Don't have an account?</Text>
-                        <Pressable onPress={()=>{console.log("Create Account")}}>
+                        <Pressable onPress={()=>{navigation.navigate("CreateAccount")}}>
                             <Text style={styles.text}>Create account</Text>
                         </Pressable>
                     </View>
