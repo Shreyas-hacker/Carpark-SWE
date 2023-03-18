@@ -8,13 +8,21 @@ function ReportFault(){
     const [filled, setfilled] = useState(false);
     const [carpark, setCarpark] = useState('');
     const [description, setDescription] = useState('');
-    const [value, setValue] = useState([]);
+    const [Fault, setFault] = useState([]);
     const [FaultTypes, setFaultType] = useState([
         {label: 'Broken Light', value: 'BrokenLight'},
         {label: 'Faulty Gantry Machine', value: 'FaultyGantryMachine'},
         {label: 'Broken Barrrier', value: 'broken Barrier'},
         {label: 'Others', value: 'Others'}
       ]);
+    const [Severity, setSeverity] = useState([]);
+    const [SeverityLevel, setSeverityLevel] = useState([
+        {label: 'High', value: 'High'},
+        {label: 'Medium', value: 'Medium'},
+        {label: 'Low', value: 'Low'},
+      ]);
+    const [open, setOpen] = useState(false);
+    const [open1, setOpen1] = useState(false);
 
     function carparkHandler(enteredCarpark){
         setCarpark(enteredCarpark);
@@ -31,7 +39,7 @@ function ReportFault(){
     },[carpark,description])
 
     return(
-        <ScrollView>
+        <ScrollView style={{backgroundColor:"darkturquoise"}}>
             <View style={styles.bigdescription}>
                 <Text style={styles.title}>Report Fault</Text>
             </View>
@@ -41,22 +49,34 @@ function ReportFault(){
                 <TextInput style={styles.inputText} onChangeText={carparkHandler} placeholder='-CarparkName-' value={carpark}/>
             </View>
 
-            <View style={{
-                backgroundColor: '#171717',
-                flex: 1,
-                alignItems: 'center',
-                justifyContent: 'center',
-                paddingHorizontal: 15}}>
+            <View style={styles.dropdown}>
                 <DropDownPicker
                     open={open}
-                    value={value}
+                    value={Fault}
                     items={FaultTypes}
                     setOpen={setOpen}
-                    setValue={setValue}
+                    setValue={setFault}
                     setItems={setFaultType}
+                    dropDownDirection="BOTTOM"
 
                     theme="DARK"
                     multiple={true}
+                    mode="BADGE"
+                    badgeDotColors={["#e76f51", "#00b4d8", "#e9c46a", "#e76f51", "#8ac926", "#00b4d8", "#e9c46a"]}/>
+            </View>
+
+            <View style={styles.dropdown1}>
+                <DropDownPicker
+                    open={open1}
+                    value={Severity}
+                    items={SeverityLevel}
+                    setOpen={setOpen1}
+                    setValue={setSeverity}
+                    setItems={setSeverityLevel}
+                    dropDownDirection="BOTTOM"
+
+                    theme="DARK"
+                    multiple={false}
                     mode="BADGE"
                     badgeDotColors={["#e76f51", "#00b4d8", "#e9c46a", "#e76f51", "#8ac926", "#00b4d8", "#e9c46a"]}/>
             </View>
@@ -78,6 +98,24 @@ export default ReportFault;
 const deviceHeight = Dimensions.get('window').height
 
 const styles = StyleSheet.create({
+    dropdown:{
+        marginTop: 10,
+        backgroundColor: 'black',
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'center',
+        paddingHorizontal: 15,
+        zIndex: open ? 1: 0
+    },
+    dropdown1:{
+        marginTop: 10,
+        backgroundColor: 'black',
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'center',
+        paddingHorizontal: 15,
+        zIndex: open1 ? 1: 0
+    },
     form:{
         backgroundColor: 'black',
         flex:1,
@@ -89,7 +127,7 @@ const styles = StyleSheet.create({
     title:{
         fontSize: 30,
         fontWeight: "bold",
-        color: 'white',
+        color: 'black',
     },
     inputContainer:{
         marginTop: 40,
