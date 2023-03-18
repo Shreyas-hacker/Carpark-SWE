@@ -1,11 +1,19 @@
-import { StyleSheet, Text } from "react-native";
+import { StyleSheet, Text, View } from "react-native";
+import IconButton from "../components/IconButton";
 
-function ForgetPassword(){
-    return <Text>ForgetPassword page!</Text>
+function ForgetPassword({ navigation }) {
+
+    function goBack(){
+        naviagation.navigate("Login");
+    }
+    return (
+        <View>
+            <Text>ForgetPassword page!</Text>
+            <IconButton onPress={goBack} icon="back" size="24" color="black"/>
+        </View>
+  );
 }
 
 export default ForgetPassword;
 
-const styles = StyleSheet.create({
-
-})
+const styles = StyleSheet.create({});

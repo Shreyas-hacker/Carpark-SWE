@@ -1,4 +1,3 @@
-import { Children } from "react"
 import { Text, View, Pressable, StyleSheet } from "react-native"
 
 function PrimaryButton({children, onSuccess, onLogin}){
