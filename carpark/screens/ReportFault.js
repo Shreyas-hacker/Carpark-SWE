@@ -98,24 +98,6 @@ export default ReportFault;
 const deviceHeight = Dimensions.get('window').height
 
 const styles = StyleSheet.create({
-    dropdown:{
-        marginTop: 10,
-        backgroundColor: 'black',
-        flex: 1,
-        alignItems: 'center',
-        justifyContent: 'center',
-        paddingHorizontal: 15,
-        zIndex: open ? 1: 0
-    },
-    dropdown1:{
-        marginTop: 10,
-        backgroundColor: 'black',
-        flex: 1,
-        alignItems: 'center',
-        justifyContent: 'center',
-        paddingHorizontal: 15,
-        zIndex: open1 ? 1: 0
-    },
     form:{
         backgroundColor: 'black',
         flex:1,
@@ -155,6 +137,22 @@ const styles = StyleSheet.create({
         marginTop: 15,
         marginHorizontal: 20
     },
-    buttonContainer:{
-    }
+    dropdown:{
+        marginTop: 10,
+        backgroundColor: 'black',
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'center',
+        paddingHorizontal: 15,
+        zIndex: open ? 1: 0
+    },
+    dropdown1:{
+        marginTop: 10,
+        backgroundColor: 'black',
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'center',
+        paddingHorizontal: 15,
+        zIndex: open1 ? 1: 0
+    },
 });
