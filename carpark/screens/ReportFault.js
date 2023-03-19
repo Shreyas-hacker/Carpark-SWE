@@ -15,14 +15,14 @@ function ReportFault(){
         {label: 'Broken Barrrier', value: 'broken Barrier'},
         {label: 'Others', value: 'Others'}
       ]);
+    const [FaultTypeOpen, setFaultTypeOpen] = useState(false);
     const [Severity, setSeverity] = useState([]);
     const [SeverityLevel, setSeverityLevel] = useState([
         {label: 'High', value: 'High'},
         {label: 'Medium', value: 'Medium'},
         {label: 'Low', value: 'Low'},
       ]);
-    const [open1, setOpen1] = useState(false);
-    const [open2, setOpen2] = useState(false);
+    const [SeverityOpen, setSeverityOpen] = useState(false);
 
     function carparkHandler(enteredCarpark){
         setCarpark(enteredCarpark);
@@ -49,12 +49,12 @@ function ReportFault(){
                 <TextInput style={styles.inputText} onChangeText={carparkHandler} placeholder='-CarparkName-' value={carpark}/>
             </View>
 
-            <View style={styles.dropdown}>
+            <View style={styles.FaultTypeDropdown}>
                 <DropDownPicker
-                    open={open1}
+                    open={FaultTypeOpen}
                     value={Fault}
                     items={FaultTypes}
-                    setOpen={setOpen1}
+                    setOpen={setFaultTypeOpen}
                     setValue={setFault}
                     setItems={setFaultType}
                     dropDownDirection="BOTTOM"
@@ -65,12 +65,12 @@ function ReportFault(){
                     badgeDotColors={["#e76f51", "#00b4d8", "#e9c46a", "#e76f51", "#8ac926", "#00b4d8", "#e9c46a"]}/>
             </View>
 
-            <View style={styles.dropdown1}>
+            <View style={styles.SeverityDropdown}>
                 <DropDownPicker
-                    open={open2}
+                    open={SeverityOpen}
                     value={Severity}
                     items={SeverityLevel}
-                    setOpen={setOpen2}
+                    setOpen={setSeverityOpen}
                     setValue={setSeverity}
                     setItems={setSeverityLevel}
                     dropDownDirection="BOTTOM"
@@ -137,22 +137,22 @@ const styles = StyleSheet.create({
         marginTop: 15,
         marginHorizontal: 20
     },
-    dropdown:{
+    FaultTypeDropdown:{
         marginTop: 10,
         backgroundColor: 'black',
         flex: 1,
         alignItems: 'center',
         justifyContent: 'center',
         paddingHorizontal: 15,
-        zIndex: open1 ? 1: 0
+        zIndex: FaultTypeOpen ? 1: 0
     },
-    dropdown1:{
+    SeverityDropdown:{
         marginTop: 10,
-        backgroundColor: 'black',
+        backgroundColor: 'black',       
         flex: 1,
         alignItems: 'center',
         justifyContent: 'center',
         paddingHorizontal: 15,
-        zIndex: open2 ? 1: 0
+        zIndex: SeverityOpen ? 1: 0
     },
 });
