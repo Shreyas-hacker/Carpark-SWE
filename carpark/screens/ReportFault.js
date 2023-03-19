@@ -39,7 +39,7 @@ function ReportFault(){
     },[carpark,description])
 
     return(
-        <ScrollView style={{backgroundColor:"darkturquoise"}}>
+        <View style={{backgroundColor:"darkturquoise"}}>
             <View style={styles.bigdescription}>
                 <Text style={styles.title}>Report Fault</Text>
             </View>
@@ -101,7 +101,7 @@ function ReportFault(){
             <View style={styles.buttonContainer}>
                 <PrimaryButton>Report Fault</PrimaryButton>
             </View>
-        </ScrollView>
+        </View>
     )
 }
 
