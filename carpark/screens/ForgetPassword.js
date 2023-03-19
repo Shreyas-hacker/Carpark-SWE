@@ -1,5 +1,7 @@
 import { Dimensions, StyleSheet, Text, View } from "react-native";
 import IconButton from "../components/IconButton";
+import InputBox from "../components/InputBox";
+
 
 let componentWidth = 0;
 const width = Dimensions.get('window').width;
@@ -20,6 +22,9 @@ function ForgetPassword({ navigation }) {
                 <Text style={styles.title} onLayout={(event)=>{
                     measureView(event);
                 }}>ForgetPassword</Text>
+            </View>
+            <View>
+                <InputBox textInputConfig={{placeholder: 'Enter email here...'}}/>
             </View>
         </View>
   );
