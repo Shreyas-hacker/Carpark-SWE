@@ -1,10 +1,10 @@
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
-import Login from './screens/Login'
-import CreateAccount from './screens/CreateAccount';
+import Login from './screens/Accounts/Login'
+import CreateAccount from './screens/Accounts/CreateAccount';
 import Home from './screens/Home';
-import ForgetPassword from './screens/ForgetPassword';
+import ForgetPassword from './screens/Password/ForgetPassword';
 import ReportFault from './screens/ReportFault';
 
 const Stack = createNativeStackNavigator();

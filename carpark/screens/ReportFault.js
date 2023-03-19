@@ -99,7 +99,7 @@ function ReportFault(){
             </View>
 
             <View style={styles.buttonContainer}>
-                <PrimaryButton>Report Fault</PrimaryButton>
+                <PrimaryButton text="Report Fault"/>
             </View>
         </View>
     )

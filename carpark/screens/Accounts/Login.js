@@ -1,6 +1,6 @@
 import { View, StyleSheet, Text, Dimensions, Pressable, TextInput, TouchableWithoutFeedback, Keyboard, ScrollView, Alert, Button } from "react-native";
 import { useEffect, useState } from "react";
-import PrimaryButton from "../components/PrimaryButton";
+import PrimaryButton from "../../components/PrimaryButton";
 
 function Login({navigation}){
     const [filled, setfilled] = useState(false); // state to manage if all fields in the form has been filled
@@ -58,7 +58,7 @@ function Login({navigation}){
                         </Pressable>
                     </View>
                     <View style={styles.buttonContainer}>
-                        <PrimaryButton onSuccess={filled} onLogin={loginAttempt}>Login</PrimaryButton>
+                        <PrimaryButton onSuccess={filled} onAttempt={loginAttempt} text="Login"/>
                     </View>
                 </View>
                 <View style={styles.forgetpassword}>
