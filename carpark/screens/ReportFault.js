@@ -49,7 +49,14 @@ function ReportFault(){
                 <TextInput style={styles.inputText} onChangeText={carparkHandler} placeholder='-CarparkName-' value={carpark}/>
             </View>
 
-            <View style={styles.FaultTypeDropdown}>
+            <View style={{
+                marginTop: 10,
+                backgroundColor: 'black',
+                flex: 1,
+                alignItems: 'center',
+                justifyContent: 'center',
+                paddingHorizontal: 15,
+                zIndex: FaultTypeOpen ? 1: 0}}>
                 <DropDownPicker
                     open={FaultTypeOpen}
                     value={Fault}
@@ -65,7 +72,14 @@ function ReportFault(){
                     badgeDotColors={["#e76f51", "#00b4d8", "#e9c46a", "#e76f51", "#8ac926", "#00b4d8", "#e9c46a"]}/>
             </View>
 
-            <View style={styles.SeverityDropdown}>
+            <View style={{
+                marginTop: 10,
+                backgroundColor: 'black',       
+                flex: 1,
+                alignItems: 'center',
+                justifyContent: 'center',
+                paddingHorizontal: 15,
+                zIndex: SeverityOpen ? 1: 0}}>
                 <DropDownPicker
                     open={SeverityOpen}
                     value={Severity}
@@ -136,23 +150,5 @@ const styles = StyleSheet.create({
         justifyContent: 'space-between',
         marginTop: 15,
         marginHorizontal: 20
-    },
-    FaultTypeDropdown:{
-        marginTop: 10,
-        backgroundColor: 'black',
-        flex: 1,
-        alignItems: 'center',
-        justifyContent: 'center',
-        paddingHorizontal: 15,
-        zIndex: FaultTypeOpen ? 2: 0
-    },
-    SeverityDropdown:{
-        marginTop: 10,
-        backgroundColor: 'black',       
-        flex: 1,
-        alignItems: 'center',
-        justifyContent: 'center',
-        paddingHorizontal: 15,
-        zIndex: SeverityOpen ? 1: 0
-    },
+    }
 });
