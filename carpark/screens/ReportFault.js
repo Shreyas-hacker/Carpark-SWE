@@ -144,7 +144,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
         paddingHorizontal: 15,
-        zIndex: FaultTypeOpen ? 1: 0
+        zIndex: FaultTypeOpen ? 2: 0
     },
     SeverityDropdown:{
         marginTop: 10,
