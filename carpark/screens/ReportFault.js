@@ -21,8 +21,8 @@ function ReportFault(){
         {label: 'Medium', value: 'Medium'},
         {label: 'Low', value: 'Low'},
       ]);
-    const [open, setOpen] = useState(false);
     const [open1, setOpen1] = useState(false);
+    const [open2, setOpen2] = useState(false);
 
     function carparkHandler(enteredCarpark){
         setCarpark(enteredCarpark);
@@ -51,10 +51,10 @@ function ReportFault(){
 
             <View style={styles.dropdown}>
                 <DropDownPicker
-                    open={open}
+                    open={open1}
                     value={Fault}
                     items={FaultTypes}
-                    setOpen={setOpen}
+                    setOpen={setOpen1}
                     setValue={setFault}
                     setItems={setFaultType}
                     dropDownDirection="BOTTOM"
@@ -67,10 +67,10 @@ function ReportFault(){
 
             <View style={styles.dropdown1}>
                 <DropDownPicker
-                    open={open1}
+                    open={open2}
                     value={Severity}
                     items={SeverityLevel}
-                    setOpen={setOpen1}
+                    setOpen={setOpen2}
                     setValue={setSeverity}
                     setItems={setSeverityLevel}
                     dropDownDirection="BOTTOM"
@@ -144,7 +144,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
         paddingHorizontal: 15,
-        zIndex: open ? 1: 0
+        zIndex: open1 ? 1: 0
     },
     dropdown1:{
         marginTop: 10,
@@ -153,6 +153,6 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
         paddingHorizontal: 15,
-        zIndex: open1 ? 1: 0
+        zIndex: open2 ? 1: 0
     },
 });
