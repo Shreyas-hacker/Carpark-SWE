@@ -1,4 +1,4 @@
-import { View, StyleSheet, Text, Dimensions, Pressable, TextInput, TouchableWithoutFeedback, Keyboard, ScrollView, Alert } from "react-native";
+import { View, StyleSheet, Text, Dimensions, Pressable, TextInput, TouchableWithoutFeedback, Keyboard, ScrollView, Alert, FlatList } from "react-native";
 import { useEffect, useState } from "react";
 import DropDownPicker from 'react-native-dropdown-picker';
 import PrimaryButton from "../components/PrimaryButton";
@@ -39,7 +39,7 @@ function ReportFault(){
     },[carpark,description])
 
     return(
-        <ScrollView style={{backgroundColor:"darkturquoise"}}>
+        <FlatList style={{backgroundColor:"darkturquoise"}}>
             <View style={styles.bigdescription}>
                 <Text style={styles.title}>Report Fault</Text>
             </View>
@@ -103,7 +103,7 @@ function ReportFault(){
             <View style={styles.buttonContainer}>
                 <PrimaryButton>Report Fault</PrimaryButton>
             </View>
-        </ScrollView>
+        </FlatList>
     )
 }
 
