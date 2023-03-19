@@ -39,7 +39,7 @@ function ReportFault(){
     },[carpark,description])
 
     return(
-        <FlatList style={{backgroundColor:"darkturquoise"}}>
+        <ScrollView style={{backgroundColor:"darkturquoise"}}>
             <View style={styles.bigdescription}>
                 <Text style={styles.title}>Report Fault</Text>
             </View>
@@ -52,7 +52,6 @@ function ReportFault(){
             <View style={{
                 marginTop: 10,
                 backgroundColor: 'black',
-                flex: 1,
                 alignItems: 'center',
                 justifyContent: 'center',
                 paddingHorizontal: 15,
@@ -75,7 +74,6 @@ function ReportFault(){
             <View style={{
                 marginTop: 10,
                 backgroundColor: 'black',       
-                flex: 1,
                 alignItems: 'center',
                 justifyContent: 'center',
                 paddingHorizontal: 15,
@@ -103,7 +101,7 @@ function ReportFault(){
             <View style={styles.buttonContainer}>
                 <PrimaryButton>Report Fault</PrimaryButton>
             </View>
-        </FlatList>
+        </ScrollView>
     )
 }
 
