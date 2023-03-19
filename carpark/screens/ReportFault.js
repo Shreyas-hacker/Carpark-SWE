@@ -58,7 +58,7 @@ function ReportFault(){
                     setValue={setFault}
                     setItems={setFaultType}
                     dropDownDirection="BOTTOM"
-
+                    placeholder="Select Fault Types"
                     theme="DARK"
                     multiple={true}
                     mode="BADGE"
@@ -74,7 +74,7 @@ function ReportFault(){
                     setValue={setSeverity}
                     setItems={setSeverityLevel}
                     dropDownDirection="BOTTOM"
-
+                    placeholder="Select Fault Severity"
                     theme="DARK"
                     multiple={false}
                     mode="BADGE"
