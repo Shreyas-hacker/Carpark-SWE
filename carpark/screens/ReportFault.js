@@ -104,10 +104,6 @@ function ReportFault({navigation}){
                     badgeDotColors={["#e76f51", "#00b4d8", "#e9c46a", "#e76f51", "#8ac926", "#00b4d8", "#e9c46a"]}/>
             </View>
 
-            <View style={styles.buttonContainer}>
-                <PrimaryButton text="Report Fault" onSuccess = {filled}/>
-            </View>
-
             <View style={styles.inputContainer}>
                 {/* This is the input component, wasnt working as a component so i broke it down further in thi file */}
                 <TextInput style={styles.inputText} onChangeText={descriptionHandler} placeholder='Enter description here...' value={description} multiline = {true}/>
