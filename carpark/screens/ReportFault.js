@@ -1,5 +1,5 @@
 import { View, StyleSheet, Text, Dimensions, Pressable, TextInput, TouchableWithoutFeedback, Keyboard, ScrollView, Alert, FlatList } from "react-native";
-import { useEffect, useState } from "react";
+import { React, useEffect, useState } from "react";
 import DropDownPicker from 'react-native-dropdown-picker';
 import PrimaryButton from "../components/PrimaryButton";
 import IconButton from "../components/IconButton"
@@ -14,10 +14,10 @@ function ReportFault({navigation}){
     const [description, setDescription] = useState('');
     const [Fault, setFault] = useState([]);
     const [FaultTypes, setFaultType] = useState([
-        {label: 'Light', value: 'Light'},
-        {label: 'Gantry Machine', value: 'gantryMachine'},
-        {label: 'Barrier', value: 'Barrier'},
-        {label: 'Others', value: 'Others'}
+        {label: 'Light', value: '1'},
+        {label: 'Gantry Machine', value: '2'},
+        {label: 'Barrier', value: '3'},
+        {label: 'Others', value: '4'}
       ]);
     const [FaultTypeOpen, setFaultTypeOpen] = useState(false);
     const [Severity, setSeverity] = useState([]);
@@ -77,7 +77,7 @@ function ReportFault({navigation}){
                     dropDownDirection="BOTTOM"
                     placeholder="Select Fault Types"
                     theme="DARK"
-                    multiple={true}
+                    multiple={false}
                     mode="BADGE"
                     badgeDotColors={["#e76f51", "#00b4d8", "#e9c46a", "#e76f51", "#8ac926", "#00b4d8", "#e9c46a"]}/>
             </View>
@@ -104,13 +104,35 @@ function ReportFault({navigation}){
                     badgeDotColors={["#e76f51", "#00b4d8", "#e9c46a", "#e76f51", "#8ac926", "#00b4d8", "#e9c46a"]}/>
             </View>
 
-            <View style={styles.inputContainer}>
-                {/* This is the input component, wasnt working as a component so i broke it down further in thi file */}
-                <TextInput style={styles.inputText} onChangeText={descriptionHandler} placeholder='Enter description here...' value={description}/>
+            <View style={styles.buttonContainer}>
+                <PrimaryButton text="Report Fault" onSuccess = {filled}/>
             </View>
 
+            <View style={styles.inputContainer}>
+                {/* This is the input component, wasnt working as a component so i broke it down further in thi file */}
+                <TextInput style={styles.inputText} onChangeText={descriptionHandler} placeholder='Enter description here...' value={description} multiline = {true}/>
+            </View>
+
+            
+
+            {/* <View style={{
+                backgroundColor: value,
+                borderBottomColor: '#000000',
+                borderBottomWidth: 1,
+            }}>
+            <TextInput
+                editable
+                multiline
+                numberOfLines={4}
+                maxLength={40}
+                onChangeText={text => onChangeText(text)}
+                value={value}
+                style={{padding: 10}}
+            />
+            </View> */}
+
             <View style={styles.buttonContainer}>
-                <PrimaryButton text="Report Fault"/>
+                <PrimaryButton text="Report Fault" onSuccess = {filled}/>
             </View>
         </View>
     )
@@ -138,7 +160,6 @@ const styles = StyleSheet.create({
         fontSize: 30,
         fontWeight: "regular",
         color: 'black',
-        fontType: "text",
         marginLeft: 10
     },
     inputContainer:{
@@ -146,12 +167,17 @@ const styles = StyleSheet.create({
     },
     inputText:{
         backgroundColor: 'white',
-        color: 'grey',
-        padding: 15,
+        color: 'black',
+        textAlignVertical : 'top',
+        textAlign : 'left',
+        paddingTop : 15,
+        padding: 20,
         borderRadius: 12,
         fontSize: 15,
         marginHorizontal: 10,
-        marginVertical: 8
+        marginVertical: 10,
+        lineHeight : 25,
+        minHeight : 100,
     },
     text:{
         color: 'white'
@@ -159,6 +185,9 @@ const styles = StyleSheet.create({
     description:{
         color: 'white',
         marginTop: 10,
+        paddingTop : 15,
+        padding: 20,
+        fontSize: 15,
     },
     container: {
         flex: 1,
