@@ -2,36 +2,45 @@ import { View, StyleSheet, Text, Dimensions, Pressable, TextInput, TouchableWith
 import { useEffect, useState } from "react";
 import DropDownPicker from 'react-native-dropdown-picker';
 import PrimaryButton from "../components/PrimaryButton";
+import IconButton from "../components/IconButton"
 
+const width = Dimensions.get('window').width;
+let componentWidth = 0;
 
-function ReportFault(){
+function ReportFault({navigation}){
+    const blueColor = "#A9DEEE"
     const [filled, setfilled] = useState(false);
     const [carpark, setCarpark] = useState('');
     const [description, setDescription] = useState('');
     const [Fault, setFault] = useState([]);
     const [FaultTypes, setFaultType] = useState([
-        {label: 'Broken Light', value: 'BrokenLight'},
-        {label: 'Faulty Gantry Machine', value: 'FaultyGantryMachine'},
-        {label: 'Broken Barrrier', value: 'broken Barrier'},
+        {label: 'Light', value: 'Light'},
+        {label: 'Gantry Machine', value: 'gantryMachine'},
+        {label: 'Barrier', value: 'Barrier'},
         {label: 'Others', value: 'Others'}
       ]);
     const [FaultTypeOpen, setFaultTypeOpen] = useState(false);
     const [Severity, setSeverity] = useState([]);
     const [SeverityLevel, setSeverityLevel] = useState([
-        {label: 'High', value: 'High'},
-        {label: 'Medium', value: 'Medium'},
-        {label: 'Low', value: 'Low'},
+        {label: 'High', value: '3'},
+        {label: 'Medium', value: '2'},
+        {label: 'Low', value: '1'},
       ]);
     const [SeverityOpen, setSeverityOpen] = useState(false);
 
+    //states
     function carparkHandler(enteredCarpark){
         setCarpark(enteredCarpark);
     }
-
     function descriptionHandler(enteredDescription){
         setDescription(enteredDescription);
     }
-
+    function measureView(event){
+        componentWidth = event.nativeEvent.layout.width;
+    }
+    function goBack(){
+        navigation.navigate("Login");
+    }
     useEffect(()=>{
         if(carpark!=='' && description !== ''){
             setfilled(true);
@@ -39,19 +48,21 @@ function ReportFault(){
     },[carpark,description])
 
     return(
-        <View style={{backgroundColor:"darkturquoise"}}>
-            <View style={styles.bigdescription}>
-                <Text style={styles.title}>Report Fault</Text>
+        <View style={{backgroundColor: blueColor, flex: 1}}>
+            <View style={styles.topContent}>
+                <IconButton onPress={goBack} icon="arrow-back" size={28} color="black"/>
+                <Text style={styles.reportTitle} onLayout={(event)=>{
+                    measureView(event);
+                }}>Report Fault!</Text>
             </View>
 
-            <View style={styles.inputContainer}>
-                {/* This is the input component, wasnt working as a component so i broke it down further in thi file */}
-                <TextInput style={styles.inputText} onChangeText={carparkHandler} placeholder='-CarparkName-' value={carpark}/>
+            <View style={styles.carparkTitle}>
+                <Text style={styles.carparkTitle}>Carpark BG03</Text>
             </View>
-
+        
             <View style={{
                 marginTop: 10,
-                backgroundColor: 'black',
+                backgroundColor: blueColor,
                 alignItems: 'center',
                 justifyContent: 'center',
                 paddingHorizontal: 15,
@@ -73,7 +84,7 @@ function ReportFault(){
 
             <View style={{
                 marginTop: 10,
-                backgroundColor: 'black',       
+                backgroundColor: blueColor,       
                 alignItems: 'center',
                 justifyContent: 'center',
                 paddingHorizontal: 15,
@@ -114,14 +125,21 @@ const styles = StyleSheet.create({
         backgroundColor: 'black',
         flex:1,
     },
-    bigdescription:{
-        marginTop: deviceHeight < 380 ? 60 : 170,
-        marginLeft: 15
+    topContent: {
+        flexDirection:'row',
+        marginVertical: 40,
+        alignItems: 'center'
     },
-    title:{
+    reportTitle:{
+        marginLeft: (width - componentWidth)/6,
+        fontSize: 20,
+    },
+    carparkTitle:{
         fontSize: 30,
-        fontWeight: "bold",
+        fontWeight: "regular",
         color: 'black',
+        fontType: "text",
+        marginLeft: 10
     },
     inputContainer:{
         marginTop: 40,
