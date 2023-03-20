@@ -1,11 +1,24 @@
 import { View, StyleSheet, Text, Dimensions, Pressable, TextInput, TouchableWithoutFeedback, Keyboard, ScrollView, Alert, Button } from "react-native";
 import { useEffect, useState } from "react";
 import PrimaryButton from "../../components/PrimaryButton";
+import { fetchAccounts } from "../../util/http";
 
 function Login({navigation}){
     const [filled, setfilled] = useState(false); // state to manage if all fields in the form has been filled
     const [username,setUsername] = useState('');
     const [password, setPassword] = useState('');
+
+    useEffect(()=>{
+        if(username!=='' && password !== ''){
+            setfilled(true);
+        }
+    },[username,password])
+
+    useEffect(()=>{
+        async function getAccounts(){
+            const accounts = await fetchAccounts();
+        }
+    },[]);
 
     function passwordHandler(enteredPassword){
         setPassword(enteredPassword);
@@ -17,7 +30,8 @@ function Login({navigation}){
 
     function loginAttempt(){
         if (username === "Shreyas" && password === "Alphate217") {
-          navigation.navigate("Home");
+          const LoginInfo = {accountUsername: username, accountPassword: password};
+
         } else if (username !== "Shreyas") {
           Alert.alert(
             "Unsuccessful",
@@ -32,11 +46,6 @@ function Login({navigation}){
           );
         }
     }
-    useEffect(()=>{
-        if(username!=='' && password !== ''){
-            setfilled(true);
-        }
-    },[username,password])
 
     return(
         <ScrollView style={styles.form} keyboardShouldPersistTaps='handled'>
