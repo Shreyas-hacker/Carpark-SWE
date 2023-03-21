@@ -9,6 +9,8 @@ function Login({navigation}){
     const [username,setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [show, setShow] = useState(true);
+    const [accountInfo, setAccountInfo] = useState([]);
+
 
     useEffect(()=>{
         if(username!=='' && password !== ''){
@@ -19,7 +21,10 @@ function Login({navigation}){
     useEffect(()=>{
         async function getAccounts(){
             const accounts = await fetchAccounts();
+            setAccountInfo(accounts);
         }
+        
+        getAccounts();
     },[]);
 
     function passwordHandler(enteredPassword){
@@ -34,21 +39,22 @@ function Login({navigation}){
         setShow(!show)
     }
     function loginAttempt(){
-        if (username === "Shreyas" && password === "Alphate217") {
-          const LoginInfo = {accountUsername: username, accountPassword: password};
+        var searchedAccount = false;
 
-        } else if (username !== "Shreyas") {
-          Alert.alert(
-            "Unsuccessful",
-            "Error: There is no user record corresponding to this identifier. The user may have been deleted",
-            [{ text: "Okay", style: "destructive" }]
-          );
-        } else if (password !== "Alphate217") {
-          Alert.alert(
-            "Unsuccessful",
-            "Error: the password is invalid or the user does not have a password.",
-            [{ text: "Okay", style: "destructive" }]
-          );
+        for(var i=0; i<accountInfo.length;i++){
+            if(accountInfo[i].password === password && accountInfo[i].username === username){
+                searchedAccount = true;
+                break;
+            }
+        }
+        if(!searchedAccount){
+            Alert.alert(
+                "Unsuccessful",
+                "Error: There is no user record corresponding to this identifier. The user may have been deleted OR password is invalid",
+                [{ text: "Okay", style: "destructive" }]
+            );
+        }else{
+            navigation.navigate("Home");
         }
     }
 

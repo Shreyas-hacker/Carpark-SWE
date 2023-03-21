@@ -12,26 +12,31 @@ import {
 } from "react-native";
 import { useEffect, useState } from "react";
 import PrimaryButton from "../../components/PrimaryButton";
-import { storeAccount } from "../../util/http";
+import { storeAccount, fetchAccounts } from "../../util/http";
 import IconButton from "../../components/IconButton";
+import { emailChecker, passwordCheck } from "../../util/helper";
 
 function CreateAccount({navigation}) {
   const [filled, setfilled] = useState(false); // state to manage if all fields in the form has been filled
   const [username,setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPasword] = useState('');
+  const [accountInfo,setAccountInfo] = useState([]);
   const [show, setShow] = useState(true);
-  const icon = 'eye-off'
 
   useEffect(()=>{
-      if(username!=='' && password !== ''){
-          setfilled(true);
-      }
-  },[username,password])
+    if(username!=='' && password !== '' && confirmPassword !== ''){
+      setfilled(true);
+    }
+  },[username,password, confirmPassword])
 
   useEffect(()=>{
-      async function getAccounts(){
-          const accounts = await storeAccount();
-      }
+    async function getAccounts(){
+      const accounts = await fetchAccounts();
+      setAccountInfo(accounts);
+    }
+
+    getAccounts();
   },[]);
 
   function passwordHandler(enteredPassword){
@@ -42,25 +47,47 @@ function CreateAccount({navigation}) {
       setUsername(enteredUsername);
   }
 
+  function confirmPasswordHandler(enteredRetype){
+    setConfirmPasword(enteredRetype);
+  }
+
   function changeIcon(){
       setShow(!show)
   }
-  function loginAttempt(){
-      if (username === "Shreyas" && password === "Alphate217") {
-        const LoginInfo = {accountUsername: username, accountPassword: password};
-
-      } else if (username !== "Shreyas") {
+  function createAttempt(){
+      if (!emailChecker(username)) {
         Alert.alert(
           "Unsuccessful",
-          "Error: There is no user record corresponding to this identifier. The user may have been deleted",
+          "Error: The email address is badly formatted",
           [{ text: "Okay", style: "destructive" }]
-        );
-      } else if (password !== "Alphate217") {
+      );
+      } else if (accountInfo.some((account)=> account.username === username)){
         Alert.alert(
           "Unsuccessful",
-          "Error: the password is invalid or the user does not have a password.",
+          "The email address is already in use by another account.",
           [{ text: "Okay", style: "destructive" }]
         );
+      }
+      else if (password !== confirmPassword) {
+        Alert.alert(
+          "Unsuccessful",
+          "Error: the password does not match the confirmed password",
+          [{ text: "Okay", style: "destructive" }]
+        );
+      } else if(password.length < 8){
+        Alert.alert(
+          "Unsuccessful",
+          "Password should be a minimum of 8 characters",
+          [{ text: "Okay", style: "destructive" }]
+        );
+      } else if(!passwordCheck(password)){
+        Alert.alert(
+          "Retype password",
+          "Password has to contain upper and lower letters, numbers & symbols",
+          [{ text: "Okay", style: "destructive" }]
+        )
+      } else{
+        storeAccount({username: username, password: password})
       }
   }
 
@@ -68,14 +95,20 @@ function CreateAccount({navigation}) {
       <ScrollView style={styles.form} keyboardShouldPersistTaps='handled'>
           <View>
               <View style={styles.bigdescription}>
-                  <Text style={styles.title}>Welcome!</Text>
-                  <Text style={styles.description}>Finding Carparks in a jiffy!</Text>
+                  <Text style={styles.title}>Get Started</Text>
+                  <Text style={styles.description}>Love your carpark to be in tip top condition? No better time to sign up than now</Text>
               </View>
               <View style={styles.inputContainer}>
                   {/* This is the input component, wasnt working as a component so i broke it down further in this file */}
                   <TextInput style={styles.inputText} onChangeText={usernameHandler} placeholder='Username' value={username}/>
                   <View style={{flexDirection: 'row'}}>
                       <TextInput style={styles.inputText} onChangeText={passwordHandler} placeholder='Password' value={password} secureTextEntry={show}/>
+                      <TouchableOpacity>
+                          <IconButton icon={show ? 'eye-off' : 'eye'} color={'grey'} size={20} onPress={changeIcon} extrastyle={styles.iconButton}/>
+                      </TouchableOpacity>
+                  </View>
+                  <View style={{flexDirection: 'row'}}>
+                      <TextInput style={styles.inputText} onChangeText={confirmPasswordHandler} placeholder='Confirm Password' value={confirmPassword} secureTextEntry={show}/>
                       <TouchableOpacity>
                           <IconButton icon={show ? 'eye-off' : 'eye'} color={'grey'} size={20} onPress={changeIcon} extrastyle={styles.iconButton}/>
                       </TouchableOpacity>
@@ -89,7 +122,7 @@ function CreateAccount({navigation}) {
                       </Pressable>
                   </View>
                   <View style={styles.buttonContainer}>
-                      <PrimaryButton onSuccess={filled} onAttempt={loginAttempt} text="Login"/>
+                      <PrimaryButton onSuccess={filled} onAttempt={createAttempt} text="Create"/>
                   </View>
               </View>
               <View style={styles.socialmedia}>
@@ -123,7 +156,7 @@ const styles = StyleSheet.create({
       color: 'white',
   },
   inputContainer:{
-      marginTop: 40,
+      marginTop: 20,
   },
   inputText:{
       width: "95%",
@@ -142,11 +175,14 @@ const styles = StyleSheet.create({
       marginTop: 23
   },
   text:{
-      color: 'white'
+      color: 'white',
+      fontSize: 16
   },
   description:{
       color: 'white',
       marginTop: 10,
+      fontSize: 16,
+      padding: 4
   },
   container: {
       flex: 1,

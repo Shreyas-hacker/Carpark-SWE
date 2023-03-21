@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Dimensions, TextInput, StyleSheet, Text, View, Alert } from "react-native";
 import IconButton from "../../components/IconButton";
 import PrimaryButton from "../../components/PrimaryButton";
+import { emailChecker } from "../../util/helper";
 
 let componentWidth = 0;
 const width = Dimensions.get('window').width;
@@ -24,7 +25,7 @@ function ForgetPassword({ navigation }) {
     }
 
     function sendEmail(){
-        if(!email.match(validRegex)){
+        if(!emailChecker(email)){
             Alert.alert(
                 "Unsuccessful",
                 "Error: Email Address entered does not follow the valid format",
@@ -54,7 +55,7 @@ function ForgetPassword({ navigation }) {
                 <Text style={{color: '#57636C'}}>We will need to verify your email with our database to reset your password, please enter the email associated with your account above.</Text>
             </View>
             <View style={styles.buttonContainer}>
-                <PrimaryButton text="Send Reset Link" onSuccess={filled} onAttempt={sendEmail}/>
+                <PrimaryButton text="Verify email" onSuccess={filled} onAttempt={sendEmail}/>
             </View>
         </View>
   );
