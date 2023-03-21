@@ -9,7 +9,6 @@ function Login({navigation}){
     const [username,setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [show, setShow] = useState(true);
-    const icon = 'eye-off'
 
     useEffect(()=>{
         if(username!=='' && password !== ''){
@@ -73,7 +72,7 @@ function Login({navigation}){
                 <View style={styles.container}>
                     <View>
                         <Text style={styles.text}>Don't have an account?</Text>
-                        <Pressable onPress={()=>{navigation.navigate("Create Account")}}>
+                        <Pressable onPress={()=>{navigation.navigate("CreateAccount")}}>
                             <Text style={styles.text}>Create account</Text>
                         </Pressable>
                     </View>
