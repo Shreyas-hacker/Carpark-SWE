@@ -1,4 +1,4 @@
-import { View, StyleSheet, Text, Dimensions, Pressable, TextInput, TouchableWithoutFeedback, Keyboard, ScrollView, Alert, Button } from "react-native";
+import { View, StyleSheet, Text, Dimensions, Pressable, TextInput, ScrollView, Alert, Button } from "react-native";
 import { useEffect, useState } from "react";
 import PrimaryButton from "../../components/PrimaryButton";
 import { fetchAccounts } from "../../util/http";
@@ -57,7 +57,7 @@ function Login({navigation}){
                 <View style={styles.inputContainer}>
                     {/* This is the input component, wasnt working as a component so i broke it down further in this file */}
                     <TextInput style={styles.inputText} onChangeText={usernameHandler} placeholder='Username' value={username}/>
-                    <TextInput style={styles.inputText} onChangeText={passwordHandler} placeholder='Password' value={password}/>
+                    <TextInput style={styles.inputText} onChangeText={passwordHandler} placeholder='Password' value={password} secureTextEntry={true}/>
                 </View>
                 <View style={styles.container}>
                     <View>
