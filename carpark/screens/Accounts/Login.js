@@ -1,13 +1,15 @@
 import { View, StyleSheet, Text, Dimensions, Pressable, TextInput, ScrollView, Alert, Button } from "react-native";
 import { useEffect, useState } from "react";
 import PrimaryButton from "../../components/PrimaryButton";
+import IconButton from "../../components/IconButton";
 import { fetchAccounts } from "../../util/http";
 
 function Login({navigation}){
     const [filled, setfilled] = useState(false); // state to manage if all fields in the form has been filled
     const [username,setUsername] = useState('');
     const [password, setPassword] = useState('');
-
+    const [show, setShow] = useState(true);
+    const icon = 'eye-off'
     useEffect(()=>{
         if(username!=='' && password !== ''){
             setfilled(true);
@@ -58,6 +60,7 @@ function Login({navigation}){
                     {/* This is the input component, wasnt working as a component so i broke it down further in this file */}
                     <TextInput style={styles.inputText} onChangeText={usernameHandler} placeholder='Username' value={username}/>
                     <TextInput style={styles.inputText} onChangeText={passwordHandler} placeholder='Password' value={password} secureTextEntry={true}/>
+                    <IconButton icon={icon}/>
                 </View>
                 <View style={styles.container}>
                     <View>
