@@ -1,4 +1,4 @@
-import { View, StyleSheet, Text, Dimensions, Pressable, TextInput, ScrollView, Alert, Button } from "react-native";
+import { View, StyleSheet, Text, Dimensions, Pressable, TextInput, ScrollView, Alert, Button, TouchableOpacity } from "react-native";
 import { useEffect, useState } from "react";
 import PrimaryButton from "../../components/PrimaryButton";
 import IconButton from "../../components/IconButton";
@@ -10,6 +10,7 @@ function Login({navigation}){
     const [password, setPassword] = useState('');
     const [show, setShow] = useState(true);
     const icon = 'eye-off'
+
     useEffect(()=>{
         if(username!=='' && password !== ''){
             setfilled(true);
@@ -30,6 +31,9 @@ function Login({navigation}){
         setUsername(enteredUsername);
     }
 
+    function changeIcon(){
+        setShow(!show)
+    }
     function loginAttempt(){
         if (username === "Shreyas" && password === "Alphate217") {
           const LoginInfo = {accountUsername: username, accountPassword: password};
@@ -59,8 +63,12 @@ function Login({navigation}){
                 <View style={styles.inputContainer}>
                     {/* This is the input component, wasnt working as a component so i broke it down further in this file */}
                     <TextInput style={styles.inputText} onChangeText={usernameHandler} placeholder='Username' value={username}/>
-                    <TextInput style={styles.inputText} onChangeText={passwordHandler} placeholder='Password' value={password} secureTextEntry={true}/>
-                    <IconButton icon={icon}/>
+                    <View style={{flexDirection: 'row'}}>
+                        <TextInput style={styles.inputText} onChangeText={passwordHandler} placeholder='Password' value={password} secureTextEntry={show}/>
+                        <TouchableOpacity>
+                            <IconButton icon={show ? 'eye-off' : 'eye'} color={'grey'} size={20} onPress={changeIcon} extrastyle={styles.iconButton}/>
+                        </TouchableOpacity>
+                    </View>
                 </View>
                 <View style={styles.container}>
                     <View>
@@ -112,6 +120,7 @@ const styles = StyleSheet.create({
         marginTop: 40,
     },
     inputText:{
+        width: "95%",
         backgroundColor: 'white',
         color: 'grey',
         padding: 15,
@@ -119,6 +128,12 @@ const styles = StyleSheet.create({
         fontSize: 15,
         marginHorizontal: 10,
         marginVertical: 8
+    },
+    iconButton:{
+        position: 'absolute',
+        alignSelf: 'center',
+        right: 0,
+        marginTop: 23
     },
     text:{
         color: 'white'

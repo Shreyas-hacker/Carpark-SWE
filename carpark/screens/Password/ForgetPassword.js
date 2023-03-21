@@ -73,7 +73,7 @@ const styles = StyleSheet.create({
         alignItems: 'center'
     },
     title:{
-        marginLeft: (width - componentWidth)/6
+        marginLeft: (width - componentWidth)/5
     },
     inputConfig: {
         marginHorizontal: "5%",
