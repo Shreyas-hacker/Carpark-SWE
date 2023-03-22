@@ -41,12 +41,8 @@ function Login({navigation}){
     function loginAttempt(){
         var searchedAccount = false;
 
-        for(var i=0; i<accountInfo.length;i++){
-            if(accountInfo[i].password === password && accountInfo[i].username === username){
-                searchedAccount = true;
-                break;
-            }
-        }
+        searchedAccount = accountInfo.some(account => account.username === username && account.password === password);
+
         if(!searchedAccount){
             Alert.alert(
                 "Unsuccessful",
