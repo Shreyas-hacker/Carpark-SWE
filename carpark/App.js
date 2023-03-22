@@ -6,6 +6,7 @@ import CreateAccount from './screens/Accounts/CreateAccount';
 import Home from './screens/Home';
 import ForgetPassword from './screens/Password/ForgetPassword';
 import ReportFault from './screens/ReportFault';
+import MapModal from './screens/MapModal';
 
 const Stack = createNativeStackNavigator();
 
@@ -18,6 +19,7 @@ export default function App() {
         <Stack.Screen name='CreateAccount' component={CreateAccount}/>
         <Stack.Screen name='ForgetPassword' component={ForgetPassword} />
         <Stack.Screen name='ReportFault' component={ReportFault} />
+        <Stack.Screen name='MapModal' component={MapModal} />
       </Stack.Navigator>
     </NavigationContainer>
   );
