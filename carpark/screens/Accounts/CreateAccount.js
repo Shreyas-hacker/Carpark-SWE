@@ -88,6 +88,7 @@ function CreateAccount({navigation}) {
         )
       } else{
         storeAccount({username: username, password: password})
+        navigation.navigate('Home');
       }
   }
 

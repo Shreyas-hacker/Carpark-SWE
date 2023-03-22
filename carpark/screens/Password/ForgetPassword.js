@@ -8,8 +8,6 @@ let componentWidth = 0;
 const width = Dimensions.get('window').width;
 
 function ForgetPassword({ navigation }) {
-    var validRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
-
     function measureView(event){
         componentWidth = event.nativeEvent.layout.width;
     }
