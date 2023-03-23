@@ -42,7 +42,7 @@ const DisplayCarpark = () => {
     <View style={styles.container}>
       <SearchBar onSearchTermChange={handleSearch} searchTerm={searchTerm}/>
       <PrimaryButton onSuccess={true} text="Search" onAttempt={searchCarpark}/>
-      <MapView style={styles.map} region={region} showsUserLocation={true}>
+      <MapView style={styles.map} region={region} onRegionChange={()=>setRegion(region)} showsUserLocation={true}>
         {filteredCarparks.length === 0 &&  filteredCarparks.map((carpark) => (
           <Marker
             key={carpark['_id']}
