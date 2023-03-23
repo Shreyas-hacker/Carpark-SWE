@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { View, Text, StyleSheet, TextInput } from 'react-native';
 import MapView, { Marker } from 'react-native-maps';
+import SearchBar from './SearchBar';
+import PrimaryButton from '../../components/PrimaryButton';
 
 const DisplayCarpark = () => {
   const [carparks, setCarparks] = useState([]);
@@ -36,16 +38,18 @@ const DisplayCarpark = () => {
 
   const filteredCarparks = carparks.filter((carpark) =>
     carpark.carpark_number.toLowerCase().includes(searchTerm.toLowerCase())
-  ).filter((carpark)=> carpark.latitude && carpark.longtitude);
+  ).filter((carpark)=> carpark.latitude && carpark.longitude);
 
   return (
     <View style={styles.container}>
-      <TextInput
+      <SearchBar onSearchTermChange={handleSearch} searchTerm={searchTerm}/>
+      <PrimaryButton />
+      {/*<TextInput
         style={styles.searchBar}
         placeholder="Search by car park name"
         onChangeText={handleSearch}
         value={searchTerm}
-      />
+  />*/}
       <MapView style={styles.map} region={region} showsUserLocation={true}>
         {filteredCarparks.map((carpark) => (
           <Marker
