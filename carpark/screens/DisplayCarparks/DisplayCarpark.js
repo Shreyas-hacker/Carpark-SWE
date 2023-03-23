@@ -16,56 +16,42 @@ const DisplayCarpark = () => {
     longitudeDelta: 0.0421,
   });
 
-  async function fetchCarparks(){
-    try{
-      const response = await axios.get(
-        'https://www.ura.gov.sg/uraDataService/invokeUraDS?service=Car_Park_Availability'
-      );
-      var carparkData = response.data.items[0].carpark_data
-      setCarparks(carparkData);
-    } catch(error){
-      console.log(error)
-    }
-  };
-
-  useEffect(() => {
-    const interval = setInterval(fetchCarparks(),60000);
-    return ()=> clearInterval(interval);
-  }, []);
-
   const handleSearch = (text) => {
     setSearchTerm(text);
   };
 
-  function searchCarpark(){
-    console.log(carparks)
-    filter = carparks.filter((carpark) =>
-      carpark.carpark_number.toLowerCase().includes(searchTerm.toLowerCase())
-    )
-    setFilteredCarparks(filter);
-    console.log(filter);
+  async function searchCarpark(){
+    try{
+      const response = await axios({
+        method: "get",
+        url:'https://data.gov.sg/api/action/datastore_search',
+        params:{
+          'resource_id': '139a3035-e624-4f56-b63f-89ae28d4ae4c',
+          'q': searchTerm
+        }
+      }
+      );
+
+      setFilteredCarparks(response["data"]["result"]["records"])
+    } catch(error){
+      console.log(error)
+    }
   }
 
   return (
     <View style={styles.container}>
       <SearchBar onSearchTermChange={handleSearch} searchTerm={searchTerm}/>
       <PrimaryButton onSuccess={true} text="Search" onAttempt={searchCarpark}/>
-      {/*<TextInput
-        style={styles.searchBar}
-        placeholder="Search by car park name"
-        onChangeText={handleSearch}
-        value={searchTerm}
-  />*/}
       <MapView style={styles.map} region={region} showsUserLocation={true}>
-        {filteredCarparks.map((carpark) => (
+        {filteredCarparks.length === 0 &&  filteredCarparks.map((carpark) => (
           <Marker
-            key={carpark.carpark_number}
+            key={carpark['_id']}
             coordinate={{
-              latitude: parseFloat(carpark.latitude),
-              longitude: parseFloat(carpark.longitude),
+              latitude: parseFloat(carpark['x_coord']),
+              longitude: parseFloat(carpark['y_coord']),
             }}
-            title={carpark.carpark_number}
-            description={`Lots Available: ${carpark.carpark_info[0].lots_available}`}
+            title={carpark['car_park_no']}
+            description={`Lots Available: ${carpark['car_park_decks']}`}
           />
         ))}
       </MapView>
@@ -76,6 +62,7 @@ const DisplayCarpark = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    marginTop: 50
   },
   searchBar: {
     height: 40,
