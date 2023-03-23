@@ -7,6 +7,7 @@ import PrimaryButton from '../../components/PrimaryButton';
 
 const DisplayCarpark = () => {
   const [carparks, setCarparks] = useState([]);
+  const [filteredCarparks, setFilteredCarparks] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
   const [region, setRegion] = useState({
     latitude: 1.3521,
@@ -18,7 +19,7 @@ const DisplayCarpark = () => {
   async function fetchCarparks(){
     try{
       const response = await axios.get(
-        'https://api.data.gov.sg/v1/transport/carpark-availability'
+        'https://www.ura.gov.sg/uraDataService/invokeUraDS?service=Car_Park_Availability'
       );
       var carparkData = response.data.items[0].carpark_data
       setCarparks(carparkData);
@@ -36,14 +37,19 @@ const DisplayCarpark = () => {
     setSearchTerm(text);
   };
 
-  const filteredCarparks = carparks.filter((carpark) =>
-    carpark.carpark_number.toLowerCase().includes(searchTerm.toLowerCase())
-  ).filter((carpark)=> carpark.latitude && carpark.longitude);
+  function searchCarpark(){
+    console.log(carparks)
+    filter = carparks.filter((carpark) =>
+      carpark.carpark_number.toLowerCase().includes(searchTerm.toLowerCase())
+    )
+    setFilteredCarparks(filter);
+    console.log(filter);
+  }
 
   return (
     <View style={styles.container}>
       <SearchBar onSearchTermChange={handleSearch} searchTerm={searchTerm}/>
-      <PrimaryButton />
+      <PrimaryButton onSuccess={true} text="Search" onAttempt={searchCarpark}/>
       {/*<TextInput
         style={styles.searchBar}
         placeholder="Search by car park name"
