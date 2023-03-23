@@ -14,15 +14,20 @@ const DisplayCarpark = () => {
   });
 
   async function fetchCarparks(){
-    const response = await axios.get(
-      'https://api.data.gov.sg/v1/transport/carpark-availability'
-    );
-    console.log(response.items[0].carpark_data)
-    //setCarparks(data.items[0].carpark_data);
+    try{
+      const response = await axios.get(
+        'https://api.data.gov.sg/v1/transport/carpark-availability'
+      );
+      var carparkData = response.data.items[0].carpark_data
+      setCarparks(carparkData);
+    } catch(error){
+      console.log(error)
+    }
   };
+
   useEffect(() => {
-    setInterval(
-    fetchCarparks(),60000);
+    const interval = setInterval(fetchCarparks(),60000);
+    return ()=> clearInterval(interval);
   }, []);
 
   const handleSearch = (text) => {
@@ -31,7 +36,7 @@ const DisplayCarpark = () => {
 
   const filteredCarparks = carparks.filter((carpark) =>
     carpark.carpark_number.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+  ).filter((carpark)=> carpark.latitude && carpark.longtitude);
 
   return (
     <View style={styles.container}>
@@ -41,7 +46,7 @@ const DisplayCarpark = () => {
         onChangeText={handleSearch}
         value={searchTerm}
       />
-      <MapView style={styles.map} region={region}>
+      <MapView style={styles.map} region={region} showsUserLocation={true}>
         {filteredCarparks.map((carpark) => (
           <Marker
             key={carpark.carpark_number}
