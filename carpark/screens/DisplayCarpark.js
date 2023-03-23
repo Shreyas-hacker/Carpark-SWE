@@ -12,15 +12,16 @@ const DisplayCarpark = () => {
     longitudeDelta: 0.0421,
   });
 
+  async function fetchCarparks(){
+    const response = await axios.get(
+      'https://api.data.gov.sg/v1/transport/carpark-availability'
+    );
+    console.log(response)
+    //setCarparks(data.items[0].carpark_data);
+  };
   useEffect(() => {
-    const fetchCarparks = async () => {
-      const response = await fetch(
-        `https://api.data.gov.sg/v1/transport/carpark-availability`
-      );
-      const data = await response.json();
-      setCarparks(data.items[0].carpark_data);
-    };
-    fetchCarparks();
+    setInterval(
+    fetchCarparks(),60000);
   }, []);
 
   const handleSearch = (text) => {

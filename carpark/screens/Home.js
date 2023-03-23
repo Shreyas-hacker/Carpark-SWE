@@ -1,7 +1,7 @@
 import React from "react";
 import { Text, StyleSheet, View} from "react-native";
 
-function Home(){
+function Home({navigation}){
     return(
     <View style={styles.container}>
      <Text>Home Page!</Text>
