@@ -3,11 +3,10 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 import Login from './screens/Accounts/Login'
 import CreateAccount from './screens/Accounts/CreateAccount';
-import Home from './screens/Home';
+import Home from './screens/DisplayCarparks/Home';
 import ForgetPassword from './screens/Password/ForgetPassword';
 import ReportFault from './screens/ReportFault';
-import DisplayCarpark from './screens/DisplayCarpark';
-import MapModal from './screens/MapModal';
+import DisplayCarpark from './screens/DisplayCarparks/DisplayCarpark';
 
 const Stack = createNativeStackNavigator();
 

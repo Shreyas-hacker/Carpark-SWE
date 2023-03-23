@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import { View, Text, StyleSheet, TextInput } from 'react-native';
 import MapView, { Marker } from 'react-native-maps';
 
@@ -16,7 +17,7 @@ const DisplayCarpark = () => {
     const response = await axios.get(
       'https://api.data.gov.sg/v1/transport/carpark-availability'
     );
-    console.log(response)
+    console.log(response.items[0].carpark_data)
     //setCarparks(data.items[0].carpark_data);
   };
   useEffect(() => {
