@@ -1,7 +1,7 @@
 import React from 'react';
-import { View, TextInput, StyleSheet } from 'react-native';
+import { StyleSheet, TextInput, View } from 'react-native';
 
-const SearchBar = ({ searchTerm, onSearchTermChange }) => {
+const SearchBar = ({ onSearchTermChange, searchTerm }) => {
   return (
     <View style={styles.container}>
       <TextInput
@@ -16,7 +16,8 @@ const SearchBar = ({ searchTerm, onSearchTermChange }) => {
 
 const styles = StyleSheet.create({
   container: {
-    marginTop: 10,
+    paddingHorizontal: 10,
+    marginTop: 30,
     marginHorizontal: 10,
   },
   searchBar: {
