@@ -1,22 +1,32 @@
-import { Text, View, StyleSheet } from "react-native";
-import MapView from "react-native-maps";
+import React from 'react';
+import { StyleSheet } from 'react-native';
+import MapView, { Marker } from 'react-native-maps';
 
-function Maps() {
+const Map = ({ carparks, region }) => {
+  const filteredCarparks = carparks
+    .filter((carpark) => carpark.latitude && carpark.longitude);
+
   return (
-    <View style={styles.container}>
-      <MapView style={styles.map}/>
-    </View>
+    <MapView style={styles.map} region={region} showsUserLocation={true}>
+      {filteredCarparks.map((carpark) => (
+        <Marker
+          key={carpark.carpark_number}
+          coordinate={{
+            latitude: parseFloat(carpark.latitude),
+            longitude: parseFloat(carpark.longitude),
+          }}
+          title={carpark.carpark_number}
+          description={`Lots Available: ${carpark.carpark_info[0].lots_available}`}
+        />
+      ))}
+    </MapView>
   );
-}
-
-export default Maps;
+};
 
 const styles = StyleSheet.create({
-  container: {
+  map: {
     flex: 1,
   },
-  map: {
-    width: "100%",
-    height: "100%",
-  },
 });
+
+export default Map;
