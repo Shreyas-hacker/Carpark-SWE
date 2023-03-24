@@ -50,7 +50,7 @@ function Login({navigation}){
                 [{ text: "Okay", style: "destructive" }]
             );
         }else{
-            navigation.navigate("DisplayCarpark");
+            navigation.navigate('DisplayCarpark');
         }
     }
 

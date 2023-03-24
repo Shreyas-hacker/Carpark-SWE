@@ -7,20 +7,38 @@ const Map = ({ carparks, region }) => {
     (carpark) => carpark.latitude && carpark.longitude
   );
 
+  async function convertLatLong(easting,northing){
+    try{
+      const response = await axios({
+        method: "get",
+        url:'https://developers.onemap.sg/commonapi/convert/3414to4326',
+        params:{
+          'X':easting,
+          'Y':northing
+        }
+      }
+      );
+      return response;
+    } catch(error){
+      console.log(error);
+    }
+  }
+
   return (
     <MapView style={styles.map} region={region} showsUserLocation={true}>
-      {filteredCarparks.length === 0 &&
-        filteredCarparks.map((carpark) => (
+      {filteredCarparks.length > 0 &&
+        filteredCarparks.map((carpark) => {
           <Marker
             key={carpark["_id"]}
             coordinate={{
-              latitude: parseFloat(carpark["x_coord"]),
-              longitude: parseFloat(carpark["y_coord"]),
+              latitude: 1.448205177850381,
+              longitude: 103.80357168153289
             }}
             title={carpark["car_park_no"]}
             description={`Lots Available: ${carpark["car_park_decks"]}`}
           />
-        ))}
+        }
+        )}
     </MapView>
   );
 };

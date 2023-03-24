@@ -6,7 +6,7 @@ import CreateAccount from './screens/Accounts/CreateAccount';
 import Home from './screens/DisplayCarparks/Home';
 import ForgetPassword from './screens/Password/ForgetPassword';
 import ReportFault from './screens/ReportFault';
-import DisplayCarpark from './screens/DisplayCarparks/DisplayCarpark';
+import DisplayCarpark from './screens/DisplayCarparks/DisplayCarparkTest';
 
 const Stack = createNativeStackNavigator();
 
