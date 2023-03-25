@@ -36,6 +36,7 @@ const LocationService = {
           latitude: position.coords.latitude,
           longitude: position.coords.longitude,
         };
+        console.log(coords);
       } catch (err) {
         error = err.message;
       }

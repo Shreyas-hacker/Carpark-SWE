@@ -7,7 +7,6 @@ import LocationService from "./LocationService";
 import PrimaryButton from "../../components/PrimaryButton";
 
 const DisplayCarpark = () => {
-  const [carparks, setCarparks] = useState([]);
   const [filteredCarparks, setFilteredCarparks] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [region, setRegion] = useState(null);
@@ -16,7 +15,7 @@ const DisplayCarpark = () => {
     LocationService.getCurrentLocation().then((result) => {
       if (result.coords) {
         setRegion({
-          latitude: result.coords.latitude,
+          latitude: result.coords.latitude, 
           longitude: result.coords.longitude,
           latitudeDelta: 0.0922,
           longitudeDelta: 0.0421,
