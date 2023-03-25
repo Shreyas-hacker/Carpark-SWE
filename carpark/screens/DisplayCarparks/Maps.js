@@ -3,7 +3,7 @@ import { StyleSheet } from "react-native";
 import MapView, { Marker } from "react-native-maps";
 
 const Map = ({ carparks, region }) => {
-  const filteredCarparks = carparks.filter(
+  const filteredCarparks = carparks && carparks.filter(
     (carpark) => carpark.latitude && carpark.longitude
   );
 
@@ -26,7 +26,7 @@ const Map = ({ carparks, region }) => {
 
   return (
     <MapView style={styles.map} region={region} showsUserLocation={true}>
-      {filteredCarparks.length > 0 &&
+      {filteredCarparks &&
         filteredCarparks.map((carpark) => {
           <Marker
             key={carpark["_id"]}

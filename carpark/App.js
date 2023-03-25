@@ -6,7 +6,7 @@ import CreateAccount from './screens/Accounts/CreateAccount';
 import Home from './screens/DisplayCarparks/Home';
 import ForgetPassword from './screens/Password/ForgetPassword';
 import ReportFault from './screens/ReportFault';
-import DisplayCarpark from './screens/DisplayCarparks/DisplayCarparkTest';
+import DisplayCarpark from './screens/DisplayCarparks/DCarpark';
 
 const Stack = createNativeStackNavigator();
 
@@ -15,11 +15,13 @@ export default function App() {
     <NavigationContainer>
       <Stack.Navigator screenOptions={{headerShown:false}}>
         <Stack.Screen name='Login' component={Login}/>
-        <Stack.Screen name='Home' component={Home}/>
+        <Stack.Screen name='Home' component={Home} options={{headerShown: false}}/>
         <Stack.Screen name='CreateAccount' component={CreateAccount}/>
         <Stack.Screen name='ForgetPassword' component={ForgetPassword} />
         <Stack.Screen name='ReportFault' component={ReportFault} />
-        <Stack.Screen name='DisplayCarpark' component={DisplayCarpark} />
+        <Stack.Screen name='DisplayCarpark' component={DisplayCarpark} options={{
+          presentation: 'modal'
+        }}/>
       </Stack.Navigator>
     </NavigationContainer>
   );

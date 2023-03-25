@@ -1,8 +1,8 @@
 import { PermissionsAndroid, Platform } from "react-native";
+import Geolocation from 'react-native-geolocation-service';
 
 const LocationService = {
   async getCurrentLocation() {
-    let coords = null;
     let error = null;
 
     if (Platform.OS === "android") {
@@ -26,7 +26,7 @@ const LocationService = {
     if (!error) {
       try {
         const position = await new Promise((resolve, reject) => {
-          navigator.geolocation.getCurrentPosition(
+          Geolocation.getCurrentPosition(
             resolve,
             (err) => reject(err),
             { enableHighAccuracy: true, timeout: 15000, maximumAge: 10000 }
@@ -39,6 +39,7 @@ const LocationService = {
         console.log(coords);
       } catch (err) {
         error = err.message;
+        console.log(error)
       }
     }
 
