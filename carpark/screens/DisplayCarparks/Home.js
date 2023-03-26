@@ -1,11 +1,19 @@
 import React from "react";
 import { Text, StyleSheet, View} from "react-native";
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+
+import Profile from '../Accounts/Profile';
+
+const BottomTab = createBottomTabNavigator();
 
 function Home({navigation}){
     return(
-    <View style={styles.container}>
-     <Text>Home Page!</Text>
-    </View>
+        <>
+        <BottomTab.Navigator screenOptions={{headerStyle: {backgroundColor: 'white',headerTintColor: '#39D2C0'}}}>
+            <BottomTab.Screen name="Home" component={Home} options={{}}/>
+            <BottomTab.Screen name="Profile" component={Profile} options={{}}/>
+        </BottomTab.Navigator>
+        </>
     );
 }
 
