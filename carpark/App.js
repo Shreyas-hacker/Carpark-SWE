@@ -8,6 +8,7 @@ import Home from './screens/DisplayCarparks/Home';
 import ForgetPassword from './screens/Password/ForgetPassword';
 import ReportFault from './screens/ReportFault';
 import DisplayCarpark from './screens/DisplayCarparks/DCarpark';
+import { MyTabs } from './screens/Tabs';
 
 const Stack = createNativeStackNavigator();
 
@@ -16,7 +17,8 @@ export default function App() {
     <NavigationContainer>
       <Stack.Navigator screenOptions={{headerShown:false}}>
         <Stack.Screen name='Login' component={Login}/>
-        <Stack.Screen name='Home' component={Home} options={{headerShown: false}}/>
+        <Stack.Screen name='Tab' component={MyTabs} options={{headerShown: false}}/>
+        <Stack.Screen name='Home' component={Home} />
         <Stack.Screen name='CreateAccount' component={CreateAccount}/>
         <Stack.Screen name='ForgetPassword' component={ForgetPassword} />
         <Stack.Screen name='ReportFault' component={ReportFault} />

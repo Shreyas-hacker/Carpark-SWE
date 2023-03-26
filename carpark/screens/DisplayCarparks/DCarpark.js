@@ -1,10 +1,10 @@
 import React, { useState, useEffect} from "react";
 import axios from "axios";
-import { View, StyleSheet } from "react-native";
+import { View, StyleSheet, Platform, PermissionsAndroid } from "react-native";
 import SearchBar from "./SearchBar";
 import PrimaryButton from "../../components/PrimaryButton";
 import Map from "./Maps";
-import { userLocation } from "./userLocation";
+import * as Location from 'expo-location';
 
 const DisplayCarpark = () => {
   const [filteredCarparks, setFilteredCarparks] = useState([]);
@@ -15,6 +15,40 @@ const DisplayCarpark = () => {
     latitudeDelta: 0.0922,
     longitudeDelta: 0.0421,
   });
+
+  async function userLocation(){
+    if (Platform.OS==='android'){
+      const checkGranted = await PermissionsAndroid.check(
+        PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION
+      );
+      if (!checkGranted) {
+        const granted = await PermissionsAndroid.request(
+          PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
+          {
+            title: "Location Access Required",
+            message: "This app needs to access your location",
+          }
+        );
+        if (granted !== PermissionsAndroid.RESULTS.GRANTED) {
+          error = "Location permission not granted";
+        }
+      }
+    }else{
+      let {status} = await Location.requestForegroundPermissionsAsync();
+      if (status !== 'granted'){
+        console.log('Permission to access was denied');
+        return false;
+      }
+    }
+    const isAndroid = Platform.OS ==='android';
+    let location = await Location.getCurrentPositionAsync({ accuracy: isAndroid ? Location.Accuracy.Low : Location.Accuracy.Lowest, enableHighAccuracy: true});
+    setMapRegion({
+      latitude: location.coords.latitude,
+      longitude: location.coords.longitude,
+      latitudeDelta: 0.0922,
+      longitudeDelta: 0.0421,
+    })
+  }
 
   useEffect(()=>{
     userLocation();
