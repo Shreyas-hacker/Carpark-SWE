@@ -1,9 +1,14 @@
 import React from "react";
-import { Text, StyleSheet, View} from "react-native";
+import { Text, StyleSheet, View, Button} from "react-native";
 
 function Home({navigation}){
     return(
-        <Text>Home Screen!</Text>
+        <View>
+            <Text>Home Screen!</Text>
+            <Button onPress={()=>{
+                navigation.navigate('DisplayCarpark');
+            }} title='Maps' />
+        </View>
     );
 }
 
