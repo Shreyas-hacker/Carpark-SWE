@@ -1,31 +1,23 @@
 import { View, StyleSheet, Text, Dimensions, Pressable, TextInput, ScrollView, Alert, Button, TouchableOpacity } from "react-native";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import PrimaryButton from "../../components/PrimaryButton";
 import IconButton from "../../components/IconButton";
-import { fetchAccounts } from "../../util/http";
+import { AuthContext } from "../../store/context/user-context";
+import { login } from "../../util/auth";
 
 function Login({navigation}){
     const [filled, setfilled] = useState(false); // state to manage if all fields in the form has been filled
     const [username,setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [show, setShow] = useState(true);
-    const [accountInfo, setAccountInfo] = useState([]);
 
+    const authCtx = useContext(AuthContext);
 
     useEffect(()=>{
         if(username!=='' && password !== ''){
             setfilled(true);
         }
     },[username,password])
-
-    useEffect(()=>{
-        async function getAccounts(){
-            const accounts = await fetchAccounts();
-            setAccountInfo(accounts);
-        }
-        
-        getAccounts();
-    },[]);
 
     function passwordHandler(enteredPassword){
         setPassword(enteredPassword);
@@ -38,19 +30,18 @@ function Login({navigation}){
     function changeIcon(){
         setShow(!show)
     }
-    function loginAttempt(){
-        var searchedAccount = false;
-
-        searchedAccount = accountInfo.some(account => account.username === username && account.password === password);
-
-        if(!searchedAccount){
+    
+    async function loginAttempt(){
+        try{
+            const token = await login(username,password);
+            authCtx.authenticate(token);
+        }catch(error){
+            console.log(error);
             Alert.alert(
                 "Unsuccessful",
                 "Error: There is no user record corresponding to this identifier. The user may have been deleted OR password is invalid",
                 [{ text: "Okay", style: "destructive" }]
             );
-        }else{
-            navigation.navigate('Tab');
         }
     }
 

@@ -1,43 +1,26 @@
-import {
-  View,
-  Text,
-  StyleSheet,
-  Dimensions,
-  Pressable,
-  TextInput,
-  ScrollView,
-  Alert,
-  Button,
-  TouchableOpacity
-} from "react-native";
-import { useEffect, useState } from "react";
+import {View,Text,StyleSheet,Dimensions,Pressable,TextInput,ScrollView,Alert,Button,TouchableOpacity} from "react-native";
+import { useEffect, useState,useContext } from "react";
 import PrimaryButton from "../../components/PrimaryButton";
-import { storeAccount, fetchAccounts } from "../../util/http";
 import IconButton from "../../components/IconButton";
 import { emailChecker, passwordCheck } from "../../util/helper";
+import { createUser } from "../../util/auth";
+import { AuthContext } from "../../store/context/user-context";
 
 function CreateAccount({navigation}) {
   const [filled, setfilled] = useState(false); // state to manage if all fields in the form has been filled
   const [username,setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPasword] = useState('');
-  const [accountInfo,setAccountInfo] = useState([]);
   const [show, setShow] = useState(true);
+
+
+  const authCtx = useContext(AuthContext);
 
   useEffect(()=>{
     if(username!=='' && password !== '' && confirmPassword !== ''){
       setfilled(true);
     }
   },[username,password, confirmPassword])
-
-  useEffect(()=>{
-    async function getAccounts(){
-      const accounts = await fetchAccounts();
-      setAccountInfo(accounts);
-    }
-
-    getAccounts();
-  },[]);
 
   function passwordHandler(enteredPassword){
       setPassword(enteredPassword);
@@ -54,21 +37,14 @@ function CreateAccount({navigation}) {
   function changeIcon(){
       setShow(!show)
   }
-  function createAttempt(){
+  async function createAttempt(){
       if (!emailChecker(username)) {
         Alert.alert(
           "Unsuccessful",
           "Error: The email address is badly formatted",
           [{ text: "Okay", style: "destructive" }]
       );
-      } else if (accountInfo.some((account)=> account.username === username)){
-        Alert.alert(
-          "Unsuccessful",
-          "The email address is already in use by another account.",
-          [{ text: "Okay", style: "destructive" }]
-        );
-      }
-      else if (password !== confirmPassword) {
+      }else if (password !== confirmPassword) {
         Alert.alert(
           "Unsuccessful",
           "Error: the password does not match the confirmed password",
@@ -87,8 +63,17 @@ function CreateAccount({navigation}) {
           [{ text: "Okay", style: "destructive" }]
         )
       } else{
-        storeAccount({username: username, password: password, profileName:'',age: '',profilePicture:'',phoneNumber:''})
-        navigation.navigate('Home');
+        try{
+            const token = await createUser(username,password);
+            authCtx.authenticate(token);
+        } catch(error){
+            console.log(error);
+            Alert.alert(
+                "Unsuccessful",
+                "Email is already in use by another account",
+                [{ text: "Okay", style: "destructive" }]
+            )
+        }
       }
   }
 
