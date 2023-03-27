@@ -87,7 +87,7 @@ function CreateAccount({navigation}) {
           [{ text: "Okay", style: "destructive" }]
         )
       } else{
-        storeAccount({username: username, password: password})
+        storeAccount({username: username, password: password, profileName:'',age: '',profilePicture:'',phoneNumber:''})
         navigation.navigate('Home');
       }
   }
