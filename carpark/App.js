@@ -10,13 +10,7 @@ import ReportFault from "./screens/ReportFault";
 import DisplayCarpark from "./screens/DisplayCarparks/DCarpark";
 import Kamera from "./screens/Kamera";
 import { MyTabs } from "./screens/Tabs";
-<<<<<<< HEAD
 import { Camera } from "expo-camera";
-=======
-import AuthContextProvider, { AuthContext } from './store/context/user-context';
-import { StatusBar } from "expo-status-bar";
-import CreateProfile from "./screens/Profile/CreateProfile";
->>>>>>> 51a246d0f511e9bacf060ff11c11ebd3276c9df5
 
 const Stack = createNativeStackNavigator();
 
@@ -63,7 +57,6 @@ function Navigation(){
 }
 export default function App() {
   return (
-<<<<<<< HEAD
     <NavigationContainer>
       <Stack.Navigator screenOptions={{ headerShown: false }}>
         <Stack.Screen name="Login" component={Login} />
@@ -86,13 +79,5 @@ export default function App() {
         />
       </Stack.Navigator>
     </NavigationContainer>
-=======
-    <>
-      <StatusBar style="light"/>
-      <AuthContextProvider>
-      <Navigation/>
-      </AuthContextProvider>
-    </>
->>>>>>> 51a246d0f511e9bacf060ff11c11ebd3276c9df5
   );
 }
