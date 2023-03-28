@@ -35,6 +35,7 @@ function Login({navigation}){
         try{
             const token = await login(username,password);
             authCtx.authenticate(token);
+            authCtx.setAuth();
         }catch(error){
             console.log(error);
             Alert.alert(

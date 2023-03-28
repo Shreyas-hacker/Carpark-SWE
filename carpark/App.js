@@ -11,6 +11,7 @@ import DisplayCarpark from "./screens/DisplayCarparks/DCarpark";
 import { MyTabs } from "./screens/Tabs";
 import AuthContextProvider, { AuthContext } from './store/context/user-context';
 import { StatusBar } from "expo-status-bar";
+import CreateProfile from "./screens/Profile/CreateProfile";
 
 const Stack = createNativeStackNavigator();
 
@@ -20,6 +21,7 @@ function AuthStack(){
       <Stack.Screen name="Login" component={Login} />
       <Stack.Screen name="CreateAccount" component={CreateAccount} />
       <Stack.Screen name="ForgetPassword" component={ForgetPassword} />
+      <Stack.Screen name="CreateProfile" component={CreateProfile} options={{ headerShown: false, gestureEnabled: false }}/>
     </Stack.Navigator>
   )
 }

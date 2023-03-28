@@ -23,3 +23,18 @@ export function createUser(email,password){
 export function login(email,password){
     return authentication('signInWithPassword',email,password);
 }
+
+export async function updateAccount(idToken,displayName){
+    const url = `https://identitytoolkit.googleapis.com/v1/accounts:update?key=${API_KEY}`
+
+    const response = await axios.post(url,{
+        idToken: idToken,
+        displayName: displayName,
+        photoUrl: "",
+        returnSecureToken: true,
+    });
+
+    const token = response.data.idToken;
+    
+    return token;
+}

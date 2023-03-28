@@ -66,6 +66,7 @@ function CreateAccount({navigation}) {
         try{
             const token = await createUser(username,password);
             authCtx.authenticate(token);
+            navigation.navigate('CreateProfile');
         } catch(error){
             console.log(error);
             Alert.alert(
