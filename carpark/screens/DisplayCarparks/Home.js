@@ -10,12 +10,11 @@ function Home({navigation}){
 
     useEffect(()=>{
         const url = `https://identitytoolkit.googleapis.com/v1/accounts:lookup?key=${API_KEY}`;
-
         async function getDisplayName(){
             const response = await axios.post(url,authCtx.token).then((response)=>{
                 console.log(response.data)
             }).catch((error)=>{
-                console.log(error)
+                console.log(error.message)
             })
         }
         getDisplayName();

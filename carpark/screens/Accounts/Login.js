@@ -37,7 +37,7 @@ function Login({navigation}){
             authCtx.authenticate(token);
             authCtx.setAuth();
         }catch(error){
-            console.log(error);
+            console.log(error.request);
             Alert.alert(
                 "Unsuccessful",
                 "Error: There is no user record corresponding to this identifier. The user may have been deleted OR password is invalid",
