@@ -49,8 +49,7 @@ function CreateProfile({navigation}){
                 [{text: 'Okay',style:'destructive'}]
         )
         }else{
-            const token = await updateAccount(authCtx.token,fullName)
-            authCtx.authenticate(token);
+            await updateAccount(authCtx.token,fullName);
             authCtx.setAuth();
         }
         console.log('Profile created');

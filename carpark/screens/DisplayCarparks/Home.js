@@ -2,17 +2,19 @@ import axios from "axios";
 import React, { useContext, useEffect, useState } from "react";
 import { Text, StyleSheet, View, Button} from "react-native";
 import { AuthContext } from "../../store/context/user-context";
+import { login } from "../../util/auth";
 
 function Home({navigation}){
     const API_KEY = 'AIzaSyCX5cIGMG23hoatqCPLZnSQJX_6klMLbRk';
     const authCtx = useContext(AuthContext);
+    const token = authCtx.token;
     const [displayName,setDisplayName] = useState('');
 
     useEffect(()=>{
         const url = `https://identitytoolkit.googleapis.com/v1/accounts:lookup?key=${API_KEY}`;
         async function getDisplayName(){
-            const response = await axios.post(url,authCtx.token).then((response)=>{
-                console.log(response.data)
+            const response = await axios.post(url,{idToken:token}).then((response)=>{
+                setDisplayName(response.data.users[0].displayName)
             }).catch((error)=>{
                 console.log(error.message)
             })

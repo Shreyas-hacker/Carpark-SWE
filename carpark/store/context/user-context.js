@@ -9,7 +9,7 @@ export const AuthContext = createContext({
 })
 
 function AuthContextProvider({children}){
-    const [authToken, setAuthToken] = useState();
+    const [authToken, setAuthToken] = useState('');
     const [isAutheticated, setisAuthenticated] = useState(false);
 
     function authenticate(token){
