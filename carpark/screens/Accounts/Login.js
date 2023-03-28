@@ -66,8 +66,11 @@ function Login({navigation}){
                 <View style={styles.container}>
                     <View>
                         <Text style={styles.text}>Don't have an account?</Text>
-                        <Pressable onPress={()=>{navigation.navigate("ReportFault")}}>
+                        <Pressable onPress={()=>{navigation.navigate("CreateAccount")}}>
                             <Text style={styles.text}>Create account</Text>
+                        </Pressable>
+                        <Pressable onPress={()=>{navigation.navigate("ReportFault")}}>
+                            <Text style={styles.text}>reportfaultshortcut</Text>
                         </Pressable>
                     </View>
                     <View style={styles.buttonContainer}>
