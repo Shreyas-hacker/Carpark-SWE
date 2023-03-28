@@ -69,9 +69,6 @@ function Login({navigation}){
                         <Pressable onPress={()=>{navigation.navigate("CreateAccount")}}>
                             <Text style={styles.text}>Create account</Text>
                         </Pressable>
-                        <Pressable onPress={()=>{navigation.navigate("ReportFault")}}>
-                            <Text style={styles.text}>reportfaultshortcut</Text>
-                        </Pressable>
                     </View>
                     <View style={styles.buttonContainer}>
                         <PrimaryButton onSuccess={filled} onAttempt={loginAttempt} text="Login"/>
