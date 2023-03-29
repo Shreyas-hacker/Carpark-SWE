@@ -51,7 +51,7 @@ export default function App() {
     return (
       <SafeAreaView style={styles.container}>
         <Image style={styles.preview} source={{ uri: "data:image/jpg;base64," + photo.base64 }} />
-        {hasMediaLibraryPermission ? <Button title="Save" onPress={savePhoto}/> : undefined}
+        {hasMediaLibraryPermission ? <Button title="Submit Photo" onPress={savePhoto}/> : undefined}
         <Button title="Discard" onPress={()=>{navigation.navigate("ReportFault")}} />
       </SafeAreaView>
     );
