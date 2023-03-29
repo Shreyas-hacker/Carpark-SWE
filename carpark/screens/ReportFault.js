@@ -18,7 +18,7 @@ const width = Dimensions.get("window").width;
 let componentWidth = 0;
 
 function ReportFault({ navigation }) {
-    const blueColor = "#A9DEEE";
+    const blueColor = "#CBF0FF";
     const [filled, setfilled] = useState(false);
     const [carpark, setCarpark] = useState("");
     const [description, setDescription] = useState("");
@@ -39,9 +39,6 @@ function ReportFault({ navigation }) {
     const [SeverityOpen, setSeverityOpen] = useState(false);
 
     //states
-    function carparkHandler(enteredCarpark) {
-      setCarpark(enteredCarpark);
-    }
     function descriptionHandler(enteredDescription) {
       setDescription(enteredDescription);
     }
@@ -152,6 +149,7 @@ function ReportFault({ navigation }) {
             placeholder="Enter description here..."
             value={description}
             multiline={true}
+            numberOfLines={4}
           />
         </View>
 
@@ -179,6 +177,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     marginVertical: 40,
     alignItems: "center",
+    marginHorizontal: 23,
   },
   reportTitle: {
     marginLeft: (width - componentWidth) / 6,
@@ -192,14 +191,20 @@ const styles = StyleSheet.create({
   },
   inputContainer: {
     marginTop: 10,
+    borderColor: "black",
+    borderWidth: 2,
+    borderRadius: 25,
+    marginHorizontal: 10,
+    backgroundColor: "white",
   },
   inputText: {
     backgroundColor: "white",
     color: "black",
     textAlignVertical: "top",
     textAlign: "left",
-    paddingTop: 15,
-    padding: 20,
+    paddingTop: 5,
+    padding: 10,
+    paddingBottom: 5,
     borderRadius: 12,
     fontSize: 15,
     marginHorizontal: 10,
