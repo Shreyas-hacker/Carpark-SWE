@@ -8,6 +8,7 @@ import CreateProfile from './screens/Profile/CreateProfile'
 import Home from "./screens/DisplayCarparks/Home";
 import ForgetPassword from "./screens/Accounts/ForgetPassword";
 import ReportFault from "./screens/ReportFault";
+import Camera from './screens/Kamera';
 import DisplayCarpark from "./screens/DisplayCarparks/DCarpark";
 import { MyTabs } from "./screens/Tabs";
 import { StatusBar } from "expo-status-bar";
@@ -21,6 +22,8 @@ function AuthStack(){
       <Stack.Screen name="Login" component={Login} />
       <Stack.Screen name="CreateAccount" component={CreateAccount} />
       <Stack.Screen name="ForgetPassword" component={ForgetPassword} />
+      <Stack.Screen name="ReportFault" component={ReportFault} />
+      <Stack.Screen name="Camera" component={Camera} />
       <Stack.Screen name="CreateProfile" component={CreateProfile} options={{ headerShown: false, gestureEnabled: false }}/>
     </Stack.Navigator>
   )
