@@ -52,8 +52,12 @@ function ReportFault({ navigation }) {
       navigation.navigate("Home");
     }
 
+    function submit() {
+      navigation.navigate("Home");
+    }
+
     useEffect(() => {
-      if (carpark !== "" && description !== "") {
+      if (Fault !== "" && Severity !== "") {
         setfilled(true);
       }
     }, [carpark, description]);
@@ -155,7 +159,7 @@ function ReportFault({ navigation }) {
           <PrimaryButton
             text="Submit"
             onSuccess={filled}
-            onAttempt={() => console.log("Submit")}
+            onAttempt={submit}
           />
         </View>
       </View>
