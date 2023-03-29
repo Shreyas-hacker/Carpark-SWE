@@ -27,6 +27,9 @@ function Home({navigation}){
             <Button onPress={()=>{
                 navigation.navigate('DisplayCarpark');
             }} title='Maps' />
+            <Button onPress={()=>{
+                navigation.navigate('ReportFault');
+            }} title='Report' />
         </View>
     );
 }

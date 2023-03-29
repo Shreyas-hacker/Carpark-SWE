@@ -22,8 +22,6 @@ function AuthStack(){
       <Stack.Screen name="Login" component={Login} />
       <Stack.Screen name="CreateAccount" component={CreateAccount} />
       <Stack.Screen name="ForgetPassword" component={ForgetPassword} />
-      <Stack.Screen name="ReportFault" component={ReportFault} />
-      <Stack.Screen name="Camera" component={Camera} />
       <Stack.Screen name="CreateProfile" component={CreateProfile} options={{ headerShown: false, gestureEnabled: false }}/>
     </Stack.Navigator>
   )
@@ -39,6 +37,7 @@ function AuthenticatedStack(){
       />
       <Stack.Screen name="Home" component={Home} />
       <Stack.Screen name="ReportFault" component={ReportFault} />
+      <Stack.Screen name="Camera" component={Camera} />
       <Stack.Screen
         name="DisplayCarpark"
         component={DisplayCarpark}
