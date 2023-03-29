@@ -8,6 +8,8 @@ import {
   Image,
   SafeAreaView,
   Pressable,
+  TouchableWithoutFeedback,
+  Keyboard
 } from "react-native";
 import { React, useEffect, useState, useRef } from "react";
 import DropDownPicker from "react-native-dropdown-picker";
@@ -60,107 +62,109 @@ function ReportFault({ navigation }) {
     }, [carpark, description]);
 
     return (
-      <View style={{ backgroundColor: blueColor, flex: 1 }}>
-        <View style={styles.topContent}>
-          <IconButton
-            onPress={goBack}
-            icon="arrow-back"
-            size={28}
-            color="black"
-          />
-          <Text
-            style={styles.reportTitle}
-            onLayout={(event) => {
-              measureView(event);
+      <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
+        <View style={{backgroundColor: blueColor, flex:1}}>
+          <View style={styles.topContent}>
+            <IconButton
+              onPress={goBack}
+              icon="arrow-back"
+              size={28}
+              color="black"
+            />
+            <Text
+              style={styles.reportTitle}
+              onLayout={(event) => {
+                measureView(event);
+              }}
+            >
+              Report Fault!
+            </Text>
+          </View>
+
+          <View style={styles.carparkTitle}>
+            <Text style={styles.carparkTitle}>Carpark BG03</Text>
+          </View>
+
+          <View
+            style={{
+              marginTop: 10,
+              backgroundColor: blueColor,
+              alignItems: "center",
+              justifyContent: "center",
+              paddingHorizontal: 15,
+              zIndex: FaultTypeOpen ? 1 : 0,
             }}
           >
-            Report Fault!
-          </Text>
-        </View>
+            <DropDownPicker
+              open={FaultTypeOpen}
+              value={Fault}
+              items={FaultTypes}
+              setOpen={setFaultTypeOpen}
+              setValue={setFault}
+              setItems={setFaultType}
+              dropDownDirection="BOTTOM"
+              placeholder="Select Fault Types"
+              theme="DARK"
+              multiple={false}
+              mode="BADGE"
+            />
+          </View>
 
-        <View style={styles.carparkTitle}>
-          <Text style={styles.carparkTitle}>Carpark BG03</Text>
-        </View>
+          <View
+            style={{
+              marginTop: 10,
+              backgroundColor: blueColor,
+              alignItems: "center",
+              justifyContent: "center",
+              paddingHorizontal: 15,
+              zIndex: SeverityOpen ? 1 : 0,
+            }}
+          >
+            <DropDownPicker
+              open={SeverityOpen}
+              value={Severity}
+              items={SeverityLevel}
+              setOpen={setSeverityOpen}
+              setValue={setSeverity}
+              setItems={setSeverityLevel}
+              dropDownDirection="BOTTOM"
+              placeholder="Select Fault Severity"
+              theme="DARK"
+              multiple={false}
+              mode="BADGE"
+            />
+          </View>
 
-        <View
-          style={{
-            marginTop: 10,
-            backgroundColor: blueColor,
-            alignItems: "center",
-            justifyContent: "center",
-            paddingHorizontal: 15,
-            zIndex: FaultTypeOpen ? 1 : 0,
-          }}
-        >
-          <DropDownPicker
-            open={FaultTypeOpen}
-            value={Fault}
-            items={FaultTypes}
-            setOpen={setFaultTypeOpen}
-            setValue={setFault}
-            setItems={setFaultType}
-            dropDownDirection="BOTTOM"
-            placeholder="Select Fault Types"
-            theme="DARK"
-            multiple={false}
-            mode="BADGE"
-          />
-        </View>
+          <View style={styles.buttonContainer}>
+              <IconButton 
+                onPress={()=>{navigation.navigate("Camera")}} 
+                icon="camera" 
+                size={28} 
+                color="black"
+            />
+          </View>
 
-        <View
-          style={{
-            marginTop: 10,
-            backgroundColor: blueColor,
-            alignItems: "center",
-            justifyContent: "center",
-            paddingHorizontal: 15,
-            zIndex: SeverityOpen ? 1 : 0,
-          }}
-        >
-          <DropDownPicker
-            open={SeverityOpen}
-            value={Severity}
-            items={SeverityLevel}
-            setOpen={setSeverityOpen}
-            setValue={setSeverity}
-            setItems={setSeverityLevel}
-            dropDownDirection="BOTTOM"
-            placeholder="Select Fault Severity"
-            theme="DARK"
-            multiple={false}
-            mode="BADGE"
-          />
-        </View>
+          <View style={styles.inputContainer}>
+            {/* This is the input component, wasnt working as a component so i broke it down further in thi file */}
+            <TextInput
+              style={styles.inputText}
+              onChangeText={descriptionHandler}
+              placeholder="Enter description here..."
+              value={description}
+              multiline={true}
+              numberOfLines={4}
+            />
+          </View>
 
-        <View style={styles.buttonContainer}>
-            <IconButton 
-              onPress={()=>{navigation.navigate("Camera")}} 
-              icon="camera" 
-              size={28} 
-              color="black"
-           />
+          <View style={styles.buttonContainer}>
+            <PrimaryButton
+              text="Submit"
+              onSuccess={filled}
+              onAttempt={submit}
+            />
+          </View>
         </View>
-
-        <View style={styles.inputContainer}>
-          {/* This is the input component, wasnt working as a component so i broke it down further in thi file */}
-          <TextInput
-            style={styles.inputText}
-            onChangeText={descriptionHandler}
-            placeholder="Enter description here..."
-            value={description}
-            multiline={true}
-            numberOfLines={4}
-          />
-        </View>
-
-        <View style={styles.buttonContainer}>
-          <PrimaryButton
-            text="Submit"
-            onSuccess={filled}
-            onAttempt={submit}
-          />
-        </View>
-      </View>
+      </TouchableWithoutFeedback>
           );
         }
     
