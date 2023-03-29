@@ -1,5 +1,5 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View, SafeAreaView, Button, Image } from 'react-native';
+import { StyleSheet, Text, View, SafeAreaView, Button, Image, TouchableOpacity } from 'react-native';
 import { useEffect, useRef, useState } from 'react';
 import { Camera } from 'expo-camera';
 import { shareAsync } from 'expo-sharing';
@@ -60,8 +60,38 @@ export default function App() {
 
   return (
     <Camera style={styles.container} ref={cameraRef}>
-      <View style={styles.buttonContainer}>
-        <Button title="Take Pic" onPress={takePic} />
+      <View
+        style={{
+        position: 'absolute',
+        bottom: 0,
+        flexDirection: 'row',
+        flex: 1,
+        width: '100%',
+        padding: 20,
+        justifyContent: 'space-between'
+        }}
+      >
+        <View
+        style={{
+        alignSelf: 'center',
+        flex: 1,
+        alignItems: 'center'
+        }}
+        >
+            <TouchableOpacity
+            onPress={takePic}
+            style={{
+            width: 70,
+            height: 70,
+            bottom: 0,
+            borderRadius: 50,
+            paddingHorizontal: 10,
+            marginLeft: 57,
+            backgroundColor: '#fff'
+            }}
+            />
+    </View>
+        <Button title="Back" onPress={()=>{navigation.navigate("ReportFault")}} />
       </View>
       <StatusBar style="auto" />
     </Camera>

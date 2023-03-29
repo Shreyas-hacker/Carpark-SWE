@@ -49,7 +49,7 @@ function ReportFault({ navigation }) {
       componentWidth = event.nativeEvent.layout.width;
     }
     function goBack() {
-      navigation.navigate("Login");
+      navigation.navigate("Home");
     }
 
     useEffect(() => {
@@ -103,15 +103,6 @@ function ReportFault({ navigation }) {
             theme="DARK"
             multiple={false}
             mode="BADGE"
-            badgeDotColors={[
-              "#e76f51",
-              "#00b4d8",
-              "#e9c46a",
-              "#e76f51",
-              "#8ac926",
-              "#00b4d8",
-              "#e9c46a",
-            ]}
           />
         </View>
 
@@ -137,20 +128,16 @@ function ReportFault({ navigation }) {
             theme="DARK"
             multiple={false}
             mode="BADGE"
-            badgeDotColors={[
-              "#e76f51",
-              "#00b4d8",
-              "#e9c46a",
-              "#e76f51",
-              "#8ac926",
-              "#00b4d8",
-              "#e9c46a",
-            ]}
           />
         </View>
 
         <View style={styles.buttonContainer}>
-            <IconButton onPress={()=>{navigation.navigate("Camera")}} icon="camera" size={28} color="black" />
+            <IconButton 
+              onPress={()=>{navigation.navigate("Camera")}} 
+              icon="camera" 
+              size={28} 
+              color="black"
+           />
         </View>
 
         <View style={styles.inputContainer}>
@@ -165,10 +152,14 @@ function ReportFault({ navigation }) {
         </View>
 
         <View style={styles.buttonContainer}>
-          <PrimaryButton text="Report Fault" onSuccess={filled} />
+          <PrimaryButton
+            text="Submit"
+            onSuccess={filled}
+            onAttempt={() => console.log("Submit")}
+          />
         </View>
       </View>
-    );
+          );
         }
     
 
@@ -196,7 +187,7 @@ const styles = StyleSheet.create({
     marginLeft: 10,
   },
   inputContainer: {
-    marginTop: 40,
+    marginTop: 10,
   },
   inputText: {
     backgroundColor: "white",
@@ -228,6 +219,10 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     marginTop: 15,
     marginHorizontal: 20,
+  },
+  buttonContainer: {
+    marginTop: 15,
+    alignSelf: "center",
   },
   cameraContainer: {
     flex: 1,
