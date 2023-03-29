@@ -2,7 +2,6 @@ import axios from "axios";
 import React, { useContext, useEffect, useState } from "react";
 import { Text, StyleSheet, View, Button} from "react-native";
 import { AuthContext } from "../../store/context/user-context";
-import { login } from "../../util/auth";
 
 function Home({navigation}){
     const API_KEY = 'AIzaSyCX5cIGMG23hoatqCPLZnSQJX_6klMLbRk';
