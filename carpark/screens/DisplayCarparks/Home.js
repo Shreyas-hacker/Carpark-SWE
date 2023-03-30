@@ -6,6 +6,7 @@ import {
   TouchableOpacity,
   TextInput,
 } from "react-native";
+import axios from "axios";
 import { AuthContext } from "../../store/context/user-context";
 import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 
