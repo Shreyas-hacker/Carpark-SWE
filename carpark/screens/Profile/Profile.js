@@ -1,11 +1,10 @@
 import axios from "axios";
 import { useContext, useEffect,useState } from "react";
-import { Text,View,StyleSheet, Dimensions } from "react-native";
+import { Pressable } from "react-native";
+import { Text,View,StyleSheet, Dimensions, Button } from "react-native";
+import LongButton from "../../components/LongButton";
 import PrimaryButton from '../../components/PrimaryButton';
 import { AuthContext } from "../../store/context/user-context";
-
-let componentWidth = 0;
-const width = Dimensions.get('window').width;
 
 function Profile(){
     const authCtx = useContext(AuthContext);
@@ -13,10 +12,6 @@ function Profile(){
     const API_KEY = 'AIzaSyCX5cIGMG23hoatqCPLZnSQJX_6klMLbRk';
     const [displayName,setDisplayName] = useState('');
     const [email,setEmail] = useState('');
-
-    function measureView(event){
-        componentWidth = event.nativeEvent.layout.width;
-    }
 
     useEffect(()=>{
         const url = `https://identitytoolkit.googleapis.com/v1/accounts:lookup?key=${API_KEY}`;
@@ -31,18 +26,18 @@ function Profile(){
         getDisplayName();
     })
     return (
-        <View>
+        <View style={{backgroundColor: 'white',flex:1}}>
             <View style={styles.profileContainer}>
                 <View>
-                    <Text style={styles.textStyle} onLayout={(event)=>{
-                        measureView(event);
-                    }}>Hi,{displayName}!</Text>
-                    <Text style={styles.emailStyle} onLayout={(event)=>{
-                        measureView(event);
-                    }}>[{email}]</Text>
+                    <Text style={styles.textStyle}>Hi,{displayName}!</Text>
+                    <Text style={styles.emailStyle}>[{email}]</Text>
                 </View>
             </View>
-            <PrimaryButton text={"Logout"} onSuccess={true} onAttempt={authCtx.logout}/>
+            <View style={styles.buttonContainer}>
+                <LongButton text="Edit Profile"/>
+                <LongButton text="Change Password"/>
+                <PrimaryButton text={"Logout"} onSuccess={true} onAttempt={authCtx.logout}/>
+            </View>
         </View>
     )
 }
@@ -55,16 +50,20 @@ const styles = StyleSheet.create({
         padding: 20,
     },
     textStyle:{
-        fontSize: 18,
+        fontSize: 20,
         fontWeight: "bold",
         marginBottom:10,
-        marginLeft: (width-componentWidth)/5,
+        marginLeft: 50,
     },
     emailStyle:{
-        fontSize: 18,
+        fontSize: 12,
         fontWeight: "bold",
         marginBottom:10,
-        marginLeft: (width-componentWidth)/17,
-    }
+        marginLeft: 50
+    },
+    buttonContainer:{
+        backgroundColor: "#F0F5F6",
+        flex: 1,
+    },
 })
 export default Profile;
