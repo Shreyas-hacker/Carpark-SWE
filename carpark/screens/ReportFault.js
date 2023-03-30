@@ -48,11 +48,11 @@ function ReportFault({ navigation }) {
       componentWidth = event.nativeEvent.layout.width;
     }
     function goBack() {
-      navigation.navigate("Home");
+      navigation.navigate("Tab");
     }
 
     function submit() {
-      navigation.navigate("Home");
+      navigation.navigate("Tab");
     }
 
     useEffect(() => {
