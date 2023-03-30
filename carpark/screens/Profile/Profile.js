@@ -6,7 +6,7 @@ import LongButton from "../../components/LongButton";
 import PrimaryButton from '../../components/PrimaryButton';
 import { AuthContext } from "../../store/context/user-context";
 
-function Profile(){
+function Profile({navigation}){
     const authCtx = useContext(AuthContext);
     const token = authCtx.token;
     const API_KEY = 'AIzaSyCX5cIGMG23hoatqCPLZnSQJX_6klMLbRk';
@@ -29,14 +29,14 @@ function Profile(){
         <View style={{backgroundColor: 'white',flex:1}}>
             <View style={styles.profileContainer}>
                 <View>
-                    <Text style={styles.textStyle}>Hi,{displayName}!</Text>
-                    <Text style={styles.emailStyle}>[{email}]</Text>
+                    <Text style={styles.textStyle}>{displayName}</Text>
+                    <Text style={styles.emailStyle}>{email}</Text>
                 </View>
             </View>
             <View style={styles.buttonContainer}>
-                <LongButton text="Edit Profile"/>
-                <LongButton text="Change Password"/>
-                <PrimaryButton text={"Logout"} onSuccess={true} onAttempt={authCtx.logout}/>
+                <LongButton text="Edit Profile" onPress={()=>{navigation.navigate("EditProfile")}}/>
+                <LongButton text="Change Password" onPress={()=>{navigation.navigate("ChangePassword")}}/>
+                <PrimaryButton text={"Log Out"} onSuccess={true} onAttempt={authCtx.logout}/>
             </View>
         </View>
     )

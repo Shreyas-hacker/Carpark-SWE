@@ -1,6 +1,7 @@
 import { useContext } from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import { StatusBar } from "expo-status-bar";
 
 import Login from "./screens/Accounts/Login";
 import CreateAccount from "./screens/Accounts/CreateAccount";
@@ -10,8 +11,10 @@ import ForgetPassword from "./screens/Accounts/ForgetPassword";
 import ReportFault from "./screens/ReportFault";
 import Camera from "./screens/Kamera";
 import DisplayCarpark from "./screens/DisplayCarparks/DisplayCarparks";
+import ChangePassword from "./screens/Accounts/ChangePassword";
+import EditProfile from "./screens/Profile/EditProfile";
+
 import { MyTabs } from "./screens/Tabs";
-import { StatusBar } from "expo-status-bar";
 import AuthContextProvider, { AuthContext } from "./store/context/user-context";
 
 const Stack = createNativeStackNavigator();
@@ -49,6 +52,8 @@ function AuthenticatedStack() {
           presentation: "modal",
         }}
       />
+      <Stack.Screen name="ChangePassword" component={ChangePassword} />
+      <Stack.Screen name="EditProfile" component={EditProfile} />
     </Stack.Navigator>
   );
 }

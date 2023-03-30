@@ -1,9 +1,9 @@
 import { StyleSheet,Text,Pressable,View } from "react-native";
 
 
-function LongButton({text,nextPage}) {
+function LongButton({text,onPress}) {
     return <View style={styles.buttonOuterContainer}>
-        <Pressable style={styles.buttonInnerContainer} onPress={nextPage}>
+        <Pressable style={styles.buttonInnerContainer} onPress={onPress}>
             <Text>{text}</Text>
         </Pressable>
     </View>
