@@ -4,23 +4,19 @@ import {
   Text,
   Dimensions,
   TextInput,
-  Button,
-  Image,
-  SafeAreaView,
-  Pressable,
   TouchableWithoutFeedback,
   Keyboard
 } from "react-native";
-import { React, useEffect, useState, useRef } from "react";
+import { React, useEffect, useState } from "react";
 import DropDownPicker from "react-native-dropdown-picker";
-import PrimaryButton from "../components/PrimaryButton";
-import IconButton from "../components/IconButton";
+import PrimaryButton from "../../components/PrimaryButton";
+import IconButton from "../../components/IconButton";
 
 const width = Dimensions.get("window").width;
 let componentWidth = 0;
+const blueColor = "#CBF0FF";
 
 function ReportFault({ navigation }) {
-    const blueColor = "#CBF0FF";
     const [filled, setfilled] = useState(false);
     const [carpark, setCarpark] = useState("");
     const [description, setDescription] = useState("");
@@ -63,7 +59,7 @@ function ReportFault({ navigation }) {
 
     return (
       <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
-        <View style={{backgroundColor: blueColor, flex:1}}>
+        <View style={styles.form}>
           <View style={styles.topContent}>
             <IconButton
               onPress={goBack}
@@ -174,18 +170,17 @@ const deviceHeight = Dimensions.get("window").height;
 
 const styles = StyleSheet.create({
   form: {
-    backgroundColor: "black",
-    flex: 1,
+    backgroundColor: blueColor,
+    flex:1
   },
   topContent: {
     flexDirection: "row",
     marginVertical: 40,
-    alignItems: "center",
     marginHorizontal: 23,
   },
   reportTitle: {
-    marginLeft: (width - componentWidth) / 6,
     fontSize: 20,
+    marginHorizontal: (width-componentWidth)/9
   },
   carparkTitle: {
     fontSize: 30,
