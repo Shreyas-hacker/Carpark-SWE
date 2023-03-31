@@ -13,7 +13,7 @@ function ChangePassword(){
         componentWidth = event.nativeEvent.layout.width;
     }
     function goBack(){
-        navigation.navigate("Login");
+        navigation.goBack();
     }
 
     const [filled, setFilled] = useState(false);
