@@ -59,7 +59,7 @@ function CreateAccount({navigation}) {
       } else if(!passwordCheck(password)){
         Alert.alert(
           "Retype password",
-          "Password has to contain upper and lower letters, numbers & symbols",
+          "Password should be a minimum of 8 characters and has to contain upper and lower letters, numbers & symbols.",
           [{ text: "Okay", style: "destructive" }]
         )
       } else{
