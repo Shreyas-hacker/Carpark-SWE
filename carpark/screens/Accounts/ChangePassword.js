@@ -3,26 +3,25 @@ import { useEffect, useState } from "react";
 import { Dimensions, TextInput, StyleSheet, Text, View, Alert } from "react-native";
 import IconButton from "../../components/IconButton";
 import PrimaryButton from "../../components/PrimaryButton";
+import { resetPassword } from "../../util/auth";
 import { emailChecker } from "../../util/helper";
 
 let componentWidth = 0;
 const width = Dimensions.get('window').width;
 
-function ChangePassword(){
+function ChangePassword({navigation}){
+    const [filled, setFilled] = useState(false);
+    const [email, setEmail] = useState("");
+
     function measureView(event){
         componentWidth = event.nativeEvent.layout.width;
     }
     function goBack(){
         navigation.goBack();
     }
-
-    const [filled, setFilled] = useState(false);
-    const [email, setEmail] = useState("");
-
     function emailHandler(enteredEmail){
         setEmail(enteredEmail);
     }
-
     function sendEmail(){
         if(!emailChecker(email)){
             Alert.alert(
@@ -31,7 +30,8 @@ function ChangePassword(){
                 [{ text: "Okay", style: "destructive" }]
             );
         }else{
-            console.log("Valid email")
+            const response = resetPassword(email);
+            console.log(response);
         }
     }
     useEffect(()=>{

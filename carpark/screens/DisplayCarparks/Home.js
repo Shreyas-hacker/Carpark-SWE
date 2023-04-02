@@ -9,12 +9,13 @@ import {
 import axios from "axios";
 import { AuthContext } from "../../store/context/user-context";
 import MaterialIcons from "react-native-vector-icons/MaterialIcons";
+import LoadingScreen from "../../components/LoadingScreen";
 
 function HomeScreen({ navigation }) {
   const API_KEY = "AIzaSyCX5cIGMG23hoatqCPLZnSQJX_6klMLbRk";
   const authCtx = useContext(AuthContext);
   const token = authCtx.token;
-  const [displayName, setDisplayName] = useState("");
+  const [displayName, setDisplayName] = useState(null);
   const [searchText, setSearchText] = useState("");
 
   useEffect(() => {
@@ -32,7 +33,7 @@ function HomeScreen({ navigation }) {
   }, []);
 
   return (
-    <View style={styles.container}>
+    displayName ? (<View style={styles.container}>
       <View style={styles.header}>
         <Text style={styles.headerText}>Welcome</Text>
         <Text style={styles.displayNameText}>{displayName}</Text>
@@ -74,7 +75,7 @@ function HomeScreen({ navigation }) {
           <Text style={styles.buttonText}>Favorite</Text>
         </TouchableOpacity>
       </View>
-    </View>
+    </View>) : <LoadingScreen />
   );
 }
 

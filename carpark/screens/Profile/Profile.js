@@ -1,7 +1,8 @@
 import axios from "axios";
 import { useContext, useEffect,useState } from "react";
-import { Pressable } from "react-native";
+import { Alert, Pressable } from "react-native";
 import { Text,View,StyleSheet, Dimensions, Button } from "react-native";
+import LoadingScreen from "../../components/LoadingScreen";
 import LongButton from "../../components/LongButton";
 import PrimaryButton from '../../components/PrimaryButton';
 import { AuthContext } from "../../store/context/user-context";
@@ -10,8 +11,8 @@ function Profile({navigation}){
     const authCtx = useContext(AuthContext);
     const token = authCtx.token;
     const API_KEY = 'AIzaSyCX5cIGMG23hoatqCPLZnSQJX_6klMLbRk';
-    const [displayName,setDisplayName] = useState('');
-    const [email,setEmail] = useState('');
+    const [displayName,setDisplayName] = useState(null);
+    const [email,setEmail] = useState(null);
 
     useEffect(()=>{
         const url = `https://identitytoolkit.googleapis.com/v1/accounts:lookup?key=${API_KEY}`;
@@ -25,8 +26,17 @@ function Profile({navigation}){
         }
         getDisplayName();
     })
+
+    function LogOut(){
+        Alert.alert(
+            "Log Out",
+            "Are you sure you want to log out?",
+            [{text: "Cancel", style: "cancel"},{text: "Log Out", onPress: ()=>{authCtx.logout()}}]
+        );
+    }
     return (
-        <View style={{backgroundColor: 'white',flex:1}}>
+        displayName && email ?
+        (<View style={{backgroundColor: 'white',flex:1}}>
             <View style={styles.profileContainer}>
                 <View>
                     <Text style={styles.textStyle}>{displayName}</Text>
@@ -36,9 +46,9 @@ function Profile({navigation}){
             <View style={styles.buttonContainer}>
                 <LongButton text="Edit Profile" onPress={()=>{navigation.navigate("EditProfile")}}/>
                 <LongButton text="Change Password" onPress={()=>{navigation.navigate("ChangePassword")}}/>
-                <PrimaryButton text={"Log Out"} onSuccess={true} onAttempt={authCtx.logout}/>
+                <PrimaryButton text={"Log Out"} onSuccess={true} onAttempt={LogOut}/>
             </View>
-        </View>
+        </View>) : <LoadingScreen/>
     )
 }
 

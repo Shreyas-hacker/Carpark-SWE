@@ -20,13 +20,13 @@ const styles = StyleSheet.create({
     },
     buttonInnerContainer:{
         backgroundColor: 'grey',
-        paddingVertical: 10,
+        paddingVertical: 15,
         paddingHorizontal: 30,
     },
     buttonText:{
         color: 'white',
         fontWeight: 'bold',
-        fontSize: 16,
+        fontSize: 18,
         textAlign: 'center',
     },
     success:{
