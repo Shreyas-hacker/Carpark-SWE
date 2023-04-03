@@ -3,7 +3,7 @@ import { useEffect, useState,useContext } from "react";
 import PrimaryButton from "../../components/PrimaryButton";
 import IconButton from "../../components/IconButton";
 import { emailChecker, passwordCheck } from "../../util/helper";
-import { createUser } from "../../util/auth";
+import { createUser } from "../../util/AuthManager";
 import { AuthContext } from "../../store/context/user-context";
 
 function CreateAccount({navigation}) {

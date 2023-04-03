@@ -3,7 +3,7 @@ import { useContext, useEffect, useState } from "react";
 import PrimaryButton from "../../components/PrimaryButton";
 import IconButton from "../../components/IconButton";
 import { AuthContext } from "../../store/context/user-context";
-import { login } from "../../util/auth";
+import { login } from "../../util/AuthManager";
 
 function Login({navigation}){
     const [filled, setfilled] = useState(false); // state to manage if all fields in the form has been filled

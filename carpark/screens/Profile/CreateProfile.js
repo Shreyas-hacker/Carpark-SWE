@@ -2,7 +2,7 @@ import { useContext, useEffect, useState } from "react";
 import { Alert, Dimensions, ScrollView, StyleSheet, TextInput, View } from "react-native";
 import { Text } from "react-native";
 import { AuthContext } from "../../store/context/user-context";
-import { updateAccount } from "../../util/auth";
+import { updateAccount } from "../../util/AuthManager";
 import PrimaryButton from "../../components/PrimaryButton";
 
 
