@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { Dimensions, TextInput, StyleSheet, Text, View, Alert } from "react-native";
 import IconButton from "../../components/IconButton";
 import PrimaryButton from "../../components/PrimaryButton";
-import { resetPassword } from "../../util/auth";
+import { resetPassword } from "../../util/AuthManager";
 import { emailChecker } from "../../util/helper";
 
 let componentWidth = 0;
@@ -30,8 +30,13 @@ function ChangePassword({navigation}){
                 [{ text: "Okay", style: "destructive" }]
             );
         }else{
-            const response = resetPassword(email);
-            console.log(response);
+            resetPassword(email);
+            navigation.navigate('Profile');
+            Alert.alert(
+                "Email sent",
+                "Email has been sent to your email address, please check your spam box to see if it is there.",
+                [{ text: "Okay", style: "destructive" }]
+            );
         }
     }
     useEffect(()=>{

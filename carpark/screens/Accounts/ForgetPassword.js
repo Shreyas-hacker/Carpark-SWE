@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Dimensions, TextInput, StyleSheet, Text, View, Alert } from "react-native";
 import IconButton from "../../components/IconButton";
 import PrimaryButton from "../../components/PrimaryButton";
-import { resetPassword } from "../../util/auth";
+import { resetPassword } from "../../util/AuthManager";
 import { emailChecker } from "../../util/helper";
 
 let componentWidth = 0;

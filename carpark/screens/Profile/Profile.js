@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useContext, useEffect,useState } from "react";
-import { Alert, Pressable } from "react-native";
-import { Text,View,StyleSheet, Dimensions, Button } from "react-native";
+import { Alert } from "react-native";
+import { Text,View,StyleSheet } from "react-native";
 import LoadingScreen from "../../components/LoadingScreen";
 import LongButton from "../../components/LongButton";
 import PrimaryButton from '../../components/PrimaryButton';
