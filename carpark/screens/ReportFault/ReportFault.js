@@ -5,7 +5,8 @@ import {
   Dimensions,
   TextInput,
   TouchableWithoutFeedback,
-  Keyboard
+  Keyboard,
+  Image
 } from "react-native";
 import { React, useEffect, useState } from "react";
 import DropDownPicker from "react-native-dropdown-picker";
@@ -16,7 +17,7 @@ const width = Dimensions.get("window").width;
 let componentWidth = 0;
 const blueColor = "#CBF0FF";
 
-function ReportFault({ navigation }) {
+function ReportFault({ navigation,route }) {
     const [filled, setfilled] = useState(false);
     const [carpark, setCarpark] = useState("");
     const [description, setDescription] = useState("");
@@ -35,6 +36,7 @@ function ReportFault({ navigation }) {
     { label: "Low", value: "1" },
     ]);
     const [SeverityOpen, setSeverityOpen] = useState(false);
+    const [result,setResult] = useState(null);
 
     //states
     function descriptionHandler(enteredDescription) {
@@ -54,6 +56,11 @@ function ReportFault({ navigation }) {
     useEffect(() => {
       if (Fault !== "" && Severity !== "") {
         setfilled(true);
+        if(route.params !== undefined){
+          setResult(route.params.result);
+        }else{
+          setResult(null);
+        }
       }
     }, [carpark, description]);
 
@@ -139,7 +146,7 @@ function ReportFault({ navigation }) {
                 color="black"
             />
           </View>
-
+          {result && <Image style={styles.preview} source={{ uri: result }} />}
           <View style={styles.inputContainer}>
             {/* This is the input component, wasnt working as a component so i broke it down further in thi file */}
             <TextInput
@@ -235,12 +242,17 @@ const styles = StyleSheet.create({
   cameraContainer: {
     flex: 1,
     flexDirection: 'row'
-    },
+  },
 
   fixedRatio:{
     flex: 1,
     aspectRatio: 1
-    }
+  },
+  preview: {
+    alignSelf: 'stretch',
+    flex: 1
+  }
+  
 });
 
 export default ReportFault;

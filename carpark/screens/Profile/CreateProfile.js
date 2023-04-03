@@ -14,9 +14,8 @@ function CreateProfile({navigation}){
     const [age, setAge] = useState('');
     const [phoneNumber,setPhoneNumber] = useState('');
     const [filled, setFilled] = useState(false);
-
     const authCtx = useContext(AuthContext);
-
+    
     useEffect(()=>{
         if(fullName !=='' && age !=='' && phoneNumber !==''){
             setFilled(true);

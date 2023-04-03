@@ -3,14 +3,12 @@ import { StyleSheet, Text, View, SafeAreaView, Button, Image, TouchableOpacity }
 import { useEffect, useRef, useState } from 'react';
 import { Camera } from 'expo-camera';
 import * as MediaLibrary from 'expo-media-library';
-import { useNavigation } from '@react-navigation/native';
 
-export default function App() {
+export default function App({navigation}) {
   let cameraRef = useRef();
   const [hasCameraPermission, setHasCameraPermission] = useState();
   const [hasMediaLibraryPermission, setHasMediaLibraryPermission] = useState();
   const [photo, setPhoto] = useState();
-  const navigation = useNavigation();
 
   useEffect(() => {
     (async () => {
@@ -41,10 +39,8 @@ export default function App() {
   if (photo) {
       let savePhoto = () => {
       MediaLibrary.saveToLibraryAsync(photo.uri).then(() => {
-        setPhoto(undefined);
-
+        navigation.navigate("ReportFault",{ result: photo.uri})
       });
-      navigation.navigate("ReportFault")
     };
 
     return (
