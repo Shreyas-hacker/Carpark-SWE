@@ -83,7 +83,7 @@ function HomeScreen({ navigation }) {
         </TouchableOpacity>
       </View>
       </ImageBackground>
-    </View>) : <LoadingScreen />
+    </View>) : (<LoadingScreen navigation={navigation}/>)
   );
 }
 

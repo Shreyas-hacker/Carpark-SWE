@@ -53,7 +53,7 @@ function Profile({navigation}){
                 <LongButton text="Change Password" onPress={()=>{navigation.navigate("ChangePassword")}}/>
                 <PrimaryButton text={"Log Out"} onSuccess={true} onAttempt={LogOut}/>
             </View>
-        </View>) : <LoadingScreen/>
+        </View>) : (<LoadingScreen navigation={navigation}/>)
     )
 }
 
