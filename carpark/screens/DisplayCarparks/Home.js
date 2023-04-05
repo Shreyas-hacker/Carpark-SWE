@@ -5,11 +5,13 @@ import {
   View,
   TouchableOpacity,
   TextInput,
+  ImageBackground,
 } from "react-native";
 import axios from "axios";
 import { AuthContext } from "../../store/context/user-context";
 import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 import LoadingScreen from "../../components/LoadingScreen";
+import CarparkBackground from "../../assets/CarparkBackground.jpg";
 
 function HomeScreen({ navigation }) {
   const API_KEY = "AIzaSyCX5cIGMG23hoatqCPLZnSQJX_6klMLbRk";
@@ -34,6 +36,9 @@ function HomeScreen({ navigation }) {
 
   return (
     displayName ? (<View style={styles.container}>
+      <ImageBackground
+      source={CarparkBackground}
+      style={styles.backgroundimage}>
       <View style={styles.header}>
         <Text style={styles.headerText}>Welcome</Text>
         <Text style={styles.displayNameText}>{displayName}</Text>
@@ -54,27 +59,30 @@ function HomeScreen({ navigation }) {
       </View>
       <View style={styles.body}>
         <TouchableOpacity
-          style={styles.button}
+          style={styles.button1}
           onPress={() => navigation.navigate("DisplayCarpark")}
         >
-          <MaterialIcons name="map" color="#ffffff" size={24} />
+          <MaterialIcons name="map" color="orange" size={24} />
           <Text style={styles.buttonText}>Maps</Text>
         </TouchableOpacity>
+
         <TouchableOpacity
-          style={styles.button}
+          style={styles.button2}
           onPress={() => navigation.navigate("ReportFault")}
         >
-          <MaterialIcons name="report-problem" color="#ffffff" size={24} />
+          <MaterialIcons name="report-problem" color="red" size={24} />
           <Text style={styles.buttonText}>Report</Text>
         </TouchableOpacity>
+
         <TouchableOpacity
-          style={styles.button}
+          style={styles.button3}
           onPress={() => navigation.navigate()}
         >
-          <MaterialIcons name="favorite" color="#ffffff" size={24} />
+          <MaterialIcons name="favorite" color="deeppink" size={24} />
           <Text style={styles.buttonText}>Favorite</Text>
         </TouchableOpacity>
       </View>
+      </ImageBackground>
     </View>) : <LoadingScreen />
   );
 }
@@ -84,22 +92,27 @@ export default HomeScreen;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#f5f5f5",
+    //backgroundColor: "black",//note here
+  },
+  backgroundimage: {
+    flex: 1,
+    justifyContent: 'center',
+    resizeMode: "cover",
   },
   header: {
-    backgroundColor: "#ffffff",
-    paddingVertical: 50,
+    backgroundColor: "#000000c0",//note here
+    paddingVertical: 20,
     paddingHorizontal: 30,
   },
   headerText: {
-    fontSize: 28,
-    paddingVertical: 20,
+    fontSize: 50,
+    paddingVertical: 10,
     fontWeight: "bold",
-    color: "#333333",
+    color: "white",
   },
   displayNameText: {
-    fontSize: 24,
-    color: "#333333",
+    fontSize: 30,
+    color: "white",
     marginTop: 10,
   },
   searchBar: {
@@ -128,8 +141,30 @@ const styles = StyleSheet.create({
     height: 40,
     fontSize: 16,
   },
-  button: {
-    backgroundColor: "#3f51b5",
+  button1: {
+    backgroundColor: "palegreen",
+    borderRadius: 5,
+    paddingVertical: 15,
+    paddingHorizontal: 25,
+    marginLeft: 20,
+    marginRight: 20,
+    flexDirection: "row",
+    alignItems: "center",
+    marginBottom: 20,
+  },
+  button2: {
+    backgroundColor: "gold",
+    borderRadius: 5,
+    paddingVertical: 15,
+    paddingHorizontal: 25,
+    marginLeft: 20,
+    marginRight: 20,
+    flexDirection: "row",
+    alignItems: "center",
+    marginBottom: 20,
+  },
+  button3: {
+    backgroundColor: "pink",
     borderRadius: 5,
     paddingVertical: 15,
     paddingHorizontal: 25,
