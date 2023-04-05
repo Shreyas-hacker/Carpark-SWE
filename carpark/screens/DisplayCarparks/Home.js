@@ -139,7 +139,7 @@ const styles = StyleSheet.create({
   searchInput: {
     flex: 1,
     height: 40,
-    fontSize: 16,
+    fontSize: 20,
   },
   button1: {
     backgroundColor: "palegreen",
@@ -178,5 +178,6 @@ const styles = StyleSheet.create({
     color: "#ffffff",
     fontSize: 20,
     marginLeft: 10,
+    fontWeight: "bold",
   },
 });
