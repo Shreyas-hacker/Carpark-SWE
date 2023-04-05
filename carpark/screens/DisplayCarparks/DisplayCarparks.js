@@ -81,7 +81,9 @@ const DisplayCarpark = () => {
       <View style={styles.searchBar}>
         <SearchBar onSearchTermChange={handleSearch} searchTerm={searchTerm} />
       </View>
-      <PrimaryButton onSuccess={true} text="Search" onAttempt={searchCarpark} />
+      <View style={styles.button}>
+        <PrimaryButton onSuccess={true} text="Search" onAttempt={searchCarpark} />
+      </View>
     </View>
   );
 };
@@ -94,6 +96,11 @@ const styles = StyleSheet.create({
     position: 'absolute',
     width: '100%',
     top: 10,
+  },
+  button:{
+    position: 'absolute',
+    width: '100%',
+    bottom: 50,
   }
 });
 
