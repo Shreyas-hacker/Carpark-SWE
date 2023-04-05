@@ -1,11 +1,12 @@
 import axios from "axios";
 import { useContext, useEffect,useState } from "react";
-import { Alert } from "react-native";
+import { Alert, Image } from "react-native";
 import { Text,View,StyleSheet } from "react-native";
 import LoadingScreen from "../../components/LoadingScreen";
 import LongButton from "../../components/LongButton";
 import PrimaryButton from '../../components/PrimaryButton';
 import { AuthContext } from "../../store/context/user-context";
+import ProfilePicture from "../../assets/ProfilePicture.png";
 
 function Profile({navigation}){
     const authCtx = useContext(AuthContext);
@@ -37,8 +38,12 @@ function Profile({navigation}){
     return (
         displayName && email ?
         (<View style={{backgroundColor: 'white',flex:1}}>
+            
             <View style={styles.profileContainer}>
-                <View>
+                <Image
+                    source={ProfilePicture}
+                    style={{width: 100, height: 100, borderRadius: 100/2,}}/>
+                <View style={{marginTop: 20,}}>
                     <Text style={styles.textStyle}>{displayName}</Text>
                     <Text style={styles.emailStyle}>{email}</Text>
                 </View>
@@ -56,8 +61,9 @@ const styles = StyleSheet.create({
     profileContainer:{
         width: '100%',
         marginTop: 100,
-        marginLeft:40,
+        marginLeft:5,
         padding: 20,
+        flexDirection: "row",
     },
     textStyle:{
         fontSize: 20,
