@@ -77,9 +77,11 @@ const DisplayCarpark = () => {
 
   return (
     <View style={styles.container}>
-      <SearchBar onSearchTermChange={handleSearch} searchTerm={searchTerm} />
-      <PrimaryButton onSuccess={true} text="Search" onAttempt={searchCarpark} />
       {mapRegion && <Map region={mapRegion} carparks={filteredCarparks} />}
+      <View style={styles.searchBar}>
+        <SearchBar onSearchTermChange={handleSearch} searchTerm={searchTerm} />
+      </View>
+      <PrimaryButton onSuccess={true} text="Search" onAttempt={searchCarpark} />
     </View>
   );
 };
@@ -87,8 +89,12 @@ const DisplayCarpark = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    marginTop: 50,
   },
+  searchBar:{
+    position: 'absolute',
+    width: '100%',
+    top: 10,
+  }
 });
 
 export default DisplayCarpark;
