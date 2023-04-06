@@ -13,6 +13,7 @@ import { AuthContext } from "../../store/context/user-context";
 import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 import LoadingScreen from "../../components/LoadingScreen";
 import CarparkBackground from "../../assets/CarparkBackground.jpg";
+import { searchCarpark } from "./SearchCarpark";
 
 function HomeScreen({ navigation }) {
   const API_KEY = "AIzaSyCX5cIGMG23hoatqCPLZnSQJX_6klMLbRk";
@@ -20,6 +21,7 @@ function HomeScreen({ navigation }) {
   const token = authCtx.token;
   const [displayName, setDisplayName] = useState(null);
   const [searchText, setSearchText] = useState("");
+  const [searchResults, setSearchResults] = useState([]);
 
   useEffect(() => {
     const url = `https://identitytoolkit.googleapis.com/v1/accounts:lookup?key=${API_KEY}`;
@@ -35,23 +37,23 @@ function HomeScreen({ navigation }) {
     getDisplayName();
   }, []);
 
-  return (
-    displayName ? (<View style={styles.container}>
+  return displayName ? (
+    <View style={styles.container}>
       <ImageBackground
-      source={CarparkBackground}
-      style={styles.backgroundimage}>
-      </ImageBackground>
+        source={CarparkBackground}
+        style={styles.backgroundimage}
+      ></ImageBackground>
       <View style={styles.rowShown}>
         <View style={styles.header}>
           <Text style={styles.headerText}>Welcome</Text>
           <Text style={styles.displayNameText}>{displayName}</Text>
         </View>
         <TouchableOpacity
-            style={styles.button1}
-            onPress={() => navigation.navigate("DisplayCarpark")}
+          style={styles.button1}
+          onPress={() => navigation.navigate("DisplayCarpark")}
         >
-            <MaterialIcons name="map" color="black" size={24} />
-            <Text style={styles.buttonText}>Map</Text>
+          <MaterialIcons name="map" color="black" size={24} />
+          <Text style={styles.buttonText}>Map</Text>
         </TouchableOpacity>
       </View>
       <View style={styles.searchBar}>
@@ -66,8 +68,25 @@ function HomeScreen({ navigation }) {
           placeholder="Search for car parks"
           value={searchText}
           onChangeText={setSearchText}
+          onSubmitEditing={searchCarpark}
         />
       </View>
+
+      {searchResults.length > 0 ? (
+        <View style={styles.searchResults}>
+          {searchResults.map((result) => (
+            <TouchableOpacity
+              key={result.id}
+              style={styles.searchResult}
+              onPress={() =>
+                navigation.navigate("CarparkDetails", { id: result.id })
+              }
+            >
+              <Text style={styles.searchResultText}>{result.name}</Text>
+            </TouchableOpacity>
+          ))}
+        </View>
+      ) : null}
 
       <View style={styles.body}>
         <TouchableOpacity
@@ -86,7 +105,9 @@ function HomeScreen({ navigation }) {
           <Text style={styles.buttonText}>Favorite</Text>
         </TouchableOpacity>
       </View>
-    </View>) : (<LoadingScreen navigation={navigation}/>)
+    </View>
+  ) : (
+    <LoadingScreen navigation={navigation} />
   );
 }
 
@@ -101,16 +122,16 @@ const styles = StyleSheet.create({
   },
   backgroundimage: {
     flex: 1,
-    justifyContent: 'center',
-    width:"100%",
-    height: height/4,
+    justifyContent: "center",
+    width: "100%",
+    height: height / 4,
     opacity: 0.4,
   },
-  rowShown:{
+  rowShown: {
     flex: 1,
-    flexDirection: 'row',
-    alignContent:'stretch',
-    position: 'absolute',
+    flexDirection: "row",
+    alignContent: "stretch",
+    position: "absolute",
     marginTop: 50,
   },
   header: {
@@ -131,17 +152,17 @@ const styles = StyleSheet.create({
     borderRadius: 28,
     paddingHorizontal: 10,
     paddingVertical: 10,
-    flexDirection: 'row',
-    alignSelf: 'center',
+    flexDirection: "row",
+    alignSelf: "center",
     marginLeft: 60,
   },
   buttonText: {
     color: "black",
-    fontSize:15,
+    fontSize: 15,
     fontWeight: "bold",
   },
   searchBar: {
-    marginTop: height/4-20,
+    marginTop: height / 4 - 20,
     position: "absolute",
     flexDirection: "row",
     backgroundColor: "#ffffff",
