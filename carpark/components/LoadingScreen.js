@@ -6,6 +6,7 @@ function LoadingScreen({navigation}){
         setTimeout(()=>{
             navigation.navigate('Tab')
         },3000)
+        clearInterval();
     })
     return(
         <View style={[styles.container,styles.horizontal]}>
