@@ -68,6 +68,7 @@ function HomeScreen({ navigation }) {
           onChangeText={setSearchText}
         />
       </View>
+
       <View style={styles.body}>
         <TouchableOpacity
           style={styles.button2}
@@ -79,7 +80,7 @@ function HomeScreen({ navigation }) {
 
         <TouchableOpacity
           style={styles.button3}
-          onPress={() => navigation.navigate()}
+          onPress={() => navigation.navigate("Favourite")}
         >
           <MaterialIcons name="favorite" color="deeppink" size={24} />
           <Text style={styles.buttonText}>Favorite</Text>
