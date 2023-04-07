@@ -9,7 +9,6 @@ const Tab = createBottomTabNavigator();
 export function MyTabs() {
   return (
     <>
-    <StatusBar />
     <Tab.Navigator screenOptions={{
         tabBarActiveTintColor: '#39D2C0',
         headerShown: false,

@@ -13,6 +13,8 @@ import Camera from "./screens/ReportFault/MediaFunction";
 import DisplayCarpark from "./screens/DisplayCarparks/DisplayCarparks";
 import ChangePassword from "./screens/Accounts/ChangePassword";
 import EditProfile from "./screens/Profile/EditProfile";
+import ReportsMade from "./screens/Profile/ReportsMade";
+import Favourite from "./screens/Favourite/Favourite";
 
 import { MyTabs } from "./screens/Tabs";
 import AuthContextProvider, { AuthContext } from "./store/context/user-context";
@@ -54,6 +56,8 @@ function AuthenticatedStack() {
       />
       <Stack.Screen name="ChangePassword" component={ChangePassword} />
       <Stack.Screen name="EditProfile" component={EditProfile} />
+      <Stack.Screen name="ReportsMade" component={ReportsMade} />
+      <Stack.Screen name="Favourite" component={Favourite} />
     </Stack.Navigator>
   );
 }

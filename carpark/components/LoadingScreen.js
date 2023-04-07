@@ -1,9 +1,18 @@
+import { useEffect } from "react";
 import { ActivityIndicator, StyleSheet, View } from "react-native";
 
-function LoadingScreen(){
-    <View style={[styles.container,styles.horizontal]}>
-        <ActivityIndicator size="large" color="black"/>
-    </View>
+function LoadingScreen({navigation}){
+    useEffect(()=>{
+        setTimeout(()=>{
+            navigation.navigate('Tab')
+        },3000)
+        clearInterval();
+    })
+    return(
+        <View style={[styles.container,styles.horizontal]}>
+            <ActivityIndicator size="large" color="black"/>
+        </View>
+    )
 }
 
 const styles = StyleSheet.create({

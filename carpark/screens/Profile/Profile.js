@@ -7,6 +7,7 @@ import LongButton from "../../components/LongButton";
 import PrimaryButton from '../../components/PrimaryButton';
 import { AuthContext } from "../../store/context/user-context";
 import ProfilePicture from "../../assets/ProfilePicture.png";
+import { StatusBar } from "expo-status-bar";
 
 function Profile({navigation}){
     const authCtx = useContext(AuthContext);
@@ -36,24 +37,30 @@ function Profile({navigation}){
         );
     }
     return (
-        displayName && email ?
-        (<View style={{backgroundColor: 'white',flex:1}}>
-            
-            <View style={styles.profileContainer}>
-                <Image
-                    source={ProfilePicture}
-                    style={{width: 100, height: 100, borderRadius: 100/2,}}/>
-                <View style={{marginTop: 20,}}>
-                    <Text style={styles.textStyle}>{displayName}</Text>
-                    <Text style={styles.emailStyle}>{email}</Text>
+        <>
+        <StatusBar/>
+        {
+            displayName && email ?
+            (<View style={{backgroundColor: 'white',flex:1}}>
+                
+                <View style={styles.profileContainer}>
+                    <Image
+                        source={ProfilePicture}
+                        style={{width: 100, height: 100, borderRadius: 100/2,}}/>
+                    <View style={{marginTop: 20,}}>
+                        <Text style={styles.textStyle}>{displayName}</Text>
+                        <Text style={styles.emailStyle}>{email}</Text>
+                    </View>
                 </View>
-            </View>
-            <View style={styles.buttonContainer}>
-                <LongButton text="Edit Profile" onPress={()=>{navigation.navigate("EditProfile")}}/>
-                <LongButton text="Change Password" onPress={()=>{navigation.navigate("ChangePassword")}}/>
-                <PrimaryButton text={"Log Out"} onSuccess={true} onAttempt={LogOut}/>
-            </View>
-        </View>) : <LoadingScreen/>
+                <View style={styles.buttonContainer}>
+                    <LongButton text="Edit Profile" onPress={()=>{navigation.navigate("EditProfile")}}/>
+                    <LongButton text="Change Password" onPress={()=>{navigation.navigate("ChangePassword")}}/>
+                    <LongButton text="View Reports Made" onPress={()=>{navigation.navigate("ReportsMade")}}/>
+                    <PrimaryButton text={"Log Out"} onSuccess={true} onAttempt={LogOut}/>
+                </View>
+            </View>) : (<LoadingScreen navigation={navigation}/>)
+        }
+        </>
     )
 }
 

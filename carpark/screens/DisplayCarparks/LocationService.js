@@ -1,16 +1,15 @@
-import { PermissionsAndroid, Platform } from "react-native";
-import Geolocation from 'react-native-geolocation-service';
+import * as Location from "expo-location";
+import { Platform, PermissionsAndroid } from "react-native";
 
-const LocationService = {
-  async getCurrentLocation() {
-    let error = null;
-
+export async function getCurrentLocation() {
+  try {
+    let granted = true;
     if (Platform.OS === "android") {
       const checkGranted = await PermissionsAndroid.check(
         PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION
       );
       if (!checkGranted) {
-        const granted = await PermissionsAndroid.request(
+        granted = await PermissionsAndroid.request(
           PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
           {
             title: "Location Access Required",
@@ -18,33 +17,29 @@ const LocationService = {
           }
         );
         if (granted !== PermissionsAndroid.RESULTS.GRANTED) {
-          error = "Location permission not granted";
+          throw new Error("Location permission not granted");
         }
       }
-    }
-
-    if (!error) {
-      try {
-        const position = await new Promise((resolve, reject) => {
-          Geolocation.getCurrentPosition(
-            resolve,
-            (err) => reject(err),
-            { enableHighAccuracy: true, timeout: 15000, maximumAge: 10000 }
-          );
-        });
-        coords = {
-          latitude: position.coords.latitude,
-          longitude: position.coords.longitude,
-        };
-        console.log(coords);
-      } catch (err) {
-        error = err.message;
-        console.log(error)
+    } else {
+      let { status } = await Location.requestForegroundPermissionsAsync();
+      if (status !== "granted") {
+        console.log("Permission to access was denied");
+        return false;
       }
     }
-
-    return { coords, error };
-  },
-};
-
-export default LocationService;
+    const isAndroid = Platform.OS === "android";
+    let location = await Location.getCurrentPositionAsync({
+      accuracy: isAndroid ? Location.Accuracy.Low : Location.Accuracy.Lowest,
+      enableHighAccuracy: true,
+    });
+    return {
+      latitude: location.coords.latitude,
+      longitude: location.coords.longitude,
+      latitudeDelta: 0.006866,
+      longitudeDelta: 0.004757,
+    };
+  } catch (error) {
+    console.log(error);
+    return false;
+  }
+}

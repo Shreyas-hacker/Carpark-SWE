@@ -6,12 +6,14 @@ import {
   TouchableOpacity,
   TextInput,
   ImageBackground,
+  Dimensions,
 } from "react-native";
 import axios from "axios";
 import { AuthContext } from "../../store/context/user-context";
 import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 import LoadingScreen from "../../components/LoadingScreen";
 import CarparkBackground from "../../assets/CarparkBackground.jpg";
+import { searchCarpark } from "./SearchCarpark";
 
 function HomeScreen({ navigation }) {
   const API_KEY = "AIzaSyCX5cIGMG23hoatqCPLZnSQJX_6klMLbRk";
@@ -19,6 +21,7 @@ function HomeScreen({ navigation }) {
   const token = authCtx.token;
   const [displayName, setDisplayName] = useState(null);
   const [searchText, setSearchText] = useState("");
+  const [searchResults, setSearchResults] = useState([]);
 
   useEffect(() => {
     const url = `https://identitytoolkit.googleapis.com/v1/accounts:lookup?key=${API_KEY}`;
@@ -34,14 +37,24 @@ function HomeScreen({ navigation }) {
     getDisplayName();
   }, []);
 
-  return (
-    displayName ? (<View style={styles.container}>
+  return displayName ? (
+    <View style={styles.container}>
       <ImageBackground
-      source={CarparkBackground}
-      style={styles.backgroundimage}>
-      <View style={styles.header}>
-        <Text style={styles.headerText}>Welcome</Text>
-        <Text style={styles.displayNameText}>{displayName}</Text>
+        source={CarparkBackground}
+        style={styles.backgroundimage}
+      ></ImageBackground>
+      <View style={styles.rowShown}>
+        <View style={styles.header}>
+          <Text style={styles.headerText}>Welcome</Text>
+          <Text style={styles.displayNameText}>{displayName}</Text>
+        </View>
+        <TouchableOpacity
+          style={styles.button1}
+          onPress={() => navigation.navigate("DisplayCarpark")}
+        >
+          <MaterialIcons name="map" color="black" size={24} />
+          <Text style={styles.buttonText}>Map</Text>
+        </TouchableOpacity>
       </View>
       <View style={styles.searchBar}>
         <MaterialIcons
@@ -55,17 +68,27 @@ function HomeScreen({ navigation }) {
           placeholder="Search for car parks"
           value={searchText}
           onChangeText={setSearchText}
+          onSubmitEditing={searchCarpark}
         />
       </View>
-      <View style={styles.body}>
-        <TouchableOpacity
-          style={styles.button1}
-          onPress={() => navigation.navigate("DisplayCarpark")}
-        >
-          <MaterialIcons name="map" color="orange" size={24} />
-          <Text style={styles.buttonText}>Maps</Text>
-        </TouchableOpacity>
 
+      {searchResults.length > 0 ? (
+        <View style={styles.searchResults}>
+          {searchResults.map((result) => (
+            <TouchableOpacity
+              key={result.id}
+              style={styles.searchResult}
+              onPress={() =>
+                navigation.navigate("CarparkDetails", { id: result.id })
+              }
+            >
+              <Text style={styles.searchResultText}>{result.name}</Text>
+            </TouchableOpacity>
+          ))}
+        </View>
+      ) : null}
+
+      <View style={styles.body}>
         <TouchableOpacity
           style={styles.button2}
           onPress={() => navigation.navigate("ReportFault")}
@@ -76,52 +99,75 @@ function HomeScreen({ navigation }) {
 
         <TouchableOpacity
           style={styles.button3}
-          onPress={() => navigation.navigate()}
+          onPress={() => navigation.navigate("Favourite")}
         >
           <MaterialIcons name="favorite" color="deeppink" size={24} />
           <Text style={styles.buttonText}>Favorite</Text>
         </TouchableOpacity>
       </View>
-      </ImageBackground>
-    </View>) : <LoadingScreen />
+    </View>
+  ) : (
+    <LoadingScreen navigation={navigation} />
   );
 }
 
 export default HomeScreen;
 
+const height = Dimensions.get("window").height;
+const width = Dimensions.get("window").width;
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    //backgroundColor: "black",//note here
   },
   backgroundimage: {
     flex: 1,
-    justifyContent: 'center',
-    resizeMode: "cover",
+    justifyContent: "center",
+    width: "100%",
+    height: height / 4,
+    opacity: 0.4,
+  },
+  rowShown: {
+    flex: 1,
+    flexDirection: "row",
+    alignContent: "stretch",
+    position: "absolute",
+    marginTop: 50,
   },
   header: {
-    backgroundColor: "#000000c0",//note here
-    paddingVertical: 20,
-    paddingHorizontal: 30,
+    marginLeft: 30,
   },
   headerText: {
-    fontSize: 50,
-    paddingVertical: 10,
+    fontSize: 30,
     fontWeight: "bold",
-    color: "white",
+    color: "black",
   },
   displayNameText: {
-    fontSize: 30,
-    color: "white",
-    marginTop: 10,
+    fontSize: 20,
+    color: "black",
+  },
+  button1: {
+    backgroundColor: "white",
+    opacity: 0.8,
+    borderRadius: 28,
+    paddingHorizontal: 10,
+    paddingVertical: 10,
+    flexDirection: "row",
+    alignSelf: "center",
+    marginLeft: 60,
+  },
+  buttonText: {
+    color: "black",
+    fontSize: 15,
+    fontWeight: "bold",
   },
   searchBar: {
+    marginTop: height / 4 - 20,
+    position: "absolute",
     flexDirection: "row",
     backgroundColor: "#ffffff",
     alignItems: "center",
     paddingHorizontal: 20,
-    marginTop: 20,
-    marginBottom: 20,
     marginHorizontal: 20,
     borderRadius: 5,
     shadowColor: "#000000",
@@ -138,19 +184,8 @@ const styles = StyleSheet.create({
   },
   searchInput: {
     flex: 1,
-    height: 40,
+    height: 50,
     fontSize: 20,
-  },
-  button1: {
-    backgroundColor: "palegreen",
-    borderRadius: 5,
-    paddingVertical: 15,
-    paddingHorizontal: 25,
-    marginLeft: 20,
-    marginRight: 20,
-    flexDirection: "row",
-    alignItems: "center",
-    marginBottom: 20,
   },
   button2: {
     backgroundColor: "gold",
@@ -173,11 +208,5 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     marginBottom: 20,
-  },
-  buttonText: {
-    color: "#ffffff",
-    fontSize: 20,
-    marginLeft: 10,
-    fontWeight: "bold",
   },
 });
