@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, createRef, useRef } from "react";
 import { StyleSheet,View,ActivityIndicator } from "react-native";
 import MapView, { Marker } from "react-native-maps";
 import {convertLatLong} from './SearchCarpark';
@@ -6,29 +6,44 @@ import {convertLatLong} from './SearchCarpark';
 function Map({ carparks, region }){
   const [coordinateArray, setCoordinateArray] = useState([]);
   const [isLoading,setIsLoading] = useState(false);
+  const [isCoordinateArraySet, setIsCoordinateArraySet] = useState(false);
+  const mapRef = useRef(null);
 
   useEffect(() => {
     const getCoordinates = async () => {
-      setIsLoading(true);
       const coordinates = await Promise.all(
         carparks.map(async (carpark) => {
-          const {latitude, longitude} = await convertLatLong(carpark.x_coord, carpark.y_coord);
+          const {x_coord,y_coord} = carpark;
+          const {latitude, longitude} = await convertLatLong(x_coord,y_coord);
           return {latitude, longitude};
         })
       );
       setCoordinateArray(coordinates);
-      setIsLoading(false);
+      setIsCoordinateArraySet(true);
     }
     getCoordinates();
   },[carparks])
 
+  useEffect(() => {
+    if (coordinateArray.length > 0 && mapRef.current) {
+      mapRef.current.fitToCoordinates(
+        coordinateArray,
+        {
+          edgePadding: { top: 50, right: 50, bottom: 50, left: 50 },
+          animated: true,
+        }
+      );
+    }
+  }, [coordinateArray]);
+
   return (
-    !isLoading ? <MapView style={styles.map} region={region} showsUserLocation={true}>
+    isCoordinateArraySet ? <MapView provider={MapView.PROVIDER_GOOGLE} style={styles.map} region={region} showsUserLocation={true} ref={mapRef}>
       {carparks &&
         carparks.map((carpark,index) => {
           return (
             <Marker
-              key={index}
+              key={carpark._id}
+              identifier={carpark._id}
               coordinate={coordinateArray[index]}
               title={carpark.address}
               description={carpark.free_parking}
