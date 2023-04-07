@@ -1,13 +1,6 @@
-import { useEffect } from "react";
 import { ActivityIndicator, StyleSheet, View } from "react-native";
 
-function LoadingScreen({navigation}){
-    useEffect(()=>{
-        setTimeout(()=>{
-            navigation.navigate('Tab')
-        },3000)
-        clearInterval();
-    })
+function LoadingScreen(){
     return(
         <View style={[styles.container,styles.horizontal]}>
             <ActivityIndicator size="large" color="black"/>

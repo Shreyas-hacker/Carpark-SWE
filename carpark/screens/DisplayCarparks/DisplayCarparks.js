@@ -20,16 +20,22 @@ const DisplayCarpark = () => {
     async function getLocation() {
       const location = await getCurrentLocation();
       setMapRegion(location);
+      setFilteredCarparks([]);
     }
     getLocation();
   }, []);
 
-  const handleSearch = async (text) => {
+  const handleSearch = (text) => {
     setSearchTerm(text);
-    const carparkRecords = await searchCarpark(text);
-    setFilteredCarparks(carparkRecords);
   };
 
+  async function handleSearchCarpark(){
+    let carparks = await searchCarpark(searchTerm);
+    const filteredCarparks = carparks && carparks.filter(
+      (carpark) => carpark.x_coord && carpark.y_coord
+    );
+    setFilteredCarparks(filteredCarparks);
+  }
   return (
     <View style={styles.container}>
       {mapRegion && <Map region={mapRegion} carparks={filteredCarparks} />}
@@ -37,7 +43,7 @@ const DisplayCarpark = () => {
         <SearchBar onSearchTermChange={handleSearch} searchTerm={searchTerm} />
       </View>
       <View style={styles.button}>
-        <PrimaryButton onSuccess={true} text="Search" onAttempt={searchCarpark} />
+        <PrimaryButton onSuccess={true} text="Search" onAttempt={handleSearchCarpark} />
       </View>
     </View>
   );

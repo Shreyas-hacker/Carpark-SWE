@@ -1,44 +1,23 @@
 import React from "react";
 import { StyleSheet } from "react-native";
 import MapView, { Marker } from "react-native-maps";
+import {convertLatLong} from './SearchCarpark';
 
-const Map = ({ carparks, region }) => {
-  const filteredCarparks = carparks && carparks.filter(
-    (carpark) => carpark.latitude && carpark.longitude
-  );
+function Map({ carparks, region }){
 
-  async function convertLatLong(easting,northing){
-    try{
-      const response = await axios({
-        method: "get",
-        url:'https://developers.onemap.sg/commonapi/convert/3414to4326',
-        params:{
-          'X':easting,
-          'Y':northing
-        }
-      }
-      );
-      return response;
-    } catch(error){
-      console.log(error);
-    }
+  async function getCoordinates(carpark){
+    let coordinates = await convertLatLong(parseFloat(carpark.x_coord),parseFloat(carpark.y_coord));
+    coordinates.then((coordinate)=>{
+      return coordinate.json();
+    })
   }
 
   return (
     <MapView style={styles.map} region={region} showsUserLocation={true}>
-      {filteredCarparks &&
-        filteredCarparks.map((carpark) => {
-          <Marker
-            key={carpark["_id"]}
-            coordinate={{
-              latitude: 1.448205177850381,
-              longitude: 103.80357168153289
-            }}
-            title={carpark["car_park_no"]}
-            description={`Lots Available: ${carpark["car_park_decks"]}`}
-          />
-        }
-        )}
+      {carparks &&
+        carparks.map((carpark) => (
+          <Marker key={carpark._id} coordinate={console.log(getCoordinates(carpark))} title={carpark.address}/>
+        ))}
     </MapView>
   );
 };

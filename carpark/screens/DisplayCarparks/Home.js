@@ -107,7 +107,7 @@ function HomeScreen({ navigation }) {
       </View>
     </View>
   ) : (
-    <LoadingScreen navigation={navigation} />
+    <LoadingScreen />
   );
 }
 

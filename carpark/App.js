@@ -16,7 +16,7 @@ import EditProfile from "./screens/Profile/EditProfile";
 import ReportsMade from "./screens/Profile/ReportsMade";
 import Favourite from "./screens/Favourite/Favourite";
 
-import { MyTabs } from "./screens/Tabs";
+import MyTabs from "./screens/Tabs";
 import AuthContextProvider, { AuthContext } from "./store/context/user-context";
 
 const Stack = createNativeStackNavigator();

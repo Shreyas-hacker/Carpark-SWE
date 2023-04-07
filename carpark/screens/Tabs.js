@@ -2,11 +2,10 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Profile from './Profile/Profile';
 import Home from './DisplayCarparks/Home';
 import { Ionicons } from "@expo/vector-icons";
-import { StatusBar } from 'expo-status-bar';
 
 const Tab = createBottomTabNavigator();
 
-export function MyTabs() {
+function MyTabs() {
   return (
     <>
     <Tab.Navigator screenOptions={{
@@ -23,3 +22,5 @@ export function MyTabs() {
     </>
   );
 }
+
+export default MyTabs;

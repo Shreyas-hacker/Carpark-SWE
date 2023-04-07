@@ -1,6 +1,6 @@
 import axios from "axios";
 
-export const searchCarpark = async (searchTerm) => {
+export async function searchCarpark(searchTerm=""){
   try {
     const response = await axios({
       method: "get",
@@ -17,3 +17,22 @@ export const searchCarpark = async (searchTerm) => {
     return [];
   }
 };
+
+export async function convertLatLong(easting,northing){
+  try{
+    const response = await axios({
+      method: "get",
+      url:'https://developers.onemap.sg/commonapi/convert/3414to4326',
+      params:{
+        'X':easting,
+        'Y':northing
+      }
+    }
+    );
+    coordinate = response.data;
+    return coordinate;
+  } catch(error){
+    console.log(error);
+    return {}
+  }
+}
