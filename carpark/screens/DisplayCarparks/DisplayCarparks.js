@@ -5,6 +5,7 @@ import PrimaryButton from "../../components/PrimaryButton";
 import Map from "./Maps";
 import { getCurrentLocation } from "./LocationService";
 import { searchCarpark } from "./SearchCarpark";
+import CarparkInfoCard from "./CarparkInfoCard";
 
 const DisplayCarpark = () => {
   const [filteredCarparks, setFilteredCarparks] = useState([]);
@@ -15,6 +16,7 @@ const DisplayCarpark = () => {
     latitudeDelta: 0.0922,
     longitudeDelta: 0.0421,
   });
+  const [selectedCarpark, setSelectedCarpark] = useState(null);
 
   useEffect(() => {
     async function getLocation() {
@@ -36,10 +38,27 @@ const DisplayCarpark = () => {
       carparks &&
       carparks.filter((carpark) => carpark.x_coord && carpark.y_coord);
     setFilteredCarparks(filteredCarparks);
+    setSelectedCarpark(null);
   }
+
+  const handleCarparkSelect = (carpark) => {
+    setSelectedCarpark(carpark);
+  };
+
   return (
     <View style={styles.container}>
-      {mapRegion && <Map region={mapRegion} carparks={filteredCarparks} />}
+      {mapRegion && (
+        <Map
+          region={mapRegion}
+          carparks={filteredCarparks}
+          onCarparkSelect={handleCarparkSelect}
+        />
+      )}
+      {selectedCarpark && (
+        <View style={styles.cardContainer}>
+          <CarparkInfoCard carpark={selectedCarpark} />
+        </View>
+      )}
       <View style={styles.searchBar}>
         <SearchBar onSearchTermChange={handleSearch} searchTerm={searchTerm} />
       </View>
@@ -75,6 +94,12 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.3,
     shadowRadius: 2,
     elevation: 2,
+  },
+  cardContainer: {
+    position: "absolute",
+    bottom: 10,
+    left: 10,
+    right: 10,
   },
 });
 
