@@ -5,6 +5,7 @@ import CarparkBackground from "../../assets/CarparkBackground.jpg";
 import DropDownPicker from "react-native-dropdown-picker";
 import PrimaryButton from "../../components/PrimaryButton";
 import IconButton from "../../components/IconButton";
+import LoadingScreen from "../../components/LoadingScreen";
 
 const bgcolor = "#FFFFFF";
 const deviceWidth = Dimensions.get("window").width;
@@ -48,12 +49,6 @@ function ReportFault({ navigation,route }) {
     'OpenSans-Medium': require('../../assets/fonts/Open_Sans/static/OpenSans/OpenSans-Medium.ttf'),
   });
 
-  const onLayoutRootView = useCallback(async () => {
-    if (fontsLoaded) {
-      await SplashScreen.hideAsync();
-    }
-  }, [fontsLoaded]);
-
   function descriptionHandler(enteredDescription) {
     setDescription(enteredDescription);
   }
@@ -79,10 +74,10 @@ function ReportFault({ navigation,route }) {
   }, [carpark, description]);
 
   return (
-    <TouchableWithoutFeedback onPress={() => 
+    fontsLoaded ? <TouchableWithoutFeedback onPress={() => 
       Keyboard.dismiss() || setFaultTypeOpen(false)|| setSeverityOpen(false)
       }>
-      <View style={styles.form} onLayout={onLayoutRootView}>
+      <View style={styles.form}>
         <ImageBackground
           source={CarparkBackground}
           style={styles.backgroundimage}
@@ -200,7 +195,7 @@ function ReportFault({ navigation,route }) {
           />
         </View>
       </View>
-    </TouchableWithoutFeedback>
+    </TouchableWithoutFeedback> : <LoadingScreen />
     );
   }
 
