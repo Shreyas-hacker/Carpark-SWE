@@ -1,5 +1,5 @@
 import { View, ImageBackground, StyleSheet, Text, Dimensions, TextInput, TouchableWithoutFeedback, Keyboard, Image, TouchableOpacity } from "react-native";
-import { React, useEffect, useState, useRef } from "react";
+import { React, useEffect, useState, useRef, useCallback } from "react";
 import { useFonts } from 'expo-font';
 import CarparkBackground from "../../assets/CarparkBackground.jpg";
 import DropDownPicker from "react-native-dropdown-picker";
@@ -48,6 +48,12 @@ function ReportFault({ navigation,route }) {
     'OpenSans-Medium': require('../../assets/fonts/Open_Sans/static/OpenSans/OpenSans-Medium.ttf'),
   });
 
+  const onLayoutRootView = useCallback(async () => {
+    if (fontsLoaded) {
+      await SplashScreen.hideAsync();
+    }
+  }, [fontsLoaded]);
+
   function descriptionHandler(enteredDescription) {
     setDescription(enteredDescription);
   }
@@ -76,7 +82,7 @@ function ReportFault({ navigation,route }) {
     <TouchableWithoutFeedback onPress={() => 
       Keyboard.dismiss() || setFaultTypeOpen(false)|| setSeverityOpen(false)
       }>
-      <View style={styles.form}>
+      <View style={styles.form} onLayout={onLayoutRootView}>
         <ImageBackground
           source={CarparkBackground}
           style={styles.backgroundimage}
