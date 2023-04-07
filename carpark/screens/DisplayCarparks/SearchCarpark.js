@@ -8,6 +8,7 @@ export async function searchCarpark(searchTerm=""){
       params: {
         resource_id: "139a3035-e624-4f56-b63f-89ae28d4ae4c",
         q: searchTerm,
+        limit: 100,
       },
     });
 
@@ -24,13 +25,12 @@ export async function convertLatLong(easting,northing){
       method: "get",
       url:'https://developers.onemap.sg/commonapi/convert/3414to4326',
       params:{
-        'X':easting,
-        'Y':northing
+        'X': parseFloat(easting),
+        'Y':parseFloat(northing)
       }
     }
     );
-    coordinate = response.data;
-    return coordinate;
+    return response.data;
   } catch(error){
     console.log(error);
     return {}

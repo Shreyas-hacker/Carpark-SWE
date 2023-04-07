@@ -20,7 +20,8 @@ const DisplayCarpark = () => {
     async function getLocation() {
       const location = await getCurrentLocation();
       setMapRegion(location);
-      setFilteredCarparks([]);
+      let carparks = await searchCarpark();
+      setFilteredCarparks(carparks);
     }
     getLocation();
   }, []);
