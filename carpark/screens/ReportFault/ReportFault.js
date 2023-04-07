@@ -97,11 +97,11 @@ function ReportFault({ navigation,route }) {
           >
             Report Faults
           </Text>
+        </View>  
           <View style={styles.carparkTitle}>
             <Text style={styles.carparkTitle}>
               Carpark BG03</Text>
-          </View>
-        </View>     
+          </View>  
         <View style={styles.helpFault}>
             <Text style={styles.helpFault}>
               How can we help?</Text>
@@ -211,19 +211,21 @@ const styles = StyleSheet.create({
     opacity: 0.5,
   },
   topContent: {
+    width: '100%',
     position: "absolute",
+    flexDirection: "row",
     top: deviceHeight / 15,
     marginBottom: 0,
   },
   reportTitle: {
     fontSize: 20,
-    marginLeft: deviceWidth / 2.9,
     fontFamily: "OpenSans-Bold",
-    marginBottom: deviceHeight / 30,
+    marginHorizontal: (deviceWidth - componentWidth -35) / 5,
   },
   carparkTitle: {
     fontSize: 35,
     color: "black",
+    textAlign: 'center',
     marginLeft: 10,
     fontFamily: "OpenSans-ExtraBold",
   },
