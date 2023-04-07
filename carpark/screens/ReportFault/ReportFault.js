@@ -1,10 +1,12 @@
-import { View, StyleSheet, Text, Dimensions, TextInput, TouchableWithoutFeedback, Keyboard, Image, TouchableOpacity } from "react-native";
+import { View, ImageBackground, StyleSheet, Text, Dimensions, TextInput, TouchableWithoutFeedback, Keyboard, Image, TouchableOpacity } from "react-native";
 import { React, useEffect, useState, useRef } from "react";
+import { useFonts } from 'expo-font';
+import CarparkBackground from "../../assets/CarparkBackground.jpg";
 import DropDownPicker from "react-native-dropdown-picker";
 import PrimaryButton from "../../components/PrimaryButton";
 import IconButton from "../../components/IconButton";
 
-const bgcolor = "#B0E9FF";
+const bgcolor = "#FFFFFF";
 const deviceWidth = Dimensions.get("window").width;
 const deviceHeight = Dimensions.get("window").height;
 let componentWidth = 0;
@@ -30,6 +32,21 @@ function ReportFault({ navigation,route }) {
   const [description, setDescription] = useState("");
   const [result,setResult] = useState(null);
 
+  const [fontsLoaded] = useFonts({
+    'Nunito-Black': require('../../assets/fonts/Nunito_Sans/NunitoSans-Black.ttf'),
+    'Nunito-Bold': require('../../assets/fonts/Nunito_Sans/NunitoSans-Bold.ttf'),
+    'Nunito-ExtraBold': require('../../assets/fonts/Nunito_Sans/NunitoSans-ExtraBold.ttf'),
+    'Nunito-ExtraLight': require('../../assets/fonts/Nunito_Sans/NunitoSans-ExtraLight.ttf'),
+    'Nunito-Light': require('../../assets/fonts/Nunito_Sans/NunitoSans-Light.ttf'),
+    'Nunito-Regular': require('../../assets/fonts/Nunito_Sans/NunitoSans-Regular.ttf'),
+    'Nunito-SemiBold': require('../../assets/fonts/Nunito_Sans/NunitoSans-SemiBold.ttf'),
+    'OpenSans-Bold': require('../../assets/fonts/Open_Sans/static/OpenSans/OpenSans-Bold.ttf'),
+    'OpenSans-ExtraBold': require('../../assets/fonts/Open_Sans/static/OpenSans/OpenSans-ExtraBold.ttf'),
+    'OpenSans-Light': require('../../assets/fonts/Open_Sans/static/OpenSans/OpenSans-Light.ttf'),
+    'OpenSans-Regular': require('../../assets/fonts/Open_Sans/static/OpenSans/OpenSans-Regular.ttf'),
+    'OpenSans-SemiBold': require('../../assets/fonts/Open_Sans/static/OpenSans/OpenSans-SemiBold.ttf'),
+    'OpenSans-Medium': require('../../assets/fonts/Open_Sans/static/OpenSans/OpenSans-Medium.ttf'),
+  });
 
   function descriptionHandler(enteredDescription) {
     setDescription(enteredDescription);
@@ -43,6 +60,7 @@ function ReportFault({ navigation,route }) {
   function submit() {
     navigation.navigate("Tab");
   }
+
   useEffect(() => {
     if (setFaultTypeOpen !== false && setSeverityOpen !== false && description !== "") {
       setfilled(true);
@@ -59,6 +77,11 @@ function ReportFault({ navigation,route }) {
       Keyboard.dismiss() || setFaultTypeOpen(false)|| setSeverityOpen(false)
       }>
       <View style={styles.form}>
+        <ImageBackground
+          source={CarparkBackground}
+          style={styles.backgroundimage}
+        >
+        </ImageBackground>
         <View style={styles.topContent}>
           <IconButton
             onPress={goBack}
@@ -71,47 +94,46 @@ function ReportFault({ navigation,route }) {
               measureView(event);
             }}
           >
-            Report Fault!
+            Report Faults
           </Text>
-        </View>
-
-        <View style={styles.carparkTitle}>
-          <Text style={styles.carparkTitle}>
-            Carpark BG03</Text>
-        </View>
-
+          <View style={styles.carparkTitle}>
+            <Text style={styles.carparkTitle}>
+              Carpark BG03</Text>
+          </View>
+        </View>     
         <View style={styles.helpFault}>
-          <Text style={styles.helpFault}>
-            How can we help?</Text>
-        </View>
-        
-        <View style={{marginTop: 10,
-                      backgroundColor: bgcolor,
+            <Text style={styles.helpFault}>
+              How can we help?</Text>
+        </View>   
+        <View style={{backgroundColor: bgcolor,
                       alignItems: "center",
                       justifyContent: "center",
                       opacity: 1,
                       paddingHorizontal: 15,
                       zIndex: 1000}}>
           
-            <DropDownPicker
-              open={FaultTypeOpen}
-              value={Fault}
-              items={FaultTypes}
-              setOpen={setFaultTypeOpen}
-              setValue={setFault}
-              setItems={setFaultType}
-
-              dropDownDirection="BOTTOM"
-              placeholder="Select Fault Type"
-              theme="DARK"
-              multiple={false}
-              listMode="SCROLLVIEW"
-              marginTop={10}
-              backgroundColor={bgcolor}
-              justifyContent="center"
-              onOpen={() => {setSeverityOpen(false), setFaultTypeOpen(true)}}
-              controller={(instance) => dropDownRef.current = instance}
-            />
+          <DropDownPicker
+            open={FaultTypeOpen}
+            value={Fault}
+            items={FaultTypes}
+            setOpen={setFaultTypeOpen}
+            setValue={setFault}
+            setItems={setFaultType}
+            textStyle={{
+              fontSize: 15,
+              fontFamily: 'OpenSans-Bold'
+            }}
+            dropDownDirection="BOTTOM"
+            placeholder="Select Fault Type"
+            theme="DARK"
+            multiple={false}
+            listMode="SCROLLVIEW"
+            marginTop={10}
+            backgroundColor={bgcolor}
+            justifyContent="center"
+            onOpen={() => {setSeverityOpen(false), setFaultTypeOpen(true)}}
+            controller={(instance) => dropDownRef.current = instance}
+          />
         </View>
 
         <View style={{marginTop: 10,
@@ -128,6 +150,10 @@ function ReportFault({ navigation,route }) {
             setValue={setSeverity}
             setItems={setSeverityLevel}
 
+            textStyle={{
+              fontSize: 15,
+              fontFamily: 'OpenSans-Bold'
+            }}
             dropDownDirection="BOTTOM"
             placeholder="Select Fault Severity"
             theme="DARK"
@@ -177,37 +203,46 @@ const styles = StyleSheet.create({
     backgroundColor: bgcolor,
     flex: 1,
   },
+  backgroundimage: {
+    flex: 9 / 16,
+    justifyContent: "center",
+    width: "100%",
+    opacity: 0.5,
+  },
   topContent: {
-    marginVertical: 25,
-    marginTop: 50,
+    position: "absolute",
+    top: deviceHeight / 15,
+    marginBottom: 0,
   },
   reportTitle: {
     fontSize: 20,
-    textAlign: "center",
-    marginHorizontal: (deviceWidth-componentWidth)/4.5,
+    marginLeft: deviceWidth / 2.9,
+    fontFamily: "OpenSans-Bold",
+    marginBottom: deviceHeight / 30,
   },
   carparkTitle: {
-    fontSize: 30,
-    fontWeight: "300",
+    fontSize: 35,
     color: "black",
     marginLeft: 10,
+    fontFamily: "OpenSans-ExtraBold",
   },
-  text: {
-    marginTop: 20,
-    fontSize: 15,
-    fontWeight: "200",
+  helpFault: {
+    marginBottom: 5,
+    marginTop: 9,
+    fontSize: 27,
+    fontWeight: "regular",
     color: "black",
     alignSelf: 'center',
     justifyContent: 'center',
     alignItems: 'center',
     textAlignVertical: 'center',
     alignContent: 'center',
+    fontFamily: "OpenSans-Medium",
   },
-  helpFault: {
-    marginTop: 10,
-    marginBottom: 5,
-    fontSize: 25,
-    fontWeight: "regular",
+  text: {
+    marginTop: 20,
+    fontSize: 15,
+    fontWeight: "200",
     color: "black",
     alignSelf: 'center',
     justifyContent: 'center',
@@ -229,10 +264,12 @@ const styles = StyleSheet.create({
   },
   inputContainer: {
     borderColor: "black",
-    borderWidth: 1.5,
+    borderWidth: 2,
     borderRadius: 30,
     marginHorizontal: 10,
+    maxHeight: 150,
     backgroundColor: "white",
+    fontFamily: "OpenSans-Regular",
   },
   inputText: {
     backgroundColor: "white",
@@ -248,6 +285,7 @@ const styles = StyleSheet.create({
     marginVertical: 10,
     lineHeight: 25,
     minHeight: 100,
+    fontFamily: "OpenSans-Regular",
   },
   description: {
     color: "white",
@@ -255,6 +293,7 @@ const styles = StyleSheet.create({
     paddingTop: 15,
     padding: 20,
     fontSize: 15,
+    fontFamily: "OpenSans-Regular",
   },
   buttonContainer: {
     alignSelf: 'center',
@@ -262,7 +301,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     textAlignVertical: 'center',
     alignContent: 'center',
-    marginTop: deviceHeight/5,
+    marginTop: deviceHeight/10,
+    fontFamily: "OpenSans-Regular",
   },
   cameraContainer: {
     flexDirection: 'row',
