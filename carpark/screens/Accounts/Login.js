@@ -101,7 +101,7 @@ const styles = StyleSheet.create({
         flex:1,
     },
     bigdescription:{
-        marginTop: deviceHeight < 380 ? 60 : 150,
+        marginTop: deviceHeight < 380 ? 60 : 200,
         marginLeft: 15
     },
     title:{

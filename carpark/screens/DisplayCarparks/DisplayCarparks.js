@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { View, StyleSheet } from "react-native";
-import SearchBar from "./SearchBar";
+import SearchBar from "../../components/SearchBar";
 import PrimaryButton from "../../components/PrimaryButton";
 import Map from "./Maps";
 import { getCurrentLocation } from "./LocationService";
@@ -32,9 +32,13 @@ const DisplayCarpark = () => {
 
   return (
     <View style={styles.container}>
-      <SearchBar onSearchTermChange={handleSearch} searchTerm={searchTerm} />
-      <PrimaryButton onSuccess={true} text="Search" onAttempt={handleSearch} />
       {mapRegion && <Map region={mapRegion} carparks={filteredCarparks} />}
+      <View style={styles.searchBar}>
+        <SearchBar onSearchTermChange={handleSearch} searchTerm={searchTerm} />
+      </View>
+      <View style={styles.button}>
+        <PrimaryButton onSuccess={true} text="Search" onAttempt={searchCarpark} />
+      </View>
     </View>
   );
 };
@@ -42,8 +46,17 @@ const DisplayCarpark = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    marginTop: 50,
   },
+  button:{
+    position: 'absolute',
+    width: '100%',
+    bottom: 50,
+  },
+  searchBar:{
+    position: 'absolute',
+    width: '100%',
+    top: 10,
+  }
 });
 
 export default DisplayCarpark;

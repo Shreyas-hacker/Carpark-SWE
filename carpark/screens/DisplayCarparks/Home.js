@@ -130,9 +130,9 @@ const styles = StyleSheet.create({
   rowShown: {
     flex: 1,
     flexDirection: "row",
-    alignContent: "stretch",
-    position: "absolute",
-    marginTop: 50,
+    justifyContent: 'center',
+    position: 'absolute',
+    marginTop: height/10,
   },
   header: {
     marginLeft: 30,
@@ -154,7 +154,7 @@ const styles = StyleSheet.create({
     paddingVertical: 10,
     flexDirection: "row",
     alignSelf: "center",
-    marginLeft: 60,
+    marginLeft: width / 3,
   },
   buttonText: {
     color: "black",
