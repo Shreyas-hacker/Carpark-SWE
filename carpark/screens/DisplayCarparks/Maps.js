@@ -30,10 +30,10 @@ function Map({ carparks, region }) {
   }, [carparks]);
 
   const handleMarkerPress = (carpark) => {
-    setSelectedCarpark(carpark._id);
+    setSelectedCarpark(carpark.car_park_no);
     if (selectedCarpark) {
       const fetchCarparkLots = async () => {
-        const { carpark_data } = await searchCarparkLots(selectedCarpark);
+        const carpark_data  = await searchCarparkLots(selectedCarpark);
         const availableLots =
           carpark_data[0]?.carpark_info[0]?.lots_available ?? "N/A";
         setCarparkLots({ [selectedCarpark]: availableLots });
@@ -70,7 +70,7 @@ function Map({ carparks, region }) {
                   coordinate={coordinateArray[index]}
                   title={carpark.address}
                   description={`Free parking time: ${carpark.free_parking}`}
-                  onPress={() => handleMarkerPress(carpark)}
+                  onPress={handleMarkerPress.bind(this,carpark)}
                 />
               );
             })}

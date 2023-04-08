@@ -36,9 +36,8 @@ const DisplayCarpark = () => {
       carparks &&
       carparks.filter((carpark) => carpark.x_coord && carpark.y_coord);
     setFilteredCarparks(filteredCarparks);
-    setSelectedCarpark(null);
-    carparksLots = await searchCarparkLots(filteredCarparks);
-    console.log(filteredCarparks);
+    // setSelectedCarpark(null);
+    // carparksLots = await searchCarparkLots(filteredCarparks);
   }
 
   const handleCarparkSelect = (carpark) => {
@@ -54,11 +53,11 @@ const DisplayCarpark = () => {
           onCarparkSelect={handleCarparkSelect}
         />
       )}
-      {selectedCarpark && (
+      {/* {selectedCarpark && (
         <View style={styles.cardContainer}>
           <CarparkInfoCard carpark={selectedCarpark} />
         </View>
-      )}
+      )} */}
       <View style={styles.searchBar}>
         <SearchBar onSearchTermChange={handleSearch} searchTerm={searchTerm} />
       </View>
