@@ -38,7 +38,7 @@ function HomeScreen({ navigation }) {
           }
         }).catch((error) => {
           console.log(error.message)
-        })
+        });
     }
     getDisplayName();
   });
