@@ -4,6 +4,8 @@ import PrimaryButton from "../../components/PrimaryButton";
 import IconButton from "../../components/IconButton";
 import { AuthContext } from "../../store/context/user-context";
 import { login } from "../../util/AuthManager";
+import useLoadFonts from '../../util/loadfont';
+import { FontStyle } from "../../util/fontstyles";
 
 function Login({navigation}){
     const [filled, setfilled] = useState(false); // state to manage if all fields in the form has been filled
@@ -12,6 +14,8 @@ function Login({navigation}){
     const [show, setShow] = useState(true);
 
     const authCtx = useContext(AuthContext);
+
+    useLoadFonts();
 
     useEffect(()=>{
         if(username!=='' && password !== ''){
@@ -50,8 +54,8 @@ function Login({navigation}){
         <ScrollView style={styles.form} keyboardShouldPersistTaps='handled'>
             <View>
                 <View style={styles.bigdescription}>
-                    <Text style={styles.title}>Welcome!</Text>
-                    <Text style={styles.description}>Finding Carparks in a jiffy!</Text>
+                    <Text style={[styles.title, FontStyle.bold]}>Welcome!</Text>
+                    <Text style={[styles.description, FontStyle.bolditalic]}>Finding Carparks in a jiffy!</Text>
                 </View>
                 <View style={styles.inputContainer}>
                     {/* This is the input component, wasnt working as a component so i broke it down further in this file */}
@@ -65,9 +69,9 @@ function Login({navigation}){
                 </View>
                 <View style={styles.container}>
                     <View>
-                        <Text style={styles.text}>Don't have an account?</Text>
+                        <Text style={[styles.text, FontStyle.bolditalic]}>Don't have an account?</Text>
                         <Pressable onPress={()=>{navigation.navigate("CreateAccount")}}>
-                            <Text style={styles.text}>Create account</Text>
+                            <Text style={[styles.text, FontStyle.bold]}>Create account</Text>
                         </Pressable>
                     </View>
                     <View style={styles.buttonContainer}>
@@ -76,7 +80,7 @@ function Login({navigation}){
                 </View>
                 <View style={styles.forgetpassword}>
                     <Pressable onPress={()=>{navigation.navigate("ForgetPassword")}}>
-                        <Text style={styles.text}>Forget Password?</Text>
+                        <Text style={[styles.text, FontStyle.bold]}>Forget Password?</Text>
                     </Pressable>
                 </View>
                 <View style={styles.socialmedia}>

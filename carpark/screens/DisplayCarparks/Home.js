@@ -14,6 +14,8 @@ import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 import LoadingScreen from "../../components/LoadingScreen";
 import CarparkBackground from "../../assets/CarparkBackground.jpg";
 import { searchCarpark } from "./SearchCarpark";
+import useLoadFonts from '../../util/loadfont';
+import { FontStyle } from "../../util/fontstyles";
 
 function HomeScreen({ navigation }) {
   const API_KEY = "AIzaSyCX5cIGMG23hoatqCPLZnSQJX_6klMLbRk";
@@ -22,6 +24,8 @@ function HomeScreen({ navigation }) {
   const [displayName, setDisplayName] = useState(null);
   const [searchText, setSearchText] = useState("");
   const [searchResults, setSearchResults] = useState([]);
+
+  useLoadFonts();
 
   useEffect(() => {
     const url = `https://identitytoolkit.googleapis.com/v1/accounts:lookup?key=${API_KEY}`;
@@ -45,15 +49,15 @@ function HomeScreen({ navigation }) {
       ></ImageBackground>
       <View style={styles.rowShown}>
         <View style={styles.header}>
-          <Text style={styles.headerText}>Welcome</Text>
-          <Text style={styles.displayNameText}>{displayName}</Text>
+          <Text style={[styles.headerText, FontStyle.mediumitalic]}>Hello!</Text>
+          <Text style={[styles.displayNameText, FontStyle.regular]}>{displayName}</Text>
         </View>
         <TouchableOpacity
           style={styles.button1}
           onPress={() => navigation.navigate("DisplayCarpark")}
         >
           <MaterialIcons name="map" color="black" size={24} />
-          <Text style={styles.buttonText}>Map</Text>
+          <Text style={[styles.buttonText, FontStyle.italic]}>Map</Text>
         </TouchableOpacity>
       </View>
       <View style={styles.searchBar}>
@@ -64,7 +68,7 @@ function HomeScreen({ navigation }) {
           style={styles.searchIcon}
         />
         <TextInput
-          style={styles.searchInput}
+          style={[styles.searchInput, FontStyle.regular]}
           placeholder="Search for car parks"
           value={searchText}
           onChangeText={setSearchText}
@@ -94,7 +98,7 @@ function HomeScreen({ navigation }) {
           onPress={() => navigation.navigate("ReportFault")}
         >
           <MaterialIcons name="report-problem" color="red" size={24} />
-          <Text style={styles.buttonText}>Report</Text>
+          <Text style={[styles.buttonText, FontStyle.bold]}>Report</Text>
         </TouchableOpacity>
 
         <TouchableOpacity
@@ -102,7 +106,7 @@ function HomeScreen({ navigation }) {
           onPress={() => navigation.navigate("Favourite")}
         >
           <MaterialIcons name="favorite" color="deeppink" size={24} />
-          <Text style={styles.buttonText}>Favorite</Text>
+          <Text style={[styles.buttonText, FontStyle.condensedbold]}>Favorite</Text>
         </TouchableOpacity>
       </View>
     </View>
