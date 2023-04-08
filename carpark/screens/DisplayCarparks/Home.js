@@ -32,8 +32,9 @@ function HomeScreen({ navigation }) {
     async function getDisplayName() {
       try {
         if(!authCtx.display_name){
-          const response = await axios.post(url, { idToken: token });
-          setDisplayName(response.data.users[0].displayName);
+          const response = await axios.post(url, { idToken: token }).then((response) => {
+            setDisplayName(response.data.users[0].displayName)
+          });
         }else{
           setDisplayName(authCtx.display_name);
         }
