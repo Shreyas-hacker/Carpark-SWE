@@ -1,5 +1,5 @@
-import { View, ImageBackground, StyleSheet, Text, Dimensions, TextInput, TouchableWithoutFeedback, Keyboard, Image, TouchableOpacity } from "react-native";
-import { React, useEffect, useState, useRef } from "react";
+import { View, ImageBackground, StyleSheet, Text, Dimensions, TextInput, TouchableWithoutFeedback, Keyboard, Image } from "react-native";
+import { React, useEffect, useState } from "react";
 import { useFonts } from 'expo-font';
 import AppLoading from "expo-app-loading";
 import CarparkBackground from "../../assets/CarparkBackground.jpg";
@@ -147,10 +147,7 @@ function ReportFault({ navigation,route }) {
             onOpen={() => {setSeverityDropOpen(true), setFaultDropOpen(false)}}
           />
         </View>
-
-        {/* needs work */}
             
-        <Image style={styles.preview} source={{uri: photoPreview}}/>
         
         <View style={styles.inputContainer}>
           <TextInput
@@ -171,7 +168,7 @@ function ReportFault({ navigation,route }) {
               color="black"
           />
         </View>
-
+        <Image style={styles.preview} source={{uri: photoPreview}}/>
         <View style={styles.buttonContainer}>
           <PrimaryButton
             text="Submit"

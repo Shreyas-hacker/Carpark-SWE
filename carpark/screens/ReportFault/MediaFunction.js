@@ -3,7 +3,6 @@ import { StyleSheet, Text, Dimensions, View, SafeAreaView, Button, Image, Toucha
 import { useEffect, useRef, useState } from 'react';
 import { Camera } from 'expo-camera';
 import * as MediaLibrary from 'expo-media-library';
-import { useNavigation } from '@react-navigation/native';
 
 const deviceWidth = Dimensions.get("window").width;
 const deviceHeight = Dimensions.get("window").height;
