@@ -49,6 +49,7 @@ function CreateProfile({navigation}){
         )
         }else{
             await updateAccount(authCtx.token,fullName);
+            authCtx.handleDisplayName(fullName);
             authCtx.setAuth();
         }
         console.log('Profile created');

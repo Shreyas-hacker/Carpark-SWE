@@ -39,8 +39,7 @@ function EditProfile({navigation}){
     async function updateProfileAttempt(){
         if(fullName !=='' && phoneNumber !==''){
             const token = await updateAccount(authCtx.token,fullName);
-            // await updateAccount(authCtx.token,fullName);
-            authCtx.setAuth(token);
+            authCtx.handleDisplayName(fullName);
             navigation.navigate('Profile');
         }
         console.log('Profile updated');

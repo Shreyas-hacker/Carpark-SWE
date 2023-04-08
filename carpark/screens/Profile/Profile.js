@@ -11,20 +11,24 @@ import { StatusBar } from "expo-status-bar";
 
 function Profile({navigation}){
     const authCtx = useContext(AuthContext);
-    const token = authCtx.token;
     const API_KEY = 'AIzaSyCX5cIGMG23hoatqCPLZnSQJX_6klMLbRk';
     const [displayName,setDisplayName] = useState(null);
     const [email,setEmail] = useState(null);
 
     useEffect(()=>{
+        const token = authCtx.token;
         const url = `https://identitytoolkit.googleapis.com/v1/accounts:lookup?key=${API_KEY}`;
         async function getDisplayName(){
             const response = await axios.post(url,{idToken:token}).then((response)=>{
-                setDisplayName(response.data.users[0].displayName)
+                if(!authCtx.display_name){
+                    setDisplayName(response.data.users[0].displayName);
+                }else{
+                    setDisplayName(authCtx.display_name);
+                }
                 setEmail(response.data.users[0].email)
             }).catch((error)=>{
                 console.log(error.message)
-            })
+        })
         }
         getDisplayName();
     })

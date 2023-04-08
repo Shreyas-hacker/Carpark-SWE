@@ -31,8 +31,12 @@ function HomeScreen({ navigation }) {
     const url = `https://identitytoolkit.googleapis.com/v1/accounts:lookup?key=${API_KEY}`;
     async function getDisplayName() {
       try {
-        const response = await axios.post(url, { idToken: token });
-        setDisplayName(response.data.users[0].displayName);
+        if(!authCtx.display_name){
+          const response = await axios.post(url, { idToken: token });
+          setDisplayName(response.data.users[0].displayName);
+        }else{
+          setDisplayName(authCtx.display_name);
+        }
       } catch (error) {
         console.log(error.message);
         setDisplayName("Anonymous");

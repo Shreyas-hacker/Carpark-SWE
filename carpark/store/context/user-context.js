@@ -3,14 +3,17 @@ import { createContext, useState } from "react";
 export const AuthContext = createContext({
     token: '',
     isAuthenticated: false,
+    display_name: '',
     authenticate: (token)=>{},
     setAuth: () =>{},
-    logout: ()=>{}
+    logout: ()=>{},
+    handleDisplayName: (name)=>{}
 })
 
 function AuthContextProvider({children}){
     const [authToken, setAuthToken] = useState('');
     const [isAutheticated, setisAuthenticated] = useState(false);
+    const [displayName, setDisplayName] = useState('');
 
     function authenticate(token){
         setAuthToken(token);
@@ -24,12 +27,18 @@ function AuthContextProvider({children}){
         setisAuthenticated(true);
     }
 
+    function handleDisplayName(name){
+        setDisplayName(name);
+    }
+
     const value = {
         token: authToken,
         isAuthenticated: isAutheticated,
+        display_name: displayName,
         authenticate: authenticate,
         setAuth: setAuth,
-        logout: logout
+        logout: logout,
+        handleDisplayName: handleDisplayName
     }
 
     return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>
