@@ -1,7 +1,5 @@
 import { View, ImageBackground, StyleSheet, Text, Dimensions, TextInput, TouchableWithoutFeedback, Keyboard, Image } from "react-native";
 import { React, useEffect, useState } from "react";
-import { useFonts } from 'expo-font';
-import AppLoading from "expo-app-loading";
 import CarparkBackground from "../../assets/CarparkBackground.jpg";
 import DropDownPicker from "react-native-dropdown-picker";
 import PrimaryButton from "../../components/PrimaryButton";
