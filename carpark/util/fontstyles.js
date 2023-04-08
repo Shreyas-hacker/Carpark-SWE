@@ -4,9 +4,16 @@ export const FontStyle = {
       fontFamily: 'OpenSans-Regular',
       fontWeight: 'regular',
     },
+    medium: {
+        fontFamily: 'OpenSans-Medium',
+    },
     bold: {
       fontFamily: 'OpenSans-Bold',
       fontWeight: 'bold',
+    },
+    extrabold: {
+        fontFamily: 'OpenSans-ExtraBold',
+        fontWeight: 'bold',
     },
     italic: {
       fontFamily: 'OpenSans-Italic',
