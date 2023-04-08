@@ -1,7 +1,7 @@
 import React, { useRef } from "react";
 import { View, Text, StyleSheet, Dimensions, Animated } from "react-native";
 
-const CarparkInfoCard = ({ carpark }) => {
+const CarparkInfoCard = ({ carpark,carparkLots }) => {
   const slideAnimation = useRef(new Animated.Value(0)).current;
 
   const toggleCard = () => {
@@ -33,8 +33,8 @@ const CarparkInfoCard = ({ carpark }) => {
       >
         <View style={styles.slideBar} onTouchEnd={toggleCard} />
         <Text style={styles.title}>{carpark.address}</Text>
-        <Text style={styles.subtitle_lots}>Total Slots:</Text>
-        <Text style={styles.subtitle_lots}>Avaliable Slots:</Text>
+        <Text style={styles.subtitle_lots}>Total Slots: {carparkLots[1]}</Text>
+        <Text style={styles.subtitle_lots}>Avaliable Slots: {carparkLots[0]}</Text>
         <Text style={styles.subtitle}>
           Free Parking Time: {carpark.free_parking}
         </Text>

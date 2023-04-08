@@ -8,7 +8,7 @@ function Map({ carparks, region }) {
   const [coordinateArray, setCoordinateArray] = useState([]);
   const [isCoordinateArraySet, setIsCoordinateArraySet] = useState(false);
   const [selectedCarpark, setSelectedCarpark] = useState(null);
-  const [carparkLots, setCarparkLots] = useState({});
+  const [carparkLots, setCarparkLots] = useState([]);
   const mapRef = useRef(null);
 
   useEffect(() => {
@@ -30,13 +30,14 @@ function Map({ carparks, region }) {
   }, [carparks]);
 
   const handleMarkerPress = (carpark) => {
-    setSelectedCarpark(carpark.car_park_no);
+    setSelectedCarpark(carpark);
     if (selectedCarpark) {
       const fetchCarparkLots = async () => {
-        const carpark_data  = await searchCarparkLots(selectedCarpark);
+        const carpark_data  = await searchCarparkLots(selectedCarpark.car_park_no);
         const availableLots =
           carpark_data[0]?.carpark_info[0]?.lots_available ?? "N/A";
-        setCarparkLots({ [selectedCarpark]: availableLots });
+        const totalLots = carpark_data[0]?.carpark_info[0]?.total_lots ?? "N/A";
+        setCarparkLots([availableLots,totalLots]);
       };
       fetchCarparkLots();
     }
@@ -79,10 +80,8 @@ function Map({ carparks, region }) {
       {selectedCarpark && (
         <View style={styles.cardContainer}>
           <CarparkInfoCard
-            carpark={{
-              ...carparks.find((carpark) => carpark._id === selectedCarpark),
-              ...carparkLots[selectedCarpark],
-            }}
+            carpark={selectedCarpark}
+            carparkLots={carparkLots}
           />
         </View>
       )}
