@@ -20,30 +20,28 @@ import { FontStyle } from "../../util/fontstyles";
 function HomeScreen({ navigation }) {
   const API_KEY = "AIzaSyCX5cIGMG23hoatqCPLZnSQJX_6klMLbRk";
   const authCtx = useContext(AuthContext);
-  const token = authCtx.token;
-  const [displayName, setDisplayName] = useState(null);
+  const [displayName, setDisplayName] = useState('');
   const [searchText, setSearchText] = useState("");
   const [searchResults, setSearchResults] = useState([]);
 
   useLoadFonts();
 
   useEffect(() => {
+    const token = authCtx.token;
     const url = `https://identitytoolkit.googleapis.com/v1/accounts:lookup?key=${API_KEY}`;
     async function getDisplayName() {
-      try {
-        if(!authCtx.display_name){
-          const response = await axios.post(url, { idToken: token });
-          setDisplayName(response.data.users[0].displayName);
-        }else{
-          setDisplayName(authCtx.display_name);
-        }
-      } catch (error) {
-        console.log(error.message);
-        setDisplayName("Anonymous");
-      }
+        const response = await axios.post(url, { idToken: token }).then((response) => {
+          if(!authCtx.display_name){
+            setDisplayName(response.data.users[0].displayName);
+          }else{
+            setDisplayName(authCtx.display_name);
+          }
+        }).catch((error) => {
+          console.log(error.message)
+        })
     }
     getDisplayName();
-  }, []);
+  });
 
   return displayName ? (
     <View style={styles.container}>
