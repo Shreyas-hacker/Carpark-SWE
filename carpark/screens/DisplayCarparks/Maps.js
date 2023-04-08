@@ -5,7 +5,6 @@ import {convertLatLong} from './SearchCarpark';
 
 function Map({ carparks, region }){
   const [coordinateArray, setCoordinateArray] = useState([]);
-  const [isLoading,setIsLoading] = useState(false);
   const [isCoordinateArraySet, setIsCoordinateArraySet] = useState(false);
   const mapRef = useRef(null);
 
