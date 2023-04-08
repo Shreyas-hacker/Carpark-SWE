@@ -1,7 +1,6 @@
 import React from "react";
 import { View, Text, StyleSheet, Dimensions } from "react-native";
 
-const checkCarparkLots = ({ carpark }) => {};
 const CarparkInfoCard = ({ carpark }) => {
   return (
     <View style={styles.card}>
