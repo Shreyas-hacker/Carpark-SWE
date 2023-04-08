@@ -89,16 +89,16 @@ function ReportFault({ navigation,route }) {
           >
             Report Faults
           </Text>
-        </View> 
+        </View>
 
-        <View style={styles.carparkTitle}>
-          <Text style={styles.carparkTitle}>
-            Carpark BG03</Text>
-        </View>  
+        <Text style={styles.carparkTitle}>
+          Carpark BG03
+        </Text> 
 
         <View style={styles.helpFault}>
-            <Text style={styles.helpFault}>
-              How can we help?</Text>
+          <Text style={styles.helpFault}>
+            How can we help?
+          </Text>
         </View>   
         
         <View style={{backgroundColor: backColor, alignItems: "center", justifyContent: "center", opacity: 1, paddingHorizontal: 15, zIndex: 1000}}>
@@ -168,7 +168,8 @@ function ReportFault({ navigation,route }) {
               color="black"
           />
         </View>
-        <Image style={styles.preview} source={{uri: photoPreview}}/>
+        {photoPreview && <Text style={styles.imageText}>Image Stored</Text>}
+        {/* <Image style={styles.preview} source={{uri: photoPreview}}/> */}
         <View style={styles.buttonContainer}>
           <PrimaryButton
             text="Submit"
@@ -294,6 +295,12 @@ const styles = StyleSheet.create({
     alignSelf: 'stretch',
     marginVertical: 10,
     width: 300,
+  },
+  imageText:{
+    fontSize: 15,
+    color: "green",
+    textAlign: 'center',
+    fontFamily: "OpenSans-Regular",
   }
 });
 
