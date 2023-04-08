@@ -6,6 +6,8 @@ import CarparkBackground from "../../assets/CarparkBackground.jpg";
 import DropDownPicker from "react-native-dropdown-picker";
 import PrimaryButton from "../../components/PrimaryButton";
 import IconButton from "../../components/IconButton";
+import useLoadFonts from '../../util/loadfont';
+import { FontStyle } from "../../util/fontstyles";
 
 const backColor = "#FFFFFF";
 const deviceWidth = Dimensions.get("window").width;
@@ -14,12 +16,6 @@ let componentWidth = 0;
 
 
 function ReportFault({ navigation,route }) {
-  let [fontsLoaded] = useFonts({
-    "OpenSans-Regular": require("../../assets/fonts/OpenSans-Regular.ttf"),
-    "OpenSans-Bold": require("../../assets/fonts/OpenSans-Bold.ttf"),
-    "OpenSans-ExtraBold": require("../../assets/fonts/OpenSans-SemiBold.ttf"),
-    "OpenSans-Medium": require("../../assets/fonts/OpenSans-Light.ttf"),
-  });
   const [faultDropOpen, setFaultDropOpen] = useState(false);
   const [severityDropOpen, setSeverityDropOpen] = useState(false);
   const [Fault, setFault] = useState([]);
@@ -39,6 +35,8 @@ function ReportFault({ navigation,route }) {
   const [filled, setfilled] = useState(false);
   const [description, setDescription] = useState("");
   const [photoPreview, setPhotoPreview] = useState(null);
+
+  useLoadFonts();
   
   function descriptionHandler(enteredDescription) {
     setDescription(enteredDescription);
@@ -68,7 +66,7 @@ function ReportFault({ navigation,route }) {
   }, [route.params]);
 
   return (
-    fontsLoaded?<TouchableWithoutFeedback onPress={() => 
+    <TouchableWithoutFeedback onPress={() => 
       Keyboard.dismiss() || setFaultDropOpen(false)|| setSeverityDropOpen(false)
       }>
 
@@ -82,7 +80,7 @@ function ReportFault({ navigation,route }) {
         <View style={styles.topContent}>
           <IconButton onPress={goBack} icon="arrow-back" size={28} color="black"
           />
-          <Text style={styles.reportTitle}
+          <Text style={[styles.reportTitle, FontStyle.bold]}
             onLayout={(event) => {
               measureView(event);
             }}
@@ -91,12 +89,12 @@ function ReportFault({ navigation,route }) {
           </Text>
         </View>
 
-        <Text style={styles.carparkTitle}>
+        <Text style={[styles.carparkTitle, FontStyle.extrabold]}>
           Carpark BG03
         </Text> 
 
         <View style={styles.helpFault}>
-          <Text style={styles.helpFault}>
+          <Text style={[styles.helpFault, FontStyle.medium]}>
             How can we help?
           </Text>
         </View>   
@@ -180,10 +178,14 @@ function ReportFault({ navigation,route }) {
       </View>
       
       
-    </TouchableWithoutFeedback>
-    :<AppLoading />)
+    </TouchableWithoutFeedback>);
 }
+
 const styles = StyleSheet.create({
+  dropdowntext: {
+    fontSize: 15,
+    fontFamily: 'OpenSans-Bold'
+  }, 
   form: {
     backgroundColor: backColor,
     flex: 1,
@@ -203,14 +205,12 @@ const styles = StyleSheet.create({
   },
   reportTitle: {
     fontSize: 20,
-    fontFamily: "OpenSans-Bold",
     marginHorizontal: (deviceWidth - componentWidth -35) / 5,
   },
   carparkTitle: {
     fontSize: 35,
     color: "black",
     textAlign: 'center',
-    fontFamily: "OpenSans-ExtraBold",
   },
   helpFault: {
     marginBottom: 5,
@@ -221,7 +221,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     textAlignVertical: 'center',
-    fontFamily: "OpenSans-Medium",
   },
   reportDescription: {
     fontSize: 15,
