@@ -5,7 +5,6 @@ import PrimaryButton from "../../components/PrimaryButton";
 import Map from "./Maps";
 import { getCurrentLocation } from "./LocationService";
 import { searchCarpark, searchCarparkLots } from "./SearchCarpark";
-import CarparkInfoCard from "./CarparkInfoCard";
 
 const DisplayCarpark = () => {
   const [filteredCarparks, setFilteredCarparks] = useState([]);

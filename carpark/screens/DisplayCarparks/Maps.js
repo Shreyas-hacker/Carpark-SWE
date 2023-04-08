@@ -9,6 +9,7 @@ function Map({ carparks, region }) {
   const [isCoordinateArraySet, setIsCoordinateArraySet] = useState(false);
   const [selectedCarpark, setSelectedCarpark] = useState(null);
   const [carparkLots, setCarparkLots] = useState([]);
+  const [isLoading,setIsLoading] = useState(false);
   const mapRef = useRef(null);
 
   useEffect(() => {
@@ -29,18 +30,23 @@ function Map({ carparks, region }) {
     getCoordinates();
   }, [carparks]);
 
-  const handleMarkerPress = (carpark) => {
-    setSelectedCarpark(carpark);
+  useEffect(() => {
     if (selectedCarpark) {
+      setIsLoading(true);
       const fetchCarparkLots = async () => {
         const carpark_data  = await searchCarparkLots(selectedCarpark.car_park_no);
         const availableLots =
           carpark_data[0]?.carpark_info[0]?.lots_available ?? "N/A";
         const totalLots = carpark_data[0]?.carpark_info[0]?.total_lots ?? "N/A";
         setCarparkLots([availableLots,totalLots]);
+        setIsLoading(false);
       };
       fetchCarparkLots();
     }
+  },[selectedCarpark])
+
+  const handleMarkerPress = (carpark) => {
+    setSelectedCarpark(carpark);
   };
 
   useEffect(() => {
@@ -77,15 +83,16 @@ function Map({ carparks, region }) {
             })}
         </MapView>
       )}
-      {selectedCarpark && carparkLots ? (
+      {(selectedCarpark && carparkLots) ? (
         <View style={styles.cardContainer}>
           <CarparkInfoCard
             carpark={selectedCarpark}
             carparkLots={carparkLots}
+            loaded= {isLoading}
           />
         </View>
       ): null}
-      {!isCoordinateArraySet && (
+      {!isCoordinateArraySet && isLoading &&(
         <View style={styles.loadingContainer}>
           <ActivityIndicator size="large" color="#0000ff" />
         </View>
