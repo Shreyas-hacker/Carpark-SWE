@@ -158,7 +158,7 @@ const styles = StyleSheet.create({
     paddingVertical: 10,
     flexDirection: "row",
     alignSelf: "center",
-    marginLeft: width / 3,
+    marginLeft: width / 2,
   },
   buttonText: {
     color: "black",

@@ -77,14 +77,14 @@ function Map({ carparks, region }) {
             })}
         </MapView>
       )}
-      {selectedCarpark && (
+      {selectedCarpark && carparkLots ? (
         <View style={styles.cardContainer}>
           <CarparkInfoCard
             carpark={selectedCarpark}
             carparkLots={carparkLots}
           />
         </View>
-      )}
+      ): null}
       {!isCoordinateArraySet && (
         <View style={styles.loadingContainer}>
           <ActivityIndicator size="large" color="#0000ff" />
