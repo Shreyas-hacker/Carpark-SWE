@@ -1,22 +1,28 @@
 import { View, ImageBackground, StyleSheet, Text, Dimensions, TextInput, TouchableWithoutFeedback, Keyboard, Image, TouchableOpacity } from "react-native";
-import { React, useEffect, useState, useRef, useCallback } from "react";
+import { React, useEffect, useState, useRef } from "react";
 import { useFonts } from 'expo-font';
+import AppLoading from "expo-app-loading";
 import CarparkBackground from "../../assets/CarparkBackground.jpg";
 import DropDownPicker from "react-native-dropdown-picker";
 import PrimaryButton from "../../components/PrimaryButton";
 import IconButton from "../../components/IconButton";
-import LoadingScreen from "../../components/LoadingScreen";
 
-const bgcolor = "#FFFFFF";
+const backColor = "#FFFFFF";
 const deviceWidth = Dimensions.get("window").width;
 const deviceHeight = Dimensions.get("window").height;
 let componentWidth = 0;
 
+
 function ReportFault({ navigation,route }) {
-  const [FaultTypeOpen, setFaultTypeOpen] = useState(false);
-  const [SeverityOpen, setSeverityOpen] = useState(false);
+  let [fontsLoaded] = useFonts({
+    "OpenSans-Regular": require("../../assets/fonts/OpenSans-Regular.ttf"),
+    "OpenSans-Bold": require("../../assets/fonts/OpenSans-Bold.ttf"),
+    "OpenSans-ExtraBold": require("../../assets/fonts/OpenSans-SemiBold.ttf"),
+    "OpenSans-Medium": require("../../assets/fonts/OpenSans-Light.ttf"),
+  });
+  const [faultDropOpen, setFaultDropOpen] = useState(false);
+  const [severityDropOpen, setSeverityDropOpen] = useState(false);
   const [Fault, setFault] = useState([]);
-  const [filled, setfilled] = useState(false);
   const [FaultTypes, setFaultType] = useState([
   { label: "Light", value: "1" },
   { label: "Gantry Machine", value: "2" },
@@ -30,25 +36,10 @@ function ReportFault({ navigation,route }) {
   { label: "Low", value: "1" },
   ]);
   const [carpark, setCarpark] = useState("");
+  const [filled, setfilled] = useState(false);
   const [description, setDescription] = useState("");
-  const [result,setResult] = useState(null);
-
-  const [fontsLoaded] = useFonts({
-    'Nunito-Black': require('../../assets/fonts/Nunito_Sans/NunitoSans-Black.ttf'),
-    'Nunito-Bold': require('../../assets/fonts/Nunito_Sans/NunitoSans-Bold.ttf'),
-    'Nunito-ExtraBold': require('../../assets/fonts/Nunito_Sans/NunitoSans-ExtraBold.ttf'),
-    'Nunito-ExtraLight': require('../../assets/fonts/Nunito_Sans/NunitoSans-ExtraLight.ttf'),
-    'Nunito-Light': require('../../assets/fonts/Nunito_Sans/NunitoSans-Light.ttf'),
-    'Nunito-Regular': require('../../assets/fonts/Nunito_Sans/NunitoSans-Regular.ttf'),
-    'Nunito-SemiBold': require('../../assets/fonts/Nunito_Sans/NunitoSans-SemiBold.ttf'),
-    'OpenSans-Bold': require('../../assets/fonts/Open_Sans/static/OpenSans/OpenSans-Bold.ttf'),
-    'OpenSans-ExtraBold': require('../../assets/fonts/Open_Sans/static/OpenSans/OpenSans-ExtraBold.ttf'),
-    'OpenSans-Light': require('../../assets/fonts/Open_Sans/static/OpenSans/OpenSans-Light.ttf'),
-    'OpenSans-Regular': require('../../assets/fonts/Open_Sans/static/OpenSans/OpenSans-Regular.ttf'),
-    'OpenSans-SemiBold': require('../../assets/fonts/Open_Sans/static/OpenSans/OpenSans-SemiBold.ttf'),
-    'OpenSans-Medium': require('../../assets/fonts/Open_Sans/static/OpenSans/OpenSans-Medium.ttf'),
-  });
-
+  const [photoPreview, setPhotoPreview] = useState(null);
+  
   function descriptionHandler(enteredDescription) {
     setDescription(enteredDescription);
   }
@@ -63,32 +54,33 @@ function ReportFault({ navigation,route }) {
   }
 
   useEffect(() => {
-    if (setFaultTypeOpen !== false && setSeverityOpen !== false && description !== "") {
+    if (setFaultDropOpen !== false && setSeverityDropOpen !== false && description !== "") {
       setfilled(true);
-      if(route.params !== undefined){
-        setResult(route.params.result);
-      }else{
-        setResult(null);
-      }
     }
   }, [carpark, description]);
 
+  useEffect(() => {
+    if(route.params !== undefined){
+      setPhotoPreview(route.params.photoPreview);
+    }else{
+      setPhotoPreview(null);
+    }
+  }, [route.params]);
+
   return (
-    fontsLoaded ? <TouchableWithoutFeedback onPress={() => 
-      Keyboard.dismiss() || setFaultTypeOpen(false)|| setSeverityOpen(false)
+    fontsLoaded?<TouchableWithoutFeedback onPress={() => 
+      Keyboard.dismiss() || setFaultDropOpen(false)|| setSeverityDropOpen(false)
       }>
+
       <View style={styles.form}>
         <ImageBackground
           source={CarparkBackground}
           style={styles.backgroundimage}
         >
         </ImageBackground>
+
         <View style={styles.topContent}>
-          <IconButton
-            onPress={goBack}
-            icon="arrow-back"
-            size={28}
-            color="black"
+          <IconButton onPress={goBack} icon="arrow-back" size={28} color="black"
           />
           <Text style={styles.reportTitle}
             onLayout={(event) => {
@@ -97,27 +89,24 @@ function ReportFault({ navigation,route }) {
           >
             Report Faults
           </Text>
+        </View> 
+
+        <View style={styles.carparkTitle}>
+          <Text style={styles.carparkTitle}>
+            Carpark BG03</Text>
         </View>  
-          <View style={styles.carparkTitle}>
-            <Text style={styles.carparkTitle}>
-              Carpark BG03</Text>
-          </View>  
+
         <View style={styles.helpFault}>
             <Text style={styles.helpFault}>
               How can we help?</Text>
         </View>   
-        <View style={{backgroundColor: bgcolor,
-                      alignItems: "center",
-                      justifyContent: "center",
-                      opacity: 1,
-                      paddingHorizontal: 15,
-                      zIndex: 1000}}>
-          
+        
+        <View style={{backgroundColor: backColor, alignItems: "center", justifyContent: "center", opacity: 1, paddingHorizontal: 15, zIndex: 1000}}>
           <DropDownPicker
-            open={FaultTypeOpen}
+            open={faultDropOpen}
             value={Fault}
             items={FaultTypes}
-            setOpen={setFaultTypeOpen}
+            setOpen={setFaultDropOpen}
             setValue={setFault}
             setItems={setFaultType}
             textStyle={{
@@ -130,24 +119,19 @@ function ReportFault({ navigation,route }) {
             multiple={false}
             listMode="SCROLLVIEW"
             marginTop={10}
-            backgroundColor={bgcolor}
+            backgroundColor={backColor}
             justifyContent="center"
-            onOpen={() => {setSeverityOpen(false), setFaultTypeOpen(true)}}
+            onOpen={() => {setSeverityDropOpen(false), setFaultDropOpen(true)}}
             controller={(instance) => dropDownRef.current = instance}
           />
         </View>
 
-        <View style={{marginTop: 10,
-                      backgroundColor: bgcolor,
-                      alignItems: "center",
-                      justifyContent: "center",
-                      paddingHorizontal: 15,
-                      zIndex: 999}}>
+        <View style={{marginTop: 10, backgroundColor: backColor, alignItems: "center", justifyContent: "center", paddingHorizontal: 15, zIndex: 999}}>
           <DropDownPicker
-            open={SeverityOpen}
+            open={severityDropOpen}
             value={Severity}
             items={SeverityLevel}
-            setOpen={setSeverityOpen}
+            setOpen={setSeverityDropOpen}
             setValue={setSeverity}
             setItems={setSeverityLevel}
 
@@ -160,12 +144,13 @@ function ReportFault({ navigation,route }) {
             theme="DARK"
             multiple={false}
             mode="BADGE"
-            onOpen={() => {setSeverityOpen(true), setFaultTypeOpen(false)}}
+            onOpen={() => {setSeverityDropOpen(true), setFaultDropOpen(false)}}
           />
         </View>
 
-        {result && <Image style={styles.preview} source={{ uri: result }} />}
-        <Text style={styles.text}></Text>
+        {/* needs work */}
+            
+        <Image style={styles.preview} source={{uri: photoPreview}}/>
         
         <View style={styles.inputContainer}>
           <TextInput
@@ -195,13 +180,14 @@ function ReportFault({ navigation,route }) {
           />
         </View>
       </View>
-    </TouchableWithoutFeedback> : <LoadingScreen />
-    );
-  }
-
+      
+      
+    </TouchableWithoutFeedback>
+    :<AppLoading />)
+}
 const styles = StyleSheet.create({
   form: {
-    backgroundColor: bgcolor,
+    backgroundColor: backColor,
     flex: 1,
   },
   backgroundimage: {
@@ -226,7 +212,6 @@ const styles = StyleSheet.create({
     fontSize: 35,
     color: "black",
     textAlign: 'center',
-    marginLeft: 10,
     fontFamily: "OpenSans-ExtraBold",
   },
   helpFault: {
@@ -235,23 +220,10 @@ const styles = StyleSheet.create({
     fontSize: 27,
     fontWeight: "regular",
     color: "black",
-    alignSelf: 'center',
     justifyContent: 'center',
     alignItems: 'center',
     textAlignVertical: 'center',
-    alignContent: 'center',
     fontFamily: "OpenSans-Medium",
-  },
-  text: {
-    marginTop: 20,
-    fontSize: 15,
-    fontWeight: "200",
-    color: "black",
-    alignSelf: 'center',
-    justifyContent: 'center',
-    alignItems: 'center',
-    textAlignVertical: 'center',
-    alignContent: 'center',
   },
   reportDescription: {
     fontSize: 15,
@@ -270,6 +242,7 @@ const styles = StyleSheet.create({
     borderWidth: 2,
     borderRadius: 30,
     marginHorizontal: 10,
+    marginTop: 10,
     maxHeight: 150,
     backgroundColor: "white",
     fontFamily: "OpenSans-Regular",
@@ -322,7 +295,8 @@ const styles = StyleSheet.create({
   },
   preview: {
     alignSelf: 'stretch',
-    flex: 1
+    marginVertical: 10,
+    width: 300,
   }
 });
 
