@@ -1,15 +1,26 @@
 import React from "react";
 import { View, Text, StyleSheet, Dimensions } from "react-native";
 
+const checkCarparkLots = ({ carpark }) => {};
 const CarparkInfoCard = ({ carpark }) => {
   return (
     <View style={styles.card}>
       <Text style={styles.title}>{carpark.address}</Text>
+      <Text style={styles.subtitle_lots}>Total Slots:</Text>
+      <Text style={styles.subtitle_lots}>Avaliable Slots:</Text>
       <Text style={styles.subtitle}>
-        Free parking time: {carpark.free_parking}
+        Free Parking Time: {carpark.free_parking}
       </Text>
-      <Text style={styles.subtitle}>Total Slots:</Text>
-      <Text style={styles.subtitle}>Avaliable Slots:</Text>
+      <Text style={styles.subtitle}>
+        Parking Duration: {carpark.short_term_parking}
+      </Text>
+      <Text style={styles.subtitle}>Carpark Type: {carpark.car_park_type}</Text>
+      <Text style={styles.subtitle}>
+        Gantry Height:{" "}
+        {carpark.gantry_height !== "0.00"
+          ? carpark.gantry_height + " Metres"
+          : "No Limit"}{" "}
+      </Text>
     </View>
   );
 };
@@ -38,6 +49,13 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: "bold",
     marginBottom: 0,
+    marginLeft: 20,
+  },
+  subtitle_lots: {
+    fontSize: 18,
+    fontWeight: "bold",
+    color: "black",
+    marginTop: 20,
     marginLeft: 20,
   },
   subtitle: {

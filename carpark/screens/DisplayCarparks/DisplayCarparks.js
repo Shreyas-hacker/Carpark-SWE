@@ -4,7 +4,7 @@ import SearchBar from "../../components/SearchBar";
 import PrimaryButton from "../../components/PrimaryButton";
 import Map from "./Maps";
 import { getCurrentLocation } from "./LocationService";
-import { searchCarpark } from "./SearchCarpark";
+import { searchCarpark, searchCarparkLots } from "./SearchCarpark";
 import CarparkInfoCard from "./CarparkInfoCard";
 
 const DisplayCarpark = () => {
@@ -37,6 +37,8 @@ const DisplayCarpark = () => {
       carparks.filter((carpark) => carpark.x_coord && carpark.y_coord);
     setFilteredCarparks(filteredCarparks);
     setSelectedCarpark(null);
+    carparksLots = await searchCarparkLots(filteredCarparks);
+    console.log(filteredCarparks);
   }
 
   const handleCarparkSelect = (carpark) => {
