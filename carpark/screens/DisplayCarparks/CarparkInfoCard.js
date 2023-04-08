@@ -2,8 +2,9 @@ import React, { useRef } from "react";
 import { View, Text, StyleSheet, Dimensions, Animated } from "react-native";
 import useLoadFonts from '../../util/loadfont';
 import { FontStyle } from "../../util/fontstyles";
+import LoadingScreen from "../../components/LoadingScreen";
 
-const CarparkInfoCard = ({ carpark,carparkLots }) => {
+const CarparkInfoCard = ({ carpark,carparkLots,loaded }) => {
   const slideAnimation = useRef(new Animated.Value(0)).current;
 
   const toggleCard = () => {
@@ -36,24 +37,28 @@ const CarparkInfoCard = ({ carpark,carparkLots }) => {
         ]}
       >
         <View style={styles.slideBar} onTouchEnd={toggleCard} />
-        <Text style={[styles.title, FontStyle.bold]}>{carpark.address}</Text>
-        <Text style={[styles.subtitle_lots, FontStyle.regular]}>Total Slots: {carparkLots[1]}</Text>
-        <Text style={[styles.subtitle_lots, FontStyle.regular]}>Avaliable Slots: {carparkLots[0]}</Text>
-        <Text style={[styles.subtitle, FontStyle.italic]}>
-          Free Parking Time: {carpark.free_parking}
-        </Text>
-        <Text style={[styles.subtitle, FontStyle.regular]}>
-          Parking Duration: {carpark.short_term_parking}
-        </Text>
-        <Text style={[styles.subtitle, FontStyle.regular]}>
-          Carpark Type: {carpark.car_park_type}
-        </Text>
-        <Text style={[styles.subtitle, FontStyle.italic]}>
-          Gantry Height:{" "}
-          {carpark.gantry_height !== "0.00"
-            ? carpark.gantry_height + " Metres"
-            : "No Limit"}{" "}
-        </Text>
+        {!loaded ? (
+          <>
+          <Text style={[styles.title, FontStyle.bold]}>{carpark.address}</Text>
+          <Text style={[styles.subtitle_lots, FontStyle.regular]}>Total Slots: {carparkLots[1]}</Text>
+          <Text style={[styles.subtitle_lots, FontStyle.regular]}>Avaliable Slots: {carparkLots[0]}</Text>
+          <Text style={[styles.subtitle, FontStyle.italic]}>
+            Free Parking Time: {carpark.free_parking}
+          </Text>
+          <Text style={[styles.subtitle, FontStyle.regular]}>
+            Parking Duration: {carpark.short_term_parking}
+          </Text>
+          <Text style={[styles.subtitle, FontStyle.regular]}>
+            Carpark Type: {carpark.car_park_type}
+          </Text>
+          <Text style={[styles.subtitle, FontStyle.italic]}>
+            Gantry Height:{" "}
+            {carpark.gantry_height !== "0.00"
+              ? carpark.gantry_height + " Metres"
+              : "No Limit"}{" "}
+          </Text>
+          </>
+        ): <LoadingScreen />}
       </Animated.View>
     </>
   );
