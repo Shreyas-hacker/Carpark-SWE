@@ -29,7 +29,8 @@ function Map({ carparks, region }) {
     getCoordinates();
   }, [carparks]);
 
-  useEffect(() => {
+  const handleMarkerPress = (carpark) => {
+    setSelectedCarpark(carpark._id);
     if (selectedCarpark) {
       const fetchCarparkLots = async () => {
         const { carpark_data } = await searchCarparkLots(selectedCarpark);
@@ -39,10 +40,6 @@ function Map({ carparks, region }) {
       };
       fetchCarparkLots();
     }
-  }, [selectedCarpark]);
-
-  const handleMarkerPress = (carpark) => {
-    setSelectedCarpark(carpark._id);
   };
 
   useEffect(() => {
