@@ -85,14 +85,6 @@ function HomeScreen({ navigation }) {
 
       <View style={styles.body}>
         <TouchableOpacity
-          style={styles.button2}
-          onPress={() => navigation.navigate("ReportFault")}
-        >
-          <MaterialIcons name="report-problem" color="red" size={24} />
-          <Text style={[styles.buttonText]}>Report</Text>
-        </TouchableOpacity>
-
-        <TouchableOpacity
           style={styles.button3}
           onPress={() => navigation.navigate("Favourite")}
         >
