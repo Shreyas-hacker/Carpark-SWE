@@ -50,8 +50,6 @@ function Login({navigation}){
         }
     }
 
-    useLoadFonts();
-
     return(
         <ScrollView style={styles.form} keyboardShouldPersistTaps='handled'>
             <View>
