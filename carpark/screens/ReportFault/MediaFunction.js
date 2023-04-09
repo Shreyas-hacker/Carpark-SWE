@@ -1,8 +1,17 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, Dimensions, View, SafeAreaView, Button, Image, TouchableOpacity } from 'react-native';
-import { useEffect, useRef, useState } from 'react';
-import { Camera } from 'expo-camera';
-import * as MediaLibrary from 'expo-media-library';
+import { StatusBar } from "expo-status-bar";
+import {
+  StyleSheet,
+  Text,
+  Dimensions,
+  View,
+  SafeAreaView,
+  Button,
+  Image,
+  TouchableOpacity,
+} from "react-native";
+import { useEffect, useRef, useState } from "react";
+import { Camera } from "expo-camera";
+import * as MediaLibrary from "expo-media-library";
 
 const deviceWidth = Dimensions.get("window").width;
 const deviceHeight = Dimensions.get("window").height;
@@ -16,16 +25,21 @@ export default function App({ navigation }) {
   useEffect(() => {
     (async () => {
       const cameraPermission = await Camera.requestCameraPermissionsAsync();
-      const mediaLibraryPermission = await MediaLibrary.requestPermissionsAsync();
+      const mediaLibraryPermission =
+        await MediaLibrary.requestPermissionsAsync();
       setHasCameraPermission(cameraPermission.status === "granted");
       setHasMediaLibraryPermission(mediaLibraryPermission.status === "granted");
     })();
   }, []);
 
   if (hasCameraPermission === undefined) {
-    return <Text>Requesting permissions...</Text>
+    return <Text>Requesting permissions...</Text>;
   } else if (!hasCameraPermission) {
-    return <Text>Permission for camera not granted. Please change this in settings.</Text>
+    return (
+      <Text>
+        Permission for camera not granted. Please change this in settings.
+      </Text>
+    );
   }
 
   let takePic = async () => {
@@ -40,60 +54,66 @@ export default function App({ navigation }) {
     setPhoto(newPhoto);
   };
 
-  let retakePicture = async() => {
-    setPhoto(undefined);    
-  } 
-   
+  let retakePicture = async () => {
+    setPhoto(undefined);
+  };
+
   if (photo) {
-      let savePhoto = () => {
+    let savePhoto = () => {
       MediaLibrary.saveToLibraryAsync(photo.uri).then(() => {
-        navigation.navigate("ReportFault", { photoPreview: photo.uri })
+        navigation.navigate("ReportFault", { photoPreview: photo.uri });
       });
     };
 
     return (
       <SafeAreaView style={styles.container}>
-        <Image style={styles.preview} 
+        <Image
+          style={styles.preview}
           source={{ uri: "data:image/jpg;base64," + photo.base64 }}
         />
 
-        {hasMediaLibraryPermission ? <Button title="Retake Photo" onPress={retakePicture}/> : undefined}
-        {hasMediaLibraryPermission ? <Button title="Submit Photo" onPress={savePhoto}/> : undefined}
+        {hasMediaLibraryPermission ? (
+          <Button title="Retake Photo" onPress={retakePicture} />
+        ) : undefined}
+        {hasMediaLibraryPermission ? (
+          <Button title="Submit Photo" onPress={savePhoto} />
+        ) : undefined}
       </SafeAreaView>
     );
   }
 
-  
-
   return (
     <Camera style={styles.container} ref={cameraRef}>
       <View style={styles.bottomBar}>
-        <View style={{
-        alignSelf: 'center',
-        flex: 1,
-        alignItems: 'center'
-        }}
+        <View
+          style={{
+            alignSelf: "center",
+            flex: 1,
+            alignItems: "center",
+          }}
         >
           <TouchableOpacity
-          onPress={takePic}
-          style={{
-          width: 70,
-          height: 70,
-          bottom: 0,
-          borderRadius: 50,
-          paddingHorizontal: 10,
-          marginLeft: 57,
-          backgroundColor: '#fff'
-          }}
+            onPress={takePic}
+            style={{
+              width: 70,
+              height: 70,
+              bottom: 0,
+              borderRadius: 50,
+              paddingHorizontal: 10,
+              marginLeft: 57,
+              backgroundColor: "#fff",
+            }}
           />
-      </View>
-      
-      <Button
-        title = "Back" 
-        style = {styles.backButton}
-        color={'#fff'}
-        onPress = {() => {navigation.navigate("ReportFault")}}>
-      </Button>
+        </View>
+
+        <Button
+          title="Back"
+          style={styles.backButton}
+          color={"#fff"}
+          onPress={() => {
+            navigation.navigate("ReportFault");
+          }}
+        ></Button>
       </View>
 
       <StatusBar style="auto" />
@@ -104,28 +124,28 @@ export default function App({ navigation }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-    textcolor: 'white'
+    alignItems: "center",
+    justifyContent: "center",
+    textcolor: "white",
   },
   buttonContainer: {
-    backgroundColor: '#fff',
-    alignSelf: 'flex-end'
+    backgroundColor: "#fff",
+    alignSelf: "flex-end",
   },
   preview: {
-    alignSelf: 'stretch',
+    alignSelf: "stretch",
     flex: 1,
   },
   bottomBar: {
-    position: 'absolute',
+    position: "absolute",
     bottom: 0,
-    flexDirection: 'row',
+    flexDirection: "row",
     flex: 1,
-    width: '100%',
+    width: "100%",
     padding: 20,
-    justifyContent: 'space-between',
-    backgroundColor: 'black',
+    justifyContent: "space-between",
+    backgroundColor: "black",
     opacity: 0.8,
-    borderRadius: 30
+    borderRadius: 30,
   },
 });
