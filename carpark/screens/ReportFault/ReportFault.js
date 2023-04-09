@@ -9,7 +9,7 @@ import {
   Keyboard,
   Alert,
 } from "react-native";
-import { React, useEffect, useState } from "react";
+import { React, useEffect, useState,useContext } from "react";
 import CarparkBackground from "../../assets/CarparkBackground.jpg";
 import DropDownPicker from "react-native-dropdown-picker";
 import PrimaryButton from "../../components/PrimaryButton";
@@ -18,6 +18,7 @@ import useLoadFonts from "../../util/fonts/loadfont";
 import { FontStyle } from "../../util/fonts/fontstyles";
 import { uploadImage } from "../../util/realtime/storeImage";
 import { storeReport } from "../../util/realtime/realTimeStorage";
+import { AuthContext } from "../../store/context/user-context";
 
 const backColor = "#FFFFFF";
 const deviceWidth = Dimensions.get("window").width;
@@ -25,6 +26,7 @@ const deviceHeight = Dimensions.get("window").height;
 let componentWidth = 0;
 
 function ReportFault({ navigation, route }) {
+  const authCtx = useContext(AuthContext);
   const [faultDropOpen, setFaultDropOpen] = useState(false);
   const [severityDropOpen, setSeverityDropOpen] = useState(false);
   const [Fault, setFault] = useState([]);
@@ -44,6 +46,8 @@ function ReportFault({ navigation, route }) {
   const [filled, setfilled] = useState(false);
   const [description, setDescription] = useState("");
   const [photoPreview, setPhotoPreview] = useState(null);
+
+  var email = authCtx.email;
 
   useLoadFonts();
 
@@ -80,7 +84,7 @@ function ReportFault({ navigation, route }) {
       photoURL = await uploadImage(photoPreview,carpark);
     }
     const data = {
-      user_id: "1",
+      user_id: email,
       carpark_no: carpark,
       fault_type: Fault,
       severity: Severity,

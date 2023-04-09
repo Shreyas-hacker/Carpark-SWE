@@ -19,6 +19,7 @@ function HomeScreen({ navigation }) {
   const API_KEY = "AIzaSyCX5cIGMG23hoatqCPLZnSQJX_6klMLbRk";
   const authCtx = useContext(AuthContext);
   const [displayName, setDisplayName] = useState("");
+  const [email, setEmail] = useState("");
   const [searchText, setSearchText] = useState("");
   const [searchResults, setSearchResults] = useState([]);
 
@@ -34,6 +35,11 @@ function HomeScreen({ navigation }) {
             setDisplayName(response.data.users[0].displayName);
           } else {
             setDisplayName(authCtx.display_name);
+          }
+          if (!authCtx.email) {
+            setEmail(response.data.users[0].email);
+          } else {
+            setEmail(authCtx.email);
           }
         })
         .catch((error) => {

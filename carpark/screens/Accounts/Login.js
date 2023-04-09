@@ -38,6 +38,7 @@ function Login({navigation}){
     async function loginAttempt(){
         try{
             const token = await login(username,password);
+            authCtx.handleEmail(username);
             authCtx.authenticate(token);
             authCtx.setAuth();
         }catch(error){
