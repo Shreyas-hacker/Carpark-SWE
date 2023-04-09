@@ -73,18 +73,17 @@ function ReportFault({ navigation, route }) {
   function goBack() {
     navigation.navigate("Tab");
   }
-  async function submit() {
-    const res = await uploadImage(photoPreview, "HE12");
+  function submit() {
+    const photoURL = uploadImage(photoPreview,"HE12");
     const data = {
+      user_id: "1",
       carpark_no: "HE12",
       fault_type: Fault,
       severity: Severity,
       description: description,
-      photo: res,
-    };
-    Alert.alert("Fault Reported", "Thank you for your feedback!", [
-      { text: "OK", onPress: () => navigation.goBack() },
-    ]);
+      photo: photoURL,
+    }
+    Alert.alert("Fault Reported", "Thank you for your feedback!", [{ text: "OK", onPress: () => navigation.goBack() }]);
   }
 
   return (
