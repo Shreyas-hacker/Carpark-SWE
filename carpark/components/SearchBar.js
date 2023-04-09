@@ -3,6 +3,12 @@ import { View, TextInput, StyleSheet } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 
 const SearchBar = ({ searchTerm, onSearchTermChange, onSearch }) => {
+  const handleSearch = () => {
+    if (searchTerm) {
+      onSearch();
+    }
+  };
+
   return (
     <View style={styles.background}>
       <Ionicons name="search" style={styles.iconStyle} />
@@ -10,10 +16,10 @@ const SearchBar = ({ searchTerm, onSearchTermChange, onSearch }) => {
         autoCapitalize="none"
         autoCorrect={false}
         style={styles.inputStyle}
-        placeholder="Search"
+        placeholder="Search carparks here"
         value={searchTerm}
         onChangeText={onSearchTermChange}
-        onEndEditing={onSearch}
+        onEndEditing={handleSearch}
       />
     </View>
   );

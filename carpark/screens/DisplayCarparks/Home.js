@@ -14,7 +14,6 @@ import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 import LoadingScreen from "../../components/LoadingScreen";
 import CarparkBackground from "../../assets/CarparkBackground.jpg";
 import { searchCarpark } from "./SearchCarpark";
-import useLoadFonts from '../../util/fonts/loadfont';
 
 function HomeScreen({ navigation }) {
   const API_KEY = "AIzaSyCX5cIGMG23hoatqCPLZnSQJX_6klMLbRk";
@@ -23,7 +22,6 @@ function HomeScreen({ navigation }) {
   const [searchText, setSearchText] = useState("");
   const [searchResults, setSearchResults] = useState([]);
 
-  useLoadFonts();
 
   useEffect(() => {
     const token = authCtx.token;
@@ -130,7 +128,7 @@ const styles = StyleSheet.create({
     fontSize: 30,
     fontWeight: "bold",
     color: "black",
-    fontFamily: "OpenSans-BoldItalic"
+    fontFamily: "OpenSans-Bold"
   },
   displayNameText: {
     fontSize: 20,
