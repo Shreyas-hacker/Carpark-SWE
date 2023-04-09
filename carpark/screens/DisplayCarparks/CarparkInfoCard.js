@@ -7,13 +7,16 @@ import {
   Animated,
   TouchableOpacity,
 } from "react-native";
+import { useNavigation } from "@react-navigation/native";
 import useLoadFonts from "../../util/fonts/loadfont";
 import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 import { FontStyle } from "../../util/fonts/fontstyles";
 import LoadingScreen from "../../components/LoadingScreen";
 
-const CarparkInfoCard = ({ carpark, carparkLots, loaded }) => {
+function CarparkInfoCard({ carpark, carparkLots, loaded }){
   const slideAnimation = useRef(new Animated.Value(0)).current;
+  const navigation = useNavigation();
+
   const [arrowDirection, setArrowDirection] = useState("up");
 
   const toggleCard = () => {
@@ -85,9 +88,13 @@ const CarparkInfoCard = ({ carpark, carparkLots, loaded }) => {
                 ? carpark.gantry_height + " Metres"
                 : "No Limit"}{" "}
             </Text>
+
             <TouchableOpacity
               style={styles.button2}
-              onPress={() => navigation.navigate("ReportFault")}
+              onPress={() => {
+                navigation.goBack();
+                navigation.navigate("ReportFault", { carpark: carpark })
+              }}
             >
               <MaterialIcons name="report-problem" color="red" size={24} />
               <Text style={[styles.buttonText]}>Report</Text>

@@ -40,7 +40,7 @@ function ReportFault({ navigation, route }) {
     { label: "Medium", value: "2" },
     { label: "Low", value: "1" },
   ]);
-  const [carpark, setCarpark] = useState("");
+  const [carpark, setCarpark] = useState(route.params.carpark.car_park_no);
   const [filled, setfilled] = useState(false);
   const [description, setDescription] = useState("");
   const [photoPreview, setPhotoPreview] = useState(null);
@@ -123,7 +123,7 @@ function ReportFault({ navigation, route }) {
         </View>
 
         <Text style={[styles.carparkTitle]}>
-          Carpark BG03
+          Carpark {carpark}
         </Text>
 
         <View style={styles.helpFault}>
