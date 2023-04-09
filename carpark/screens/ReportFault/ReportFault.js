@@ -81,7 +81,7 @@ function ReportFault({ navigation, route }) {
     }
     const data = {
       user_id: "1",
-      carpark_no: "HE12",
+      carpark_no: carpark,
       fault_type: Fault,
       severity: Severity,
       description: description,
