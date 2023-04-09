@@ -75,7 +75,6 @@ function HomeScreen({ navigation }) {
               name: "DisplayCarpark",
               params: {
                 searchTerm: searchText,
-                filteredCarparks: searchResults,
               },
               merge: true,
             });

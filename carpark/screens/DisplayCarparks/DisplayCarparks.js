@@ -6,9 +6,9 @@ import { getCurrentLocation } from "./LocationService";
 import { searchCarpark } from "./SearchCarpark";
 import CarparkInfoCard from "./CarparkInfoCard";
 
-const DisplayCarpark = () => {
+const DisplayCarpark = ({route}) => {
   const [filteredCarparks, setFilteredCarparks] = useState([]);
-  const [searchTerm, setSearchTerm] = useState("");
+  const [searchTerm, setSearchTerm] = useState(route.params? route.params.searchTerm : "");
   const [mapRegion, setMapRegion] = useState({
     latitude: 103.855,
     longitude: 1.3007,
@@ -22,6 +22,9 @@ const DisplayCarpark = () => {
     async function getLocation() {
       const location = await getCurrentLocation();
       setMapRegion(location);
+      if(searchTerm !== ""){
+        handleSearchCarpark();
+      }
     }
     getLocation();
   }, []);
