@@ -17,6 +17,7 @@ import IconButton from "../../components/IconButton";
 import useLoadFonts from "../../util/fonts/loadfont";
 import { FontStyle } from "../../util/fonts/fontstyles";
 import { uploadImage } from "../../util/realtime/storeImage";
+import { storeReport } from "../../util/realtime/realTimeStorage";
 
 const backColor = "#FFFFFF";
 const deviceWidth = Dimensions.get("window").width;
@@ -73,8 +74,11 @@ function ReportFault({ navigation, route }) {
   function goBack() {
     navigation.navigate("Tab");
   }
-  function submit() {
-    const photoURL = uploadImage(photoPreview,"HE12");
+  async function submit() {
+    var photoURL = "";
+    if(photoPreview){
+      photoURL = await uploadImage(photoPreview,carpark);
+    }
     const data = {
       user_id: "1",
       carpark_no: "HE12",
@@ -82,7 +86,8 @@ function ReportFault({ navigation, route }) {
       severity: Severity,
       description: description,
       photo: photoURL,
-    }
+    };
+    storeReport(data);
     Alert.alert("Fault Reported", "Thank you for your feedback!", [{ text: "OK", onPress: () => navigation.goBack() }]);
   }
 

@@ -1,15 +1,26 @@
 import storage from './firebase'
-import {getDownloadURL, ref, uploadBytes} from 'firebase/storage';
+import {getDownloadURL, ref, uploadBytesResumable} from 'firebase/storage';
 
 export async function uploadImage(uri,carpark_no){
-    console.log(uri);
     var filename = carpark_no + '.jpg';
     const storageRef = ref(storage, 'images/' + filename);
 
-    const res = uploadBytes(storageRef, uri).then((snapshot) => {
-        console.log('Uploaded a blob or file!');
-    });
+    const uploadTask = uploadBytesResumable(storageRef, uri);
+    var url = '';
+
     
-    const url = await getDownloadURL(storageRef);
-    return url;
+    return new Promise((resolve, reject) => {
+    uploadTask.on('state_changed', (snapshot) => {
+        console.log('snapshot progess ' + (snapshot.bytesTransferred / snapshot.totalBytes) * 100);
+    }, (error) => {
+        console.log(error);
+        reject(error);
+    }, () => {
+        //Upload complete and get download URL
+        getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+            url = downloadURL;
+            resolve(url);
+        });
+    });
+    });
 }
