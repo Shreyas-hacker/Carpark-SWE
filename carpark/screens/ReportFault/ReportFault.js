@@ -60,8 +60,15 @@ function ReportFault({ navigation,route }) {
   function goBack() {
     navigation.navigate("Tab");
   }
-  function submit() {
-    uploadImage(photoPreview);
+  async function submit() {
+    const res = await uploadImage(photoPreview,"HE12");
+    const data = {
+      carpark_no: "HE12",
+      fault_type: Fault,
+      severity: Severity,
+      description: description,
+      photo: res,
+    }
     Alert.alert("Fault Reported", "Thank you for your feedback!", [{ text: "OK", onPress: () => navigation.goBack() }]);
   }
 

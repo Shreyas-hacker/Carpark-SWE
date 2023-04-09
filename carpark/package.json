@@ -34,7 +34,8 @@
     "utm-latlng": "^1.0.7"
   },
   "devDependencies": {
-    "@babel/core": "^7.20.0"
+    "@babel/core": "^7.20.0",
+    "@expo/webpack-config": "^18.0.3"
   },
   "private": true
 }

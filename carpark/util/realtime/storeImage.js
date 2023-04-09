@@ -1,14 +1,13 @@
-import { firebase } from "./firebase";
+import {storage} from './firebase';
+import {getDownloadURL, ref, uploadString} from 'firebase/storage';
 
-export async function uploadImage(uri){
-    const response = await fetch(uri);
-    const blob = await response.blob();
-    const filename = uri.substring(uri.lastIndexOf('/')+1);
-    var ref = firebase.storage().ref().child(filename).put(blob);
-    try{
-        await ref;
-    }catch(error){
-        console.log(error);
-    }
-    return ref.downloadURL;
+export async function uploadImage(uri,carpark_no){
+    var filename = carpark_no + '.jpg';
+    const storageRef = ref(storage, 'images/' + filename);
+
+    var message = 'data:image/jpeg;base64,' + uri;
+    const res = await uploadString(storageRef, message, 'data_url').then(function(snapshot) {
+        console.log('Uploaded a data_url string!');
+    });
+    return getDownloadURL(storageRef);
 }
