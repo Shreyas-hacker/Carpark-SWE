@@ -14,13 +14,13 @@ import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 import LoadingScreen from "../../components/LoadingScreen";
 import CarparkBackground from "../../assets/CarparkBackground.jpg";
 import { searchCarpark } from "./SearchCarpark";
-import useLoadFonts from '../../util/fonts/loadfont';
+import useLoadFonts from "../../util/fonts/loadfont";
 import { FontStyle } from "../../util/fonts/fontstyles";
 
 function HomeScreen({ navigation }) {
   const API_KEY = "AIzaSyCX5cIGMG23hoatqCPLZnSQJX_6klMLbRk";
   const authCtx = useContext(AuthContext);
-  const [displayName, setDisplayName] = useState('');
+  const [displayName, setDisplayName] = useState("");
   const [searchText, setSearchText] = useState("");
   const [searchResults, setSearchResults] = useState([]);
 
@@ -30,14 +30,17 @@ function HomeScreen({ navigation }) {
     const token = authCtx.token;
     const url = `https://identitytoolkit.googleapis.com/v1/accounts:lookup?key=${API_KEY}`;
     async function getDisplayName() {
-        const response = await axios.post(url, { idToken: token }).then((response) => {
-          if(!authCtx.display_name){
+      const response = await axios
+        .post(url, { idToken: token })
+        .then((response) => {
+          if (!authCtx.display_name) {
             setDisplayName(response.data.users[0].displayName);
-          }else{
+          } else {
             setDisplayName(authCtx.display_name);
           }
-        }).catch((error) => {
-          console.log(error.message)
+        })
+        .catch((error) => {
+          console.log(error.message);
         });
     }
     getDisplayName();
@@ -51,8 +54,12 @@ function HomeScreen({ navigation }) {
       ></ImageBackground>
       <View style={styles.rowShown}>
         <View style={styles.header}>
-          <Text style={[styles.headerText, FontStyle.mediumitalic]}>Hello!</Text>
-          <Text style={[styles.displayNameText, FontStyle.regular]}>{displayName}</Text>
+          <Text style={[styles.headerText, FontStyle.mediumitalic]}>
+            Hello!
+          </Text>
+          <Text style={[styles.displayNameText, FontStyle.regular]}>
+            {displayName}
+          </Text>
         </View>
         <TouchableOpacity
           style={styles.button1}
@@ -63,36 +70,25 @@ function HomeScreen({ navigation }) {
         </TouchableOpacity>
       </View>
       <View style={styles.searchBar}>
-        <MaterialIcons
-          name="search"
-          color="#999999"
-          size={24}
-          style={styles.searchIcon}
-        />
+        <MaterialIcons name="search" size={24} style={styles.searchIcon} />
         <TextInput
-          style={[styles.searchInput, FontStyle.regular]}
-          placeholder="Search for car parks"
+          style={styles.searchInput}
+          placeholder="Search for carpark"
+          onChangeText={(text) => setSearchText(text)}
           value={searchText}
-          onChangeText={setSearchText}
-          onSubmitEditing={searchCarpark}
+          onSubmitEditing={() => {
+            searchCarpark(searchText, setSearchResults);
+            navigation.navigate({
+              name: "DisplayCarpark",
+              params: {
+                searchTerm: searchText,
+                filteredCarparks: searchResults,
+              },
+              merge: true,
+            });
+          }}
         />
       </View>
-
-      {searchResults.length > 0 ? (
-        <View style={styles.searchResults}>
-          {searchResults.map((result) => (
-            <TouchableOpacity
-              key={result.id}
-              style={styles.searchResult}
-              onPress={() =>
-                navigation.navigate("CarparkDetails", { id: result.id })
-              }
-            >
-              <Text style={styles.searchResultText}>{result.name}</Text>
-            </TouchableOpacity>
-          ))}
-        </View>
-      ) : null}
 
       <View style={styles.body}>
         <TouchableOpacity
@@ -108,7 +104,9 @@ function HomeScreen({ navigation }) {
           onPress={() => navigation.navigate("Favourite")}
         >
           <MaterialIcons name="favorite" color="deeppink" size={24} />
-          <Text style={[styles.buttonText, FontStyle.condensedbold]}>Favorite</Text>
+          <Text style={[styles.buttonText, FontStyle.condensedbold]}>
+            Favorite
+          </Text>
         </TouchableOpacity>
       </View>
     </View>
@@ -136,9 +134,9 @@ const styles = StyleSheet.create({
   rowShown: {
     flex: 1,
     flexDirection: "row",
-    justifyContent: 'center',
-    position: 'absolute',
-    marginTop: height/10,
+    justifyContent: "center",
+    position: "absolute",
+    marginTop: height / 10,
   },
   header: {
     marginLeft: 30,
