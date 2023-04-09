@@ -1,10 +1,20 @@
-import { View, ImageBackground, StyleSheet, Text, Dimensions, TextInput, TouchableWithoutFeedback, Keyboard, Image, Alert } from "react-native";
+import {
+  View,
+  ImageBackground,
+  StyleSheet,
+  Text,
+  Dimensions,
+  TextInput,
+  TouchableWithoutFeedback,
+  Keyboard,
+  Alert,
+} from "react-native";
 import { React, useEffect, useState } from "react";
 import CarparkBackground from "../../assets/CarparkBackground.jpg";
 import DropDownPicker from "react-native-dropdown-picker";
 import PrimaryButton from "../../components/PrimaryButton";
 import IconButton from "../../components/IconButton";
-import useLoadFonts from '../../util/fonts/loadfont';
+import useLoadFonts from "../../util/fonts/loadfont";
 import { FontStyle } from "../../util/fonts/fontstyles";
 import { uploadImage } from "../../util/realtime/storeImage";
 
@@ -13,40 +23,43 @@ const deviceWidth = Dimensions.get("window").width;
 const deviceHeight = Dimensions.get("window").height;
 let componentWidth = 0;
 
-
-function ReportFault({ navigation,route }) {
+function ReportFault({ navigation, route }) {
   const [faultDropOpen, setFaultDropOpen] = useState(false);
   const [severityDropOpen, setSeverityDropOpen] = useState(false);
   const [Fault, setFault] = useState([]);
   const [FaultTypes, setFaultType] = useState([
-  { label: "Light", value: "1" },
-  { label: "Gantry Machine", value: "2" },
-  { label: "Barrier", value: "3" },
-  { label: "Others", value: "4" },
+    { label: "Light", value: "1" },
+    { label: "Gantry Machine", value: "2" },
+    { label: "Barrier", value: "3" },
+    { label: "Others", value: "4" },
   ]);
   const [Severity, setSeverity] = useState([]);
   const [SeverityLevel, setSeverityLevel] = useState([
-  { label: "High", value: "3" },
-  { label: "Medium", value: "2" },
-  { label: "Low", value: "1" },
+    { label: "High", value: "3" },
+    { label: "Medium", value: "2" },
+    { label: "Low", value: "1" },
   ]);
   const [carpark, setCarpark] = useState("");
   const [filled, setfilled] = useState(false);
   const [description, setDescription] = useState("");
   const [photoPreview, setPhotoPreview] = useState(null);
-  
+
   useLoadFonts();
-  
+
   useEffect(() => {
-    if (setFaultDropOpen !== false && setSeverityDropOpen !== false && description !== "") {
+    if (
+      setFaultDropOpen !== false &&
+      setSeverityDropOpen !== false &&
+      description !== ""
+    ) {
       setfilled(true);
     }
   }, [carpark, description]);
 
   useEffect(() => {
-    if(route.params !== undefined){
+    if (route.params !== undefined) {
       setPhotoPreview(route.params.photoPreview);
-    }else{
+    } else {
       setPhotoPreview(null);
     }
   }, [route.params]);
@@ -73,23 +86,29 @@ function ReportFault({ navigation,route }) {
     Alert.alert("Fault Reported", "Thank you for your feedback!", [{ text: "OK", onPress: () => navigation.goBack() }]);
   }
 
-
   return (
-    <TouchableWithoutFeedback onPress={() => 
-      Keyboard.dismiss() || setFaultDropOpen(false)|| setSeverityDropOpen(false)
-      }>
-
+    <TouchableWithoutFeedback
+      onPress={() =>
+        Keyboard.dismiss() ||
+        setFaultDropOpen(false) ||
+        setSeverityDropOpen(false)
+      }
+    >
       <View style={styles.form}>
         <ImageBackground
           source={CarparkBackground}
           style={styles.backgroundimage}
-        >
-        </ImageBackground>
+        ></ImageBackground>
 
         <View style={styles.topContent}>
-          <IconButton onPress={goBack} icon="arrow-back" size={28} color="black"
+          <IconButton
+            onPress={goBack}
+            icon="arrow-back"
+            size={28}
+            color="black"
           />
-          <Text style={[styles.reportTitle, FontStyle.bold]}
+          <Text
+            style={[styles.reportTitle, FontStyle.bold]}
             onLayout={(event) => {
               measureView(event);
             }}
@@ -100,15 +119,24 @@ function ReportFault({ navigation,route }) {
 
         <Text style={[styles.carparkTitle, FontStyle.extrabold]}>
           Carpark BG03
-        </Text> 
+        </Text>
 
         <View style={styles.helpFault}>
           <Text style={[styles.helpFault, FontStyle.medium]}>
             How can we help?
           </Text>
-        </View>   
-        
-        <View style={{backgroundColor: backColor, alignItems: "center", justifyContent: "center", opacity: 1, paddingHorizontal: 15, zIndex: 1000}}>
+        </View>
+
+        <View
+          style={{
+            backgroundColor: backColor,
+            alignItems: "center",
+            justifyContent: "center",
+            opacity: 1,
+            paddingHorizontal: 15,
+            zIndex: 1000,
+          }}
+        >
           <DropDownPicker
             open={faultDropOpen}
             value={Fault}
@@ -118,7 +146,7 @@ function ReportFault({ navigation,route }) {
             setItems={setFaultType}
             textStyle={{
               fontSize: 15,
-              fontFamily: 'OpenSans-Bold'
+              fontFamily: "OpenSans-Bold",
             }}
             dropDownDirection="BOTTOM"
             placeholder="Select Fault Type"
@@ -128,12 +156,23 @@ function ReportFault({ navigation,route }) {
             marginTop={10}
             backgroundColor={backColor}
             justifyContent="center"
-            onOpen={() => {setSeverityDropOpen(false), setFaultDropOpen(true)}}
-            controller={(instance) => dropDownRef.current = instance}
+            onOpen={() => {
+              setSeverityDropOpen(false), setFaultDropOpen(true);
+            }}
+            controller={(instance) => (dropDownRef.current = instance)}
           />
         </View>
 
-        <View style={{marginTop: 10, backgroundColor: backColor, alignItems: "center", justifyContent: "center", paddingHorizontal: 15, zIndex: 999}}>
+        <View
+          style={{
+            marginTop: 10,
+            backgroundColor: backColor,
+            alignItems: "center",
+            justifyContent: "center",
+            paddingHorizontal: 15,
+            zIndex: 999,
+          }}
+        >
           <DropDownPicker
             open={severityDropOpen}
             value={Severity}
@@ -141,21 +180,21 @@ function ReportFault({ navigation,route }) {
             setOpen={setSeverityDropOpen}
             setValue={setSeverity}
             setItems={setSeverityLevel}
-
             textStyle={{
               fontSize: 15,
-              fontFamily: 'OpenSans-Bold'
+              fontFamily: "OpenSans-Bold",
             }}
             dropDownDirection="BOTTOM"
             placeholder="Select Fault Severity"
             theme="DARK"
             multiple={false}
             mode="BADGE"
-            onOpen={() => {setSeverityDropOpen(true), setFaultDropOpen(false)}}
+            onOpen={() => {
+              setSeverityDropOpen(true), setFaultDropOpen(false);
+            }}
           />
         </View>
-            
-        
+
         <View style={styles.inputContainer}>
           <TextInput
             style={styles.inputText}
@@ -168,33 +207,30 @@ function ReportFault({ navigation,route }) {
         </View>
 
         <View style={styles.cameraContainer}>
-            <IconButton 
-              onPress={()=>{navigation.navigate("Camera")}} 
-              icon="camera" 
-              size={35} 
-              color="black"
+          <IconButton
+            onPress={() => {
+              navigation.navigate("Camera");
+            }}
+            icon="camera"
+            size={35}
+            color="black"
           />
         </View>
         {photoPreview && <Text style={styles.imageText}>Image Stored</Text>}
         {/* <Image style={styles.preview} source={{uri: photoPreview}}/> */}
         <View style={styles.buttonContainer}>
-          <PrimaryButton
-            text="Submit"
-            onSuccess={filled}
-            onAttempt={submit}
-          />
+          <PrimaryButton text="Submit" onSuccess={filled} onAttempt={submit} />
         </View>
       </View>
-      
-      
-    </TouchableWithoutFeedback>);
+    </TouchableWithoutFeedback>
+  );
 }
 
 const styles = StyleSheet.create({
   dropdowntext: {
     fontSize: 15,
-    fontFamily: 'OpenSans-Bold'
-  }, 
+    fontFamily: "OpenSans-Bold",
+  },
   form: {
     backgroundColor: backColor,
     flex: 1,
@@ -206,7 +242,7 @@ const styles = StyleSheet.create({
     opacity: 0.5,
   },
   topContent: {
-    width: '100%',
+    width: "100%",
     position: "absolute",
     flexDirection: "row",
     top: deviceHeight / 15,
@@ -214,12 +250,12 @@ const styles = StyleSheet.create({
   },
   reportTitle: {
     fontSize: 20,
-    marginHorizontal: (deviceWidth - componentWidth -35) / 5,
+    marginHorizontal: (deviceWidth - componentWidth - 35) / 5,
   },
   carparkTitle: {
     fontSize: 35,
     color: "black",
-    textAlign: 'center',
+    textAlign: "center",
   },
   helpFault: {
     marginBottom: 5,
@@ -227,9 +263,9 @@ const styles = StyleSheet.create({
     fontSize: 27,
     fontWeight: "regular",
     color: "black",
-    justifyContent: 'center',
-    alignItems: 'center',
-    textAlignVertical: 'center',
+    justifyContent: "center",
+    alignItems: "center",
+    textAlignVertical: "center",
   },
   reportDescription: {
     fontSize: 15,
@@ -237,11 +273,11 @@ const styles = StyleSheet.create({
     color: "black",
     paddingTop: 10,
     paddingBottom: 10,
-    alignSelf: 'center',
-    justifyContent: 'center',
-    alignItems: 'center',
-    textAlignVertical: 'center',
-    alignContent: 'center',
+    alignSelf: "center",
+    justifyContent: "center",
+    alignItems: "center",
+    textAlignVertical: "center",
+    alignContent: "center",
   },
   inputContainer: {
     borderColor: "black",
@@ -278,40 +314,38 @@ const styles = StyleSheet.create({
     fontFamily: "OpenSans-Regular",
   },
   buttonContainer: {
-    alignSelf: 'center',
-    justifyContent: 'center',
-    alignItems: 'center',
-    textAlignVertical: 'center',
-    alignContent: 'center',
-    marginTop: deviceHeight/10,
+    alignSelf: "center",
+    justifyContent: "center",
+    alignItems: "center",
+    textAlignVertical: "center",
+    alignContent: "center",
+    marginTop: deviceHeight / 10,
     fontFamily: "OpenSans-Regular",
   },
   cameraContainer: {
-    flexDirection: 'row',
+    flexDirection: "row",
     marginTop: 5,
-    alignSelf: 'center',
-    justifyContent: 'center',
-    alignItems: 'center',
-    textAlignVertical: 'center',
-    alignContent: 'center',
+    alignSelf: "center",
+    justifyContent: "center",
+    alignItems: "center",
+    textAlignVertical: "center",
+    alignContent: "center",
   },
-  fixedRatio:{
+  fixedRatio: {
     flex: 1,
-    aspectRatio: 1
+    aspectRatio: 1,
   },
   preview: {
-    alignSelf: 'stretch',
+    alignSelf: "stretch",
     marginVertical: 10,
     width: 300,
   },
-  imageText:{
+  imageText: {
     fontSize: 15,
     color: "green",
-    textAlign: 'center',
+    textAlign: "center",
     fontFamily: "OpenSans-Regular",
-  }
+  },
 });
 
 export default ReportFault;
-
-

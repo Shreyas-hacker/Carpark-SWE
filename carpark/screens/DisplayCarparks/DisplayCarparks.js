@@ -58,15 +58,18 @@ const DisplayCarpark = () => {
         </View>
       )}
       <View style={styles.searchBar}>
-        <SearchBar onSearchTermChange={handleSearch} searchTerm={searchTerm} />
+        <SearchBar
+          onSearchTermChange={handleSearch}
+          searchTerm={searchTerm}
+          onSearch={handleSearchCarpark}
+        />
       </View>
       <View style={styles.button}>
-        
-        <PrimaryButton
+        {/* <PrimaryButton
           onSuccess={true}
           text="Search"
           onAttempt={handleSearchCarpark}
-        />
+        /> */}
       </View>
     </View>
   );
@@ -76,11 +79,11 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
-  button: {
-    position: "absolute",
-    width: "100%",
-    bottom: 50,
-  },
+  // button: {
+  //   position: "absolute",
+  //   width: "100%",
+  //   bottom: 50,
+  // },
   searchBar: {
     position: "absolute",
     width: "100%",
