@@ -50,11 +50,14 @@ function Login({navigation}){
         }
     }
 
+    useLoadFonts();
+
     return(
         <ScrollView style={styles.form} keyboardShouldPersistTaps='handled'>
             <View>
-                <View style={styles.bigdescription}>
+                <View style={[styles.bigdescription]}>
                     <Text style={[styles.title, FontStyle.bold]}>Welcome!</Text>
+                    {/*here is the font error                ^^^^^^^*/}
                     <Text style={[styles.description, FontStyle.bolditalic]}>Finding Carparks in a jiffy!</Text>
                 </View>
                 <View style={styles.inputContainer}>

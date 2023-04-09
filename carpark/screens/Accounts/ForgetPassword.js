@@ -4,6 +4,9 @@ import IconButton from "../../components/IconButton";
 import PrimaryButton from "../../components/PrimaryButton";
 import { resetPassword } from "../../util/AuthManager";
 import { emailChecker } from "../../util/helper";
+import useLoadFonts from '../../util/loadfont';
+import { FontStyle } from "../../util/fontstyles";
+
 
 let componentWidth = 0;
 const width = Dimensions.get('window').width;
@@ -18,6 +21,8 @@ function ForgetPassword({ navigation }) {
 
     const [filled, setFilled] = useState(false);
     const [email, setEmail] = useState("");
+
+    useLoadFonts();
 
     function emailHandler(enteredEmail){
         setEmail(enteredEmail);
@@ -57,7 +62,7 @@ function ForgetPassword({ navigation }) {
             </View>
             <View style={styles.inputConfig}>
                 <TextInput style={styles.inputStyles} value={email} onChangeText={emailHandler} placeholder="Enter your email address"/>
-                <Text style={{color: '#57636C'}}>We will need to verify your email with our database to reset your password, please enter the email associated with your account above.</Text>
+                <Text style={[{color: '#57636C'}, FontStyle.italic]}>We will need to verify your email with our database to reset your password, please enter the email associated with your account above.</Text>
             </View>
             <View style={styles.buttonContainer}>
                 <PrimaryButton text="Verify email" onSuccess={filled} onAttempt={sendEmail}/>
