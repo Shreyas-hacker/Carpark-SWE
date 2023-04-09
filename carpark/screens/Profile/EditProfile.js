@@ -12,6 +12,7 @@ import { Text } from "react-native";
 import { AuthContext } from "../../store/context/user-context";
 import { updateAccount } from "../../util/AuthManager";
 import PrimaryButton from "../../components/PrimaryButton";
+import IconButton from "../../components/IconButton";
 import ProfilePicture from "../../assets/ProfilePicture.png";
 
 let componentWidth = 0;
@@ -43,6 +44,10 @@ function EditProfile({ navigation }) {
     componentWidth = event.nativeEvent.layout.width;
   }
 
+  function goBack() {
+    navigation.navigate("Tab");
+  }
+
   //create profile fuction
   async function updateProfileAttempt() {
     if (fullName !== "" && phoneNumber !== "") {
@@ -56,6 +61,12 @@ function EditProfile({ navigation }) {
     <ScrollView style={styles.page} keyboardShouldPersistTaps="handled">
       <View>
         <View style={styles.topContent}>
+            <IconButton
+                onPress={goBack}
+                icon="arrow-back"
+                size={28}
+                color="black"
+            />
           <Text
             style={styles.title}
             onLayout={(event) => {
@@ -116,7 +127,7 @@ const styles = StyleSheet.create({
     width: "100%",
     flexDirection: "row",
     top: height / 50,
-    marginRight: width / 5,
+    marginRight: width / 3.1,
     alignSelf: "center",
     justifyContent: "center",
     alignItems: "center",
