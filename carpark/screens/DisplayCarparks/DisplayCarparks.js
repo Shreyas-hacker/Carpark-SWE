@@ -16,7 +16,7 @@ const DisplayCarpark = () => {
     longitudeDelta: 0.0421,
   });
   const [selectedCarpark, setSelectedCarpark] = useState(null);
-  const [showError, setShowError] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
 
   useEffect(() => {
     async function getLocation() {
@@ -37,7 +37,12 @@ const DisplayCarpark = () => {
       carparks.filter((carpark) => carpark.x_coord && carpark.y_coord);
     setFilteredCarparks(filteredCarparks);
     setSelectedCarpark(null);
-    setShowError(filteredCarparks.length === 0);
+    if (filteredCarparks.length === 0) {
+      setErrorMessage("No carparks found. Please try again.");
+      setTimeout(() => {
+        setErrorMessage("");
+      }, 2000);
+    }
   }
 
   const handleCarparkSelect = (carpark) => {
@@ -65,9 +70,9 @@ const DisplayCarpark = () => {
           onSearch={handleSearchCarpark}
         />
       </View>
-      {showError && (
+      {errorMessage !== "" && (
         <View style={styles.errorBox}>
-          <Text style={styles.errorText}>No results found</Text>
+          <Text style={styles.errorText}>{errorMessage}</Text>
         </View>
       )}
     </View>
@@ -98,20 +103,18 @@ const styles = StyleSheet.create({
     right: 10,
   },
   errorBox: {
-    position: "absolute",
-    marginTop: 50,
     alignItems: "center",
-    top: 50,
-    left: 10,
-    right: 10,
-    backgroundColor: "#ffcccc",
+    backgroundColor: "red",
     padding: 10,
     borderRadius: 5,
-    borderWidth: 1,
-    borderColor: "#ff3333",
+    position: "absolute",
+    top: 100,
+    left: 10,
+    right: 10,
   },
   errorText: {
-    color: "#ff3333",
+    color: "#ffffff",
+    textAlign: "center",
     fontWeight: "bold",
   },
 });
