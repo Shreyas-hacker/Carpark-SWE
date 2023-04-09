@@ -8,6 +8,7 @@ import {
   TouchableOpacity,
 } from "react-native";
 import useLoadFonts from "../../util/fonts/loadfont";
+import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 import { FontStyle } from "../../util/fonts/fontstyles";
 import LoadingScreen from "../../components/LoadingScreen";
 
@@ -84,6 +85,13 @@ const CarparkInfoCard = ({ carpark, carparkLots, loaded }) => {
                 ? carpark.gantry_height + " Metres"
                 : "No Limit"}{" "}
             </Text>
+            <TouchableOpacity
+              style={styles.button2}
+              onPress={() => navigation.navigate("ReportFault")}
+            >
+              <MaterialIcons name="report-problem" color="red" size={24} />
+              <Text style={[styles.buttonText]}>Report</Text>
+            </TouchableOpacity>
           </>
         ) : (
           <LoadingScreen />
@@ -155,6 +163,22 @@ const styles = StyleSheet.create({
     marginLeft: 16,
     marginBottom: 4,
     color: "#7c7c7c",
+  },
+  button2: {
+    backgroundColor: "gold",
+    borderRadius: 5,
+    paddingVertical: 15,
+    paddingHorizontal: 25,
+    marginLeft: 20,
+    marginRight: 20,
+    flexDirection: "row",
+    alignItems: "center",
+    marginBottom: 20,
+  },
+  buttonText: {
+    color: "black",
+    fontSize: 15,
+    fontWeight: "bold",
   },
 });
 
