@@ -1,4 +1,4 @@
-import { View, ImageBackground, StyleSheet, Text, Dimensions, TextInput, TouchableWithoutFeedback, Keyboard, Image } from "react-native";
+import { View, ImageBackground, StyleSheet, Text, Dimensions, TextInput, TouchableWithoutFeedback, Keyboard, Image, Alert } from "react-native";
 import { React, useEffect, useState } from "react";
 import CarparkBackground from "../../assets/CarparkBackground.jpg";
 import DropDownPicker from "react-native-dropdown-picker";
@@ -6,6 +6,7 @@ import PrimaryButton from "../../components/PrimaryButton";
 import IconButton from "../../components/IconButton";
 import useLoadFonts from '../../util/loadfont';
 import { FontStyle } from "../../util/fontstyles";
+import { uploadImage } from "../../util/storeImage";
 
 const backColor = "#FFFFFF";
 const deviceWidth = Dimensions.get("window").width;
@@ -33,22 +34,9 @@ function ReportFault({ navigation,route }) {
   const [filled, setfilled] = useState(false);
   const [description, setDescription] = useState("");
   const [photoPreview, setPhotoPreview] = useState(null);
-
+  
   useLoadFonts();
   
-  function descriptionHandler(enteredDescription) {
-    setDescription(enteredDescription);
-  }
-  function measureView(event) {
-    componentWidth = event.nativeEvent.layout.width;
-  }
-  function goBack() {
-    navigation.navigate("Tab");
-  }
-  function submit() {
-    navigation.navigate("Tab");
-  }
-
   useEffect(() => {
     if (setFaultDropOpen !== false && setSeverityDropOpen !== false && description !== "") {
       setfilled(true);
@@ -62,6 +50,21 @@ function ReportFault({ navigation,route }) {
       setPhotoPreview(null);
     }
   }, [route.params]);
+
+  function descriptionHandler(enteredDescription) {
+    setDescription(enteredDescription);
+  }
+  function measureView(event) {
+    componentWidth = event.nativeEvent.layout.width;
+  }
+  function goBack() {
+    navigation.navigate("Tab");
+  }
+  function submit() {
+    uploadImage(photoPreview);
+    Alert.alert("Fault Reported", "Thank you for your feedback!", [{ text: "OK", onPress: () => navigation.goBack() }]);
+  }
+
 
   return (
     <TouchableWithoutFeedback onPress={() => 
