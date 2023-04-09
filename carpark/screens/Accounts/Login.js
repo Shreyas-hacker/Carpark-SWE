@@ -54,9 +54,9 @@ function Login({navigation}){
         <ScrollView style={styles.form} keyboardShouldPersistTaps='handled'>
             <View>
                 <View style={[styles.bigdescription]}>
-                    <Text style={[styles.title, FontStyle.bold]}>Welcome!</Text>
+                    <Text style={[styles.title]}>Welcome!</Text>
                     {/*here is the font error                ^^^^^^^*/}
-                    <Text style={[styles.description, FontStyle.bolditalic]}>Finding Carparks in a jiffy!</Text>
+                    <Text style={[styles.description]}>Finding Carparks in a jiffy!</Text>
                 </View>
                 <View style={styles.inputContainer}>
                     {/* This is the input component, wasnt working as a component so i broke it down further in this file */}
@@ -70,9 +70,9 @@ function Login({navigation}){
                 </View>
                 <View style={styles.container}>
                     <View>
-                        <Text style={[styles.text, FontStyle.bolditalic]}>Don't have an account?</Text>
+                        <Text style={[styles.text]}>Don't have an account?</Text>
                         <Pressable onPress={()=>{navigation.navigate("CreateAccount")}}>
-                            <Text style={[styles.text, FontStyle.bold]}>Create account</Text>
+                            <Text style={[styles.text]}>Create account</Text>
                         </Pressable>
                     </View>
                     <View style={styles.buttonContainer}>
@@ -81,7 +81,7 @@ function Login({navigation}){
                 </View>
                 <View style={styles.forgetpassword}>
                     <Pressable onPress={()=>{navigation.navigate("ForgetPassword")}}>
-                        <Text style={[styles.text, FontStyle.bold]}>Forget Password?</Text>
+                        <Text style={[styles.text]}>Forget Password?</Text>
                     </Pressable>
                 </View>
                 <View style={styles.socialmedia}>

@@ -13,8 +13,7 @@ const useLoadFonts = () => {
         "OpenSans-BoldItalic": require("../../assets/fonts/OpenSans-BoldItalic.ttf"),
         "OpenSans-ExtraBoldItalic": require("../../assets/fonts/OpenSans-ExtraBoldItalic.ttf"),
         "OpenSans-MediumItalic": require("../../assets/fonts/OpenSans-MediumItalic.ttf"),
-        "OpenSans_Condensed-Bold": require("../../assets/fonts/OpenSans_Condensed-Bold.ttf")
-        
+        "OpenSans_Condensed-Bold": require("../../assets/fonts/OpenSans_Condensed-Bold.ttf"),  
       });
     }
 

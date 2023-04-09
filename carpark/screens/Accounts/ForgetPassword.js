@@ -62,7 +62,7 @@ function ForgetPassword({ navigation }) {
             </View>
             <View style={styles.inputConfig}>
                 <TextInput style={styles.inputStyles} value={email} onChangeText={emailHandler} placeholder="Enter your email address"/>
-                <Text style={[{color: '#57636C'}, FontStyle.italic]}>We will need to verify your email with our database to reset your password, please enter the email associated with your account above.</Text>
+                <Text style={[{color: '#57636C'}]}>We will need to verify your email with our database to reset your password, please enter the email associated with your account above.</Text>
             </View>
             <View style={styles.buttonContainer}>
                 <PrimaryButton text="Verify email" onSuccess={filled} onAttempt={sendEmail}/>

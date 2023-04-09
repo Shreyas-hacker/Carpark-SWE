@@ -60,25 +60,25 @@ const CarparkInfoCard = ({ carpark, carparkLots, loaded }) => {
         </TouchableOpacity>
         {!loaded ? (
           <>
-            <Text style={[styles.title, FontStyle.bold]}>
+            <Text style={[styles.title]}>
               {carpark.address}
             </Text>
-            <Text style={[styles.subtitle_lots, FontStyle.regular]}>
+            <Text style={[styles.subtitle_lots]}>
               Total Slots: {carparkLots[1]}
             </Text>
-            <Text style={[styles.subtitle_lots, FontStyle.regular]}>
+            <Text style={[styles.subtitle_lots]}>
               Avaliable Slots: {carparkLots[0]}
             </Text>
-            <Text style={[styles.subtitle, FontStyle.italic]}>
+            <Text style={[styles.subtitle]}>
               Free Parking Time: {carpark.free_parking}
             </Text>
-            <Text style={[styles.subtitle, FontStyle.regular]}>
+            <Text style={[styles.subtitle]}>
               Parking Duration: {carpark.short_term_parking}
             </Text>
-            <Text style={[styles.subtitle, FontStyle.regular]}>
+            <Text style={[styles.subtitle]}>
               Carpark Type: {carpark.car_park_type}
             </Text>
-            <Text style={[styles.subtitle, FontStyle.italic]}>
+            <Text style={[styles.subtitle]}>
               Gantry Height:{" "}
               {carpark.gantry_height !== "0.00"
                 ? carpark.gantry_height + " Metres"

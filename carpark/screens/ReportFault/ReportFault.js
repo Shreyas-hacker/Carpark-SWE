@@ -108,7 +108,7 @@ function ReportFault({ navigation, route }) {
             color="black"
           />
           <Text
-            style={[styles.reportTitle, FontStyle.bold]}
+            style={[styles.reportTitle]}
             onLayout={(event) => {
               measureView(event);
             }}
@@ -117,12 +117,12 @@ function ReportFault({ navigation, route }) {
           </Text>
         </View>
 
-        <Text style={[styles.carparkTitle, FontStyle.extrabold]}>
+        <Text style={[styles.carparkTitle]}>
           Carpark BG03
         </Text>
 
         <View style={styles.helpFault}>
-          <Text style={[styles.helpFault, FontStyle.medium]}>
+          <Text style={[styles.helpFault]}>
             How can we help?
           </Text>
         </View>

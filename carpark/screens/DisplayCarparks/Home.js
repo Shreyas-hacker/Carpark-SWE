@@ -15,7 +15,6 @@ import LoadingScreen from "../../components/LoadingScreen";
 import CarparkBackground from "../../assets/CarparkBackground.jpg";
 import { searchCarpark } from "./SearchCarpark";
 import useLoadFonts from '../../util/fonts/loadfont';
-import { FontStyle } from "../../util/fonts/fontstyles";
 
 function HomeScreen({ navigation }) {
   const API_KEY = "AIzaSyCX5cIGMG23hoatqCPLZnSQJX_6klMLbRk";
@@ -51,15 +50,15 @@ function HomeScreen({ navigation }) {
       ></ImageBackground>
       <View style={styles.rowShown}>
         <View style={styles.header}>
-          <Text style={[styles.headerText, FontStyle.mediumitalic]}>Hello!</Text>
-          <Text style={[styles.displayNameText, FontStyle.regular]}>{displayName}</Text>
+          <Text style={[styles.headerText]}>Hello!</Text>
+          <Text style={[styles.displayNameText]}>{displayName}</Text>
         </View>
         <TouchableOpacity
           style={styles.button1}
           onPress={() => navigation.navigate("DisplayCarpark")}
         >
           <MaterialIcons name="map" color="black" size={24} />
-          <Text style={[styles.buttonText, FontStyle.italic]}>Map</Text>
+          <Text style={[styles.buttonText]}>Map</Text>
         </TouchableOpacity>
       </View>
       <View style={styles.searchBar}>
@@ -70,7 +69,7 @@ function HomeScreen({ navigation }) {
           style={styles.searchIcon}
         />
         <TextInput
-          style={[styles.searchInput, FontStyle.regular]}
+          style={[styles.searchInput]}
           placeholder="Search for car parks"
           value={searchText}
           onChangeText={setSearchText}
@@ -100,7 +99,7 @@ function HomeScreen({ navigation }) {
           onPress={() => navigation.navigate("ReportFault")}
         >
           <MaterialIcons name="report-problem" color="red" size={24} />
-          <Text style={[styles.buttonText, FontStyle.bold]}>Report</Text>
+          <Text style={[styles.buttonText]}>Report</Text>
         </TouchableOpacity>
 
         <TouchableOpacity
@@ -108,7 +107,7 @@ function HomeScreen({ navigation }) {
           onPress={() => navigation.navigate("Favourite")}
         >
           <MaterialIcons name="favorite" color="deeppink" size={24} />
-          <Text style={[styles.buttonText, FontStyle.condensedbold]}>Favorite</Text>
+          <Text style={[styles.buttonText]}>Favorite</Text>
         </TouchableOpacity>
       </View>
     </View>
@@ -147,6 +146,7 @@ const styles = StyleSheet.create({
     fontSize: 30,
     fontWeight: "bold",
     color: "black",
+    fontFamily: "OpenSans-BoldItalic"
   },
   displayNameText: {
     fontSize: 20,
