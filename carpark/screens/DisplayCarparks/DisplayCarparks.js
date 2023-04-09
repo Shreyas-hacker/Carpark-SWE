@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { View, StyleSheet } from "react-native";
 import SearchBar from "../../components/SearchBar";
-import PrimaryButton from "../../components/PrimaryButton";
 import Map from "./Maps";
 import { getCurrentLocation } from "./LocationService";
-import { searchCarpark, searchCarparkLots } from "./SearchCarpark";
+import { searchCarpark } from "./SearchCarpark";
 import CarparkInfoCard from "./CarparkInfoCard";
 
 const DisplayCarpark = () => {
