@@ -40,7 +40,7 @@ function ReportFault({ navigation, route }) {
     { label: "Medium", value: "2" },
     { label: "Low", value: "1" },
   ]);
-  const [carpark, setCarpark] = useState(route.params.carpark.car_park_no);
+  const [carpark, setCarpark] = useState(route.params.carpark);
   const [filled, setfilled] = useState(false);
   const [description, setDescription] = useState("");
   const [photoPreview, setPhotoPreview] = useState(null);

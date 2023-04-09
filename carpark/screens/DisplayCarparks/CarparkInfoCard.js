@@ -93,7 +93,7 @@ function CarparkInfoCard({ carpark, carparkLots, loaded }){
               style={styles.button2}
               onPress={() => {
                 navigation.goBack();
-                navigation.navigate("ReportFault", { carpark: carpark })
+                navigation.navigate("ReportFault", { carpark: carpark.car_park_no })
               }}
             >
               <MaterialIcons name="report-problem" color="red" size={24} />
