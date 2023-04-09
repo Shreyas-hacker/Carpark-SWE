@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { View, StyleSheet } from "react-native";
+import { View, StyleSheet, Text } from "react-native";
 import SearchBar from "../../components/SearchBar";
 import Map from "./Maps";
 import { getCurrentLocation } from "./LocationService";
@@ -16,6 +16,7 @@ const DisplayCarpark = () => {
     longitudeDelta: 0.0421,
   });
   const [selectedCarpark, setSelectedCarpark] = useState(null);
+  const [showError, setShowError] = useState(false);
 
   useEffect(() => {
     async function getLocation() {
@@ -36,6 +37,7 @@ const DisplayCarpark = () => {
       carparks.filter((carpark) => carpark.x_coord && carpark.y_coord);
     setFilteredCarparks(filteredCarparks);
     setSelectedCarpark(null);
+    setShowError(filteredCarparks.length === 0);
   }
 
   const handleCarparkSelect = (carpark) => {
@@ -63,6 +65,11 @@ const DisplayCarpark = () => {
           onSearch={handleSearchCarpark}
         />
       </View>
+      {showError && (
+        <View style={styles.errorBox}>
+          <Text style={styles.errorText}>No results found</Text>
+        </View>
+      )}
     </View>
   );
 };
@@ -89,6 +96,23 @@ const styles = StyleSheet.create({
     bottom: 10,
     left: 10,
     right: 10,
+  },
+  errorBox: {
+    position: "absolute",
+    marginTop: 50,
+    alignItems: "center",
+    top: 50,
+    left: 10,
+    right: 10,
+    backgroundColor: "#ffcccc",
+    padding: 10,
+    borderRadius: 5,
+    borderWidth: 1,
+    borderColor: "#ff3333",
+  },
+  errorText: {
+    color: "#ff3333",
+    fontWeight: "bold",
   },
 });
 
