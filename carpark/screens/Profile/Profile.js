@@ -15,21 +15,6 @@ function Profile({ navigation }) {
   const [displayName, setDisplayName] = useState(null);
   const [email, setEmail] = useState(null);
 
-<<<<<<< Updated upstream
-  useEffect(() => {
-    const token = authCtx.token;
-    const url = `https://identitytoolkit.googleapis.com/v1/accounts:lookup?key=${API_KEY}`;
-    async function getDisplayName() {
-      const response = await axios
-        .post(url, { idToken: token })
-        .then((response) => {
-          if (!authCtx.display_name) {
-            setDisplayName(response.data.users[0].displayName);
-          } else {
-            setDisplayName(authCtx.display_name);
-          }
-          setEmail(response.data.users[0].email);
-=======
     useEffect(()=>{
         const token = authCtx.token;
         const url = `https://identitytoolkit.googleapis.com/v1/accounts:lookup?key=${API_KEY}`;
@@ -43,13 +28,11 @@ function Profile({ navigation }) {
                 setEmail(authCtx.email)
             }).catch((error)=>{
                 console.log(error.message)
->>>>>>> Stashed changes
         })
         .catch((error) => {
           console.log(error.message);
         });
     }
-<<<<<<< Updated upstream
     getDisplayName();
   });
 
@@ -116,34 +99,6 @@ function Profile({ navigation }) {
       )}
     </>
   );
-=======
-    return (
-        <>
-        <StatusBar/>
-        {
-            displayName && email?
-            (<View style={{backgroundColor: 'white',flex:1}}>
-                
-                <View style={styles.profileContainer}>
-                    <Image
-                        source={ProfilePicture}
-                        style={{width: 100, height: 100, borderRadius: 100/2,}}/>
-                    <View style={{marginTop: 20,}}>
-                        <Text style={styles.textStyle}>{displayName}</Text>
-                        <Text style={styles.emailStyle}>{email}</Text>
-                    </View>
-                </View>
-                <View style={styles.buttonContainer}>
-                    <LongButton text="Edit Profile" onPress={()=>{navigation.navigate("EditProfile")}}/>
-                    <LongButton text="Change Password" onPress={()=>{navigation.navigate("ChangePassword")}}/>
-                    <LongButton text="View Reports Made" onPress={()=>{navigation.navigate("ReportsMade")}}/>
-                    <PrimaryButton text={"Log Out"} onSuccess={true} onAttempt={LogOut}/>
-                </View>
-            </View>) : (<LoadingScreen navigation={navigation}/>)
-        }
-        </>
-    )
->>>>>>> Stashed changes
 }
 
 const styles = StyleSheet.create({
