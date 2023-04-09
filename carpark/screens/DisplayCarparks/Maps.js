@@ -43,8 +43,8 @@ function Map({ carparks, region }) {
       };
       fetchCarparkLots();
     }
-  },[selectedCarpark])
-
+  }, [selectedCarpark]);
+  
   const handleMarkerPress = (carpark) => {
     setSelectedCarpark(carpark);
   };
