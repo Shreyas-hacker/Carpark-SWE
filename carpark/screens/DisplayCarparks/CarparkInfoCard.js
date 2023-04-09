@@ -7,8 +7,8 @@ import {
   Animated,
   TouchableOpacity,
 } from "react-native";
-import useLoadFonts from "../../util/loadfont";
-import { FontStyle } from "../../util/fontstyles";
+import useLoadFonts from "../../util/fonts/loadfont";
+import { FontStyle } from "../../util/fonts/fontstyles";
 import LoadingScreen from "../../components/LoadingScreen";
 
 const CarparkInfoCard = ({ carpark, carparkLots, loaded }) => {

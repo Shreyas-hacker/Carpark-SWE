@@ -10,4 +10,5 @@ export async function uploadImage(uri){
     }catch(error){
         console.log(error);
     }
+    return ref.downloadURL;
 }

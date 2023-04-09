@@ -4,9 +4,9 @@ import CarparkBackground from "../../assets/CarparkBackground.jpg";
 import DropDownPicker from "react-native-dropdown-picker";
 import PrimaryButton from "../../components/PrimaryButton";
 import IconButton from "../../components/IconButton";
-import useLoadFonts from '../../util/loadfont';
-import { FontStyle } from "../../util/fontstyles";
-import { uploadImage } from "../../util/storeImage";
+import useLoadFonts from '../../util/fonts/loadfont';
+import { FontStyle } from "../../util/fonts/fontstyles";
+import { uploadImage } from "../../util/realtime/storeImage";
 
 const backColor = "#FFFFFF";
 const deviceWidth = Dimensions.get("window").width;

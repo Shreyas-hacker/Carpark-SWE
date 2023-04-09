@@ -14,8 +14,8 @@ import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 import LoadingScreen from "../../components/LoadingScreen";
 import CarparkBackground from "../../assets/CarparkBackground.jpg";
 import { searchCarpark } from "./SearchCarpark";
-import useLoadFonts from '../../util/loadfont';
-import { FontStyle } from "../../util/fontstyles";
+import useLoadFonts from '../../util/fonts/loadfont';
+import { FontStyle } from "../../util/fonts/fontstyles";
 
 function HomeScreen({ navigation }) {
   const API_KEY = "AIzaSyCX5cIGMG23hoatqCPLZnSQJX_6klMLbRk";

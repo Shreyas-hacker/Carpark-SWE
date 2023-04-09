@@ -4,8 +4,8 @@ import PrimaryButton from "../../components/PrimaryButton";
 import IconButton from "../../components/IconButton";
 import { AuthContext } from "../../store/context/user-context";
 import { login } from "../../util/AuthManager";
-import useLoadFonts from '../../util/loadfont';
-import { FontStyle } from "../../util/fontstyles";
+import useLoadFonts from '../../util/fonts/loadfont';
+import { FontStyle } from "../../util/fonts/fontstyles";
 
 function Login({navigation}){
     const [filled, setfilled] = useState(false); // state to manage if all fields in the form has been filled
