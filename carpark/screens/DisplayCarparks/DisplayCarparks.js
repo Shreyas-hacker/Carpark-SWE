@@ -6,9 +6,11 @@ import { getCurrentLocation } from "./LocationService";
 import { searchCarpark } from "./SearchCarpark";
 import CarparkInfoCard from "./CarparkInfoCard";
 
-const DisplayCarpark = ({route}) => {
+const DisplayCarpark = ({ route }) => {
   const [filteredCarparks, setFilteredCarparks] = useState([]);
-  const [searchTerm, setSearchTerm] = useState(route.params? route.params.searchTerm : "");
+  const [searchTerm, setSearchTerm] = useState(
+    route.params ? route.params.searchTerm : ""
+  );
   const [mapRegion, setMapRegion] = useState({
     latitude: 103.855,
     longitude: 1.3007,
@@ -22,10 +24,32 @@ const DisplayCarpark = ({route}) => {
     async function getLocation() {
       const location = await getCurrentLocation();
       setMapRegion(location);
-      if(searchTerm !== ""){
-        handleSearchCarpark();
+
+      if (searchTerm !== "") {
+        const carparks = await searchCarpark(location);
+        const filteredCarparks = carparks.filter((carpark) => {
+          // Calculate the distance between the user's location and the carpark
+          const distance = Math.sqrt(
+            Math.pow(carpark.x_coord - location.latitude, 2) +
+              Math.pow(carpark.y_coord - location.longitude, 2)
+          );
+
+          // Return true if the carpark is within 1km of the user's location
+          return distance < 0.01;
+        });
+
+        setFilteredCarparks(filteredCarparks);
+        setSelectedCarpark(null);
+
+        if (filteredCarparks.length === 0) {
+          setErrorMessage("No carparks found nearby.");
+          setTimeout(() => {
+            setErrorMessage("");
+          }, 2000);
+        }
       }
     }
+
     getLocation();
   }, []);
 

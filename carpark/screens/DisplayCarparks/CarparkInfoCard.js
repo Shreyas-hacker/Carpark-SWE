@@ -13,7 +13,7 @@ import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 import { FontStyle } from "../../util/fonts/fontstyles";
 import LoadingScreen from "../../components/LoadingScreen";
 
-function CarparkInfoCard({ carpark, carparkLots, loaded }){
+function CarparkInfoCard({ carpark, carparkLots, loaded }) {
   const slideAnimation = useRef(new Animated.Value(0)).current;
   const navigation = useNavigation();
 
@@ -34,6 +34,17 @@ function CarparkInfoCard({ carpark, carparkLots, loaded }){
     inputRange: [0, 1],
     outputRange: [Dimensions.get("window").height / 5, 0],
   });
+
+  const lotsPercentage = carparkLots[0] / carparkLots[1];
+
+  let resultTextColor;
+  if (lotsPercentage > 0.5) {
+    resultTextColor = "green";
+  } else if (lotsPercentage > 0.25) {
+    resultTextColor = "orange";
+  } else {
+    resultTextColor = "red";
+  }
 
   return (
     <>
@@ -64,14 +75,12 @@ function CarparkInfoCard({ carpark, carparkLots, loaded }){
         </TouchableOpacity>
         {!loaded ? (
           <>
-            <Text style={[styles.title]}>
-              {carpark.address}
-            </Text>
-            <Text style={[styles.subtitle_lots]}>
+            <Text style={[styles.title]}>{carpark.address}</Text>
+            <Text style={[styles.subtitle_lots, { color: resultTextColor }]}>
               Total Slots: {carparkLots[1]}
             </Text>
-            <Text style={[styles.subtitle_lots]}>
-              Avaliable Slots: {carparkLots[0]}
+            <Text style={[styles.subtitle_lots, { color: resultTextColor }]}>
+              Available Slots: {carparkLots[0]}
             </Text>
             <Text style={[styles.subtitle]}>
               Free Parking Time: {carpark.free_parking}
@@ -93,7 +102,9 @@ function CarparkInfoCard({ carpark, carparkLots, loaded }){
               style={styles.button2}
               onPress={() => {
                 navigation.goBack();
-                navigation.navigate("ReportFault", { carpark: carpark.car_park_no })
+                navigation.navigate("ReportFault", {
+                  carpark: carpark.car_park_no,
+                });
               }}
             >
               <MaterialIcons name="report-problem" color="red" size={24} />
@@ -106,7 +117,7 @@ function CarparkInfoCard({ carpark, carparkLots, loaded }){
       </Animated.View>
     </>
   );
-};
+}
 
 const styles = StyleSheet.create({
   card: {
@@ -172,12 +183,14 @@ const styles = StyleSheet.create({
     color: "#7c7c7c",
   },
   button2: {
-    backgroundColor: "gold",
+    backgroundColor: "#F0F0F0",
+    alignItems: "flex-end",
+    top: 50,
+    right: 20,
+    position: "absolute",
     borderRadius: 5,
     paddingVertical: 15,
     paddingHorizontal: 25,
-    marginLeft: 20,
-    marginRight: 20,
     flexDirection: "row",
     alignItems: "center",
     marginBottom: 20,
