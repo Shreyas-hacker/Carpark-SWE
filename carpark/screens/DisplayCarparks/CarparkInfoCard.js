@@ -32,7 +32,7 @@ function CarparkInfoCard({ carpark, carparkLots, loaded }) {
 
   const slidePosition = slideAnimation.interpolate({
     inputRange: [0, 1],
-    outputRange: [Dimensions.get("window").height / 6, Dimensions.get("window").height/100],
+    outputRange: [Dimensions.get("window").height / 5, 0],
   });
 
   const lotsPercentage = carparkLots[0] / carparkLots[1];
@@ -79,7 +79,7 @@ function CarparkInfoCard({ carpark, carparkLots, loaded }) {
             <Text style={[styles.subtitle_lots]}>
               Total Slots: {carparkLots[1]}
             </Text>
-            <Text style={[styles.subtitle_lots, carparkLots[0]!=='N/A' && { color: resultTextColor }]}>
+            <Text style={[styles.subtitle_lots, { color: resultTextColor }]}>
               Available Slots: {carparkLots[0]}
             </Text>
             <Text style={[styles.subtitle]}>
@@ -185,15 +185,14 @@ const styles = StyleSheet.create({
   button2: {
     backgroundColor: "#F0F0F0",
     alignItems: "flex-end",
-    top: 50,
-    right: 20,
+    bottom: 180,
+    right: 300,
     position: "absolute",
     borderRadius: 5,
     paddingVertical: 15,
     paddingHorizontal: 25,
     flexDirection: "row",
     alignItems: "center",
-    marginBottom: 20,
   },
   buttonText: {
     color: "black",
