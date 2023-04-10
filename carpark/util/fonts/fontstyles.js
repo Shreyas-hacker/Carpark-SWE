@@ -28,12 +28,11 @@ export const FontStyle = {
         fontStyle: 'italic',
     },
     mediumitalic: {
-        fontFamily: 'OpenSans-MediumItalic',
-        fontStyle: 'italic',
+      fontFamily: 'OpenSans-MediumItalic',
+      fontStyle: 'italic',
     },
     condensedbold: {
         fontFamily: 'OpenSans_Condensed-Bold',
         fontWeight: "bold"
     }
   };
-  
