@@ -1,6 +1,7 @@
-import { Text,StyleSheet,View,Dimensions } from "react-native";
+import { Text,StyleSheet,View,Dimensions, FlatList } from "react-native";
 import { useState,useContext,useEffect } from "react";
 
+import ReportCard from "./ReportCard";
 import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 import IconButton from "../../components/IconButton";
 import { AuthContext } from "../../store/context/user-context";
@@ -32,42 +33,44 @@ function ReportsMade({navigation}){
     function goBack(){
         navigation.goBack();
     }
-    return(
-        <>
+    return (
+      <View style={styles.container}>
         <View style={styles.topContent}>
-                <IconButton onPress={goBack} icon="arrow-back" size={28} color="black"/>
+          <IconButton
+            onPress={goBack}
+            icon="arrow-back"
+            size={28}
+            color="black"
+          />
         </View>
-        {
-            reportsDone ? (
-                <View>
-                    {reports.map((report,key)=>{
-                        return(
-                            <View>
-                                <Text style={{fontSize: 24,textAlign: 'center'}}>{report.description}</Text>
-                                <Text style={{fontSize: 24,textAlign: 'center'}}>{report.fault}</Text>
-                                <Text style={{fontSize: 24,textAlign: 'center'}}> {report.severity}</Text>
-                                <Text style={{fontSize: 24,textAlign: 'center'}}>{report.carpark}</Text>
-                            </View>
-                        )
-    
-                    })}
-                </View>
-            ):(
-                <>
-                <View style={styles.imageContainer}>
-                    <MaterialIcons name="report-off" color="black" size={100} style={{alignSelf: 'center'}}/>
-                    <Text style={{alignSelf:'center'}}>No reports made!</Text>
-                </View>
-                </>
-            )
-        }
-        </>
-    )
+        {reportsDone ? (
+          <FlatList
+            data={reports}
+            renderItem={({ item }) => <ReportCard report={item} />}
+            keyExtractor={(item) => item.id}
+          />
+        ) : (
+          <View style={styles.imageContainer}>
+            <MaterialIcons
+              name="report-off"
+              color="black"
+              size={100}
+              style={{ alignSelf: "center" }}
+            />
+            <Text style={{ alignSelf: "center" }}>No reports made!</Text>
+          </View>
+        )}
+      </View>
+    );
 }
 
 const height  = Dimensions.get('window').height;
 
 const styles = StyleSheet.create({
+    container:{
+        flex: 1,
+        backgroundColor: '#F0F5F6'
+    },
     topContent:{
         flexDirection:'row',
         marginTop: 40,
