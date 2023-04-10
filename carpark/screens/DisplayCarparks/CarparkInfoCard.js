@@ -76,7 +76,7 @@ function CarparkInfoCard({ carpark, carparkLots, loaded }) {
         {!loaded ? (
           <>
             <Text style={[styles.title]}>{carpark.address}</Text>
-            <Text style={[styles.subtitle_lots, { color: resultTextColor }]}>
+            <Text style={[styles.subtitle_lots]}>
               Total Slots: {carparkLots[1]}
             </Text>
             <Text style={[styles.subtitle_lots, { color: resultTextColor }]}>
