@@ -58,7 +58,7 @@ function HomeScreen({ navigation }) {
       <View style={styles.rowShown}>
         <View style={styles.header}>
           <Text style={[styles.headerText]}>Hello!</Text>
-          <Text style={[styles.displayNameText]}>{displayName}</Text>
+          <Text style={[styles.displayNameText]} numberOfLines={1}>{displayName}</Text>
         </View>
         <TouchableOpacity
           style={styles.button1}
@@ -138,6 +138,7 @@ const styles = StyleSheet.create({
   displayNameText: {
     fontSize: 20,
     color: "black",
+    width: 120,
   },
   button1: {
     backgroundColor: "white",
@@ -147,7 +148,7 @@ const styles = StyleSheet.create({
     paddingVertical: 10,
     flexDirection: "row",
     alignSelf: "center",
-    marginLeft: width / 2,
+    marginLeft: width/3+30,
   },
   buttonText: {
     color: "black",
