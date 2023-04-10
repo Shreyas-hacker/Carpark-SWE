@@ -32,7 +32,7 @@ function CarparkInfoCard({ carpark, carparkLots, loaded }) {
 
   const slidePosition = slideAnimation.interpolate({
     inputRange: [0, 1],
-    outputRange: [Dimensions.get("window").height / 5, 0],
+    outputRange: [Dimensions.get("window").height / 6, Dimensions.get("window").height/100],
   });
 
   const lotsPercentage = carparkLots[0] / carparkLots[1];
@@ -79,7 +79,7 @@ function CarparkInfoCard({ carpark, carparkLots, loaded }) {
             <Text style={[styles.subtitle_lots]}>
               Total Slots: {carparkLots[1]}
             </Text>
-            <Text style={[styles.subtitle_lots, { color: resultTextColor }]}>
+            <Text style={[styles.subtitle_lots, carparkLots[0]!=='N/A' && { color: resultTextColor }]}>
               Available Slots: {carparkLots[0]}
             </Text>
             <Text style={[styles.subtitle]}>
