@@ -84,7 +84,7 @@ function Profile({ navigation }) {
             <LongButton
               text="Favourite"
               onPress={() => {
-                navigation.navigate("");
+                navigation.navigate("Favourite");
               }}
             />
             <PrimaryButton
