@@ -119,14 +119,9 @@ function ReportFault({ navigation, route }) {
             size={28}
             color="black"
           />
-          <Text
-            style={[styles.reportTitle]}
-            onLayout={(event) => {
-              measureView(event);
-            }}
-          >
-            Report Faults
-          </Text>
+          <View>
+          <Text style={[styles.reportTitle]}>Report Faults</Text>
+          </View>
         </View>
 
         <Text style={[styles.carparkTitle]}>
@@ -262,7 +257,7 @@ const styles = StyleSheet.create({
   },
   reportTitle: {
     fontSize: 20,
-    marginHorizontal: (deviceWidth - componentWidth - 35) / 5,
+    marginHorizontal: (deviceWidth - componentWidth - 70) / 4,
   },
   carparkTitle: {
     fontSize: 35,
