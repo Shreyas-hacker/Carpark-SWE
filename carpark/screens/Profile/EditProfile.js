@@ -1,12 +1,12 @@
 import { useContext, useEffect, useState } from "react";
 import {
-  Alert,
   Dimensions,
-  ScrollView,
   StyleSheet,
   TextInput,
   View,
   Image,
+  TouchableWithoutFeedback,
+  Keyboard,
 } from "react-native";
 import { Text } from "react-native";
 import { AuthContext } from "../../store/context/user-context";
@@ -14,6 +14,7 @@ import { updateAccount } from "../../util/AuthManager";
 import PrimaryButton from "../../components/PrimaryButton";
 import IconButton from "../../components/IconButton";
 import ProfilePicture from "../../assets/ProfilePicture.png";
+import { Touchable } from "react-native";
 
 let componentWidth = 0;
 const width = Dimensions.get("window").width;
@@ -58,7 +59,9 @@ function EditProfile({ navigation }) {
     console.log("Profile updated");
   }
   return (
-    <ScrollView style={styles.page} keyboardShouldPersistTaps="handled">
+    <TouchableWithoutFeedback onPress={() =>
+      Keyboard.dismiss()
+    }>
       <View>
         <View style={styles.topContent}>
             <IconButton
@@ -109,7 +112,7 @@ function EditProfile({ navigation }) {
           />
         </View>
       </View>
-    </ScrollView>
+    </TouchableWithoutFeedback>
   );
 }
 

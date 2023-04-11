@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from "react";
-import { Alert, Dimensions, ScrollView, StyleSheet, TextInput, View } from "react-native";
+import { Alert, Dimensions,StyleSheet, TextInput, View, TouchableWithoutFeedback, Keyboard } from "react-native";
 import { Text } from "react-native";
 import { AuthContext } from "../../store/context/user-context";
 import { updateAccount } from "../../util/AuthManager";
@@ -55,7 +55,9 @@ function CreateProfile({navigation}){
         console.log('Profile created');
     }
     return (
-        <ScrollView style={styles.page} keyboardShouldPersistTaps='handled'>
+        <TouchableWithoutFeedback onPress={() =>
+            Keyboard.dismiss()
+          }>
             <View>
                 <View style={styles.topContent}>
                     <Text style={styles.title} onLayout={(event)=>{
@@ -71,7 +73,7 @@ function CreateProfile({navigation}){
                     <PrimaryButton onSuccess={filled} onAttempt={createProfileAttempt} text="Create Profile"/>
                 </View>
             </View>
-        </ScrollView>
+        </TouchableWithoutFeedback>
     )
 }
 
