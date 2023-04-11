@@ -14,7 +14,8 @@ import { updateAccount } from "../../util/AuthManager";
 import PrimaryButton from "../../components/PrimaryButton";
 import IconButton from "../../components/IconButton";
 import ProfilePicture from "../../assets/ProfilePicture.png";
-import { Touchable } from "react-native";
+import { Alert } from "react-native";
+
 
 let componentWidth = 0;
 const width = Dimensions.get("window").width;
@@ -51,12 +52,15 @@ function EditProfile({ navigation }) {
 
   //create profile fuction
   async function updateProfileAttempt() {
-    if (fullName !== "" && phoneNumber !== "") {
+    if(fullName === authCtx.display_name){
+      setFullName("");
+      Alert.alert("Same Display name","Please enter a new display name that is different from your current display name",[{text:"OK",style:"destructive"}]);
+    }
+    else if (fullName !== "" && phoneNumber !== "") {
       const token = await updateAccount(authCtx.token, fullName);
       authCtx.handleDisplayName(fullName);
-      navigation.navigate("Profile");
+      Alert.alert("Successful","Profile updated successfully!",[{text:"OK",onPress:()=>{navigation.navigate("Profile")}}]);
     }
-    console.log("Profile updated");
   }
   return (
     <TouchableWithoutFeedback onPress={() =>
