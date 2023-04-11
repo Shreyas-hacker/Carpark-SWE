@@ -79,7 +79,7 @@ function ReportFault({ navigation, route }) {
     componentWidth = event.nativeEvent.layout.width;
   }
   function goBack() {
-    navigation.navigate("Tab");
+    navigation.goBack();
   }
   async function submit() {
     var photoURL = "";

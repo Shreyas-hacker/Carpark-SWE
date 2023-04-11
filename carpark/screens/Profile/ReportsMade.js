@@ -45,10 +45,7 @@ function ReportsMade({navigation}){
           />
         </View>
         <Text style={styles.title}>Reports Made</Text>
-        {!reportsDone && (
-            <LoadingScreen/>
-        )}
-        {reports.length > 0 ? (
+        {!reportsDone ? (<LoadingScreen/> ) : (reports.length > 0 ? (
           <FlatList
             data={reports}
             renderItem={({ item }) => <ReportCard report={item} />}
@@ -64,7 +61,7 @@ function ReportsMade({navigation}){
             />
             <Text style={{ alignSelf: "center" }}>No reports made!</Text>
           </View>
-        )}
+        ))}
       </View>
     );
 }
