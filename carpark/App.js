@@ -18,6 +18,7 @@ import Favourite from "./screens/Favourite/Favourite";
 
 import MyTabs from "./screens/Tabs";
 import AuthContextProvider, { AuthContext } from "./store/context/user-context";
+import ReportContextProvider from "./store/context/reportsmade-context";
 
 const Stack = createNativeStackNavigator();
 
@@ -67,7 +68,11 @@ function Navigation() {
   return (
     <NavigationContainer>
       {!authCtx.isAuthenticated && <AuthStack />}
-      {authCtx.isAuthenticated && <AuthenticatedStack />}
+      {authCtx.isAuthenticated && (
+        <ReportContextProvider>
+          <AuthenticatedStack />
+        </ReportContextProvider>
+      )}
     </NavigationContainer>
   );
 }

@@ -19,6 +19,7 @@ import { FontStyle } from "../../util/fonts/fontstyles";
 import { uploadImage } from "../../util/realtime/storeImage";
 import { storeReport } from "../../util/realtime/realTimeStorage";
 import { AuthContext } from "../../store/context/user-context";
+import { ReportContext } from "../../store/context/report-context";
 
 const backColor = "#FFFFFF";
 const deviceWidth = Dimensions.get("window").width;
@@ -27,6 +28,8 @@ let componentWidth = 0;
 
 function ReportFault({ navigation, route }) {
   const authCtx = useContext(AuthContext);
+  const reportCtx = useContext(ReportContext);
+
   const [faultDropOpen, setFaultDropOpen] = useState(false);
   const [severityDropOpen, setSeverityDropOpen] = useState(false);
   const [Fault, setFault] = useState([]);
