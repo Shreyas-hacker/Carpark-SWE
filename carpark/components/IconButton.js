@@ -20,6 +20,8 @@ const styles = StyleSheet.create({
   buttonContainer: {
     marginHorizontal: 8,
     width: 35,
+    alignItems: "center",
+    justifyContent: "center",
   },
   pressed: {
     opacity: 0.75,

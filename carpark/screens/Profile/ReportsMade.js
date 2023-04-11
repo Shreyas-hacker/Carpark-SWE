@@ -6,6 +6,7 @@ import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 import IconButton from "../../components/IconButton";
 import { AuthContext } from "../../store/context/user-context";
 import {fetchReports} from "../../util/realtime/realTimeStorage";
+import LoadingScreen from "../../components/LoadingScreen";
 
 function ReportsMade({navigation}){
     const [reportsDone, setReportsDone] = useState(false);
@@ -43,7 +44,11 @@ function ReportsMade({navigation}){
             color="black"
           />
         </View>
-        {reportsDone ? (
+        <Text style={styles.title}>Reports Made</Text>
+        {!reportsDone && (
+            <LoadingScreen/>
+        )}
+        {reports.length > 0 ? (
           <FlatList
             data={reports}
             renderItem={({ item }) => <ReportCard report={item} />}
@@ -74,7 +79,11 @@ const styles = StyleSheet.create({
     topContent:{
         flexDirection:'row',
         marginTop: 40,
-        alignItems: 'center'
+    },
+    title:{
+        fontSize: 18,
+        fontWeight: 'bold',
+        textAlign: 'center',
     },
     imageContainer:{
         marginTop: height/3,

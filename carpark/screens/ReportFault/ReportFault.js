@@ -19,7 +19,7 @@ import { FontStyle } from "../../util/fonts/fontstyles";
 import { uploadImage } from "../../util/realtime/storeImage";
 import { storeReport } from "../../util/realtime/realTimeStorage";
 import { AuthContext } from "../../store/context/user-context";
-import { ReportContext } from "../../store/context/report-context";
+import { ReportContext } from "../../store/context/reportsmade-context";
 
 const backColor = "#FFFFFF";
 const deviceWidth = Dimensions.get("window").width;
@@ -95,6 +95,7 @@ function ReportFault({ navigation, route }) {
       photo: photoURL,
     };
     storeReport(data);
+
     Alert.alert("Fault Reported", "Thank you for your feedback!", [{ text: "OK", onPress: () => navigation.goBack() }]);
   }
 
