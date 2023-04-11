@@ -15,10 +15,10 @@ import ChangePassword from "./screens/Accounts/ChangePassword";
 import EditProfile from "./screens/Profile/EditProfile";
 import Favourite from "./screens/Favourite/Favourite";
 import ReportsMade from "./screens/Profile/ReportsMade";
+import FavContextProvider from "./store/context/favourite-context";
 
 import MyTabs from "./screens/Tabs";
 import AuthContextProvider, { AuthContext } from "./store/context/user-context";
-import ReportContextProvider from "./store/context/reportsmade-context";
 
 const Stack = createNativeStackNavigator();
 
@@ -69,9 +69,9 @@ function Navigation() {
     <NavigationContainer>
       {!authCtx.isAuthenticated && <AuthStack />}
       {authCtx.isAuthenticated && (
-        <ReportContextProvider>
+        <FavContextProvider>
           <AuthenticatedStack />
-        </ReportContextProvider>
+        </FavContextProvider>
       )}
     </NavigationContainer>
   );

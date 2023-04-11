@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState,useContext } from "react";
 import {
   View,
   Text,
@@ -11,13 +11,16 @@ import { useNavigation } from "@react-navigation/native";
 import useLoadFonts from "../../util/fonts/loadfont";
 import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 import { FontStyle } from "../../util/fonts/fontstyles";
+import { FavContext } from "../../store/context/favourite-context";
 import LoadingScreen from "../../components/LoadingScreen";
 
-function CarparkInfoCard({ carpark, carparkLots, loaded }) {
+function CarparkInfoCard({ carpark, carparkLots, favourited,loading }) {
   const slideAnimation = useRef(new Animated.Value(0)).current;
   const navigation = useNavigation();
+  const favCtx = useContext(FavContext);
 
   const [arrowDirection, setArrowDirection] = useState("up");
+  const [fav, setFav] = useState(favourited);
 
   const toggleCard = () => {
     Animated.timing(slideAnimation, {
@@ -46,6 +49,14 @@ function CarparkInfoCard({ carpark, carparkLots, loaded }) {
     resultTextColor = "red";
   }
 
+  function onFavouritePress() {
+    if (fav) {
+      favCtx.addFav(carpark.car_park_no);
+    } else {
+      favCtx.removeFav(carpark.car_park_no);
+    }
+    setFav(!fav);
+  }
   return (
     <>
       <Animated.View
@@ -73,9 +84,14 @@ function CarparkInfoCard({ carpark, carparkLots, loaded }) {
         >
           <View style={styles.arrow} />
         </TouchableOpacity>
-        {!loaded ? (
+        {!loading ? (
           <>
+          <View style={styles.itemRow}>
             <Text style={[styles.title]}>{carpark.address}</Text>
+            <TouchableOpacity onPress={onFavouritePress}>
+              <MaterialIcons  name={ fav ? "favorite" : "favorite-outline"} size={24}/>
+            </TouchableOpacity>
+          </View>
             <Text style={[styles.subtitle_lots]}>
               Total Slots: {carparkLots[1]}
             </Text>
@@ -97,7 +113,6 @@ function CarparkInfoCard({ carpark, carparkLots, loaded }) {
                 ? carpark.gantry_height + " Metres"
                 : "No Limit"}{" "}
             </Text>
-
             <TouchableOpacity
               style={styles.button2}
               onPress={() => {
@@ -163,6 +178,10 @@ const styles = StyleSheet.create({
     borderRightWidth: 3,
     borderRightColor: "#717171",
     transform: [{ rotate: "45deg" }],
+  },
+  itemRow: {
+    flexDirection: "row",
+    flex: 1,
   },
   title: {
     fontSize: 16,

@@ -87,11 +87,6 @@ const DisplayCarpark = ({ route }) => {
           onCarparkSelect={handleCarparkSelect}
         />
       )}
-      {selectedCarpark && (
-        <View style={styles.cardContainer}>
-          <CarparkInfoCard carpark={selectedCarpark} />
-        </View>
-      )}
       <View style={styles.searchBar}>
         <SearchBar
           onSearchTermChange={handleSearch}
