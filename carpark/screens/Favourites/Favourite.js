@@ -11,7 +11,7 @@ import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 import IconButton from "../../components/IconButton";
 import { AuthContext } from "../../store/context/user-context";
 import LoadingScreen from "../../components/LoadingScreen";
-import { fetchFavs } from "../../util/realtime/realTimeFav";
+import { fetchFavs,updateFavorite } from "../../util/realtime/realTimeFav";
 import FavouriteCard from "./FavouriteCard";
 
 function Favourite({ navigation }) {
@@ -26,21 +26,27 @@ function Favourite({ navigation }) {
         var email = authCtx.email;
         const response = await fetchFavs(email);
         setFavourites(response);
-        if(response.length > 0){
-          setHasFavourites(true);
-        }else{
-          setHasFavourites(false);
-        }
+        setHasFavourites(true);
       }catch(error){
         console.log(error);
       }
     }
     getFavourites();
   })
+
   function goBack(){
     navigation.goBack();
   }
 
+  function removeFavourite(carpark,email){
+    const newFavourites = favourites.filter((fav) => fav !== carpark);
+    setFavourites(newFavourites);
+    updateFavorite(newFavourites,email);
+  }
+
+  function goMap(carpark){
+    navigation.navigate("DisplayCarpark", { carpark: carpark });
+  }
   return (
     <View style={styles.container}>
       <View style={styles.topContent}>
@@ -56,13 +62,13 @@ function Favourite({ navigation }) {
         !hasFavourites ? (<LoadingScreen/> ) : (favourites.length > 0 ? (
           <FlatList
             data={favourites}
-            renderItem={({ item }) => <FavouriteCard favCarpark={item} />}
-            keyExtractor={(item) => item.id}
+            renderItem={({ item }) => <FavouriteCard favCarpark={item} removeFavourite={removeFavourite.bind(this,item,authCtx.email)}  goMap={goMap.bind(this,item)}/>}
+            keyExtractor={(item) => item[item]}
           />
         ) : (
           <View style={styles.imageContainer}>
             <MaterialIcons
-              name="report-off"
+              name="favorite"
               color="black"
               size={100}
               style={{ alignSelf: "center" }}
@@ -97,6 +103,9 @@ const styles = StyleSheet.create({
   imageContainer:{
     marginTop: deviceHeight/3,
   },
+  noReportsText:{
+    alignSelf: "center",
+  }
 });
 
 export default Favourite;
