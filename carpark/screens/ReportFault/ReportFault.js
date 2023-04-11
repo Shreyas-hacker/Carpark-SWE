@@ -19,7 +19,6 @@ import { FontStyle } from "../../util/fonts/fontstyles";
 import { uploadImage } from "../../util/realtime/storeImage";
 import { storeReport } from "../../util/realtime/realTimeStorage";
 import { AuthContext } from "../../store/context/user-context";
-import { ReportContext } from "../../store/context/reportsmade-context";
 
 const backColor = "#FFFFFF";
 const deviceWidth = Dimensions.get("window").width;
