@@ -13,9 +13,8 @@ import Camera from "./screens/ReportFault/MediaFunction";
 import DisplayCarpark from "./screens/DisplayCarparks/DisplayCarparks";
 import ChangePassword from "./screens/Accounts/ChangePassword";
 import EditProfile from "./screens/Profile/EditProfile";
-import Favourite from "./screens/Favourite/Favourite";
+import Favourite from "./screens/Favourites/Favourite";
 import ReportsMade from "./screens/Profile/ReportsMade";
-import FavContextProvider from "./store/context/favourite-context";
 
 import MyTabs from "./screens/Tabs";
 import AuthContextProvider, { AuthContext } from "./store/context/user-context";
@@ -69,9 +68,7 @@ function Navigation() {
     <NavigationContainer>
       {!authCtx.isAuthenticated && <AuthStack />}
       {authCtx.isAuthenticated && (
-        <FavContextProvider>
           <AuthenticatedStack />
-        </FavContextProvider>
       )}
     </NavigationContainer>
   );

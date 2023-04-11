@@ -3,15 +3,12 @@ import { StyleSheet, View, ActivityIndicator } from "react-native";
 import MapView, { Marker } from "react-native-maps";
 import { convertLatLong, searchCarparkLots } from "./SearchCarpark";
 import CarparkInfoCard from "./CarparkInfoCard";
-import { FavContext } from "../../store/context/favourite-context";
 
 function Map({ carparks, region }) {
-  const favCtx = useContext(FavContext);
   const [coordinateArray, setCoordinateArray] = useState([]);
   const [isCoordinateArraySet, setIsCoordinateArraySet] = useState(false);
   const [selectedCarpark, setSelectedCarpark] = useState(null);
   const [carparkLots, setCarparkLots] = useState([]);
-  let isFavorite = false;
   const [isLoading,setIsLoading] = useState(false);
 
   const mapRef = useRef(null);
@@ -36,7 +33,6 @@ function Map({ carparks, region }) {
   }, [carparks]);
 
   useEffect(() => {
-    console.log('executed')
     if (selectedCarpark) {
       setIsLoading(true);
       const fetchCarparkLots = async () => {
@@ -48,8 +44,6 @@ function Map({ carparks, region }) {
         setIsLoading(false);
       };
       fetchCarparkLots();
-      isFavorite = favCtx.fav.includes(selectedCarpark.car_park_no);
-      console.log(isFavorite)
     }
   }, [selectedCarpark]);
   
@@ -97,7 +91,6 @@ function Map({ carparks, region }) {
             carpark={selectedCarpark}
             carparkLots={carparkLots}
             loading = {isLoading}
-            favourited = {isFavorite}
           />
         </View>
       ): null}

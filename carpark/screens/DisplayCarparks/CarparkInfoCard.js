@@ -6,22 +6,31 @@ import {
   Dimensions,
   Animated,
   TouchableOpacity,
+  Alert
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import useLoadFonts from "../../util/fonts/loadfont";
 import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 import { FontStyle } from "../../util/fonts/fontstyles";
-import { FavContext } from "../../store/context/favourite-context";
 import LoadingScreen from "../../components/LoadingScreen";
+import { AuthContext } from "../../store/context/user-context";
+import { storeFav,fetchFavs,updateFavorite } from "../../util/realtime/realTimeFav";
 
-function CarparkInfoCard({ carpark, carparkLots, favourited,loading }) {
+function CarparkInfoCard({ carpark, carparkLots,loading }) {
   const slideAnimation = useRef(new Animated.Value(0)).current;
   const navigation = useNavigation();
-  const favCtx = useContext(FavContext);
+  const authCtx = useContext(AuthContext);
 
   const [arrowDirection, setArrowDirection] = useState("up");
-  const [fav, setFav] = useState(favourited);
+  const [favCarpark,setFavCarpark] = useState([]);
 
+  useEffect(() => {
+    const fetchFav = async () => {
+      const fav= await fetchFavs(authCtx.email);
+      setFavCarpark(fav);
+    };
+    fetchFav();
+  },[favCarpark])
   const toggleCard = () => {
     Animated.timing(slideAnimation, {
       toValue: slideAnimation._value === 0 ? 1 : 0,
@@ -50,12 +59,17 @@ function CarparkInfoCard({ carpark, carparkLots, favourited,loading }) {
   }
 
   function onFavouritePress() {
-    if (fav) {
-      favCtx.addFav(carpark.car_park_no);
-    } else {
-      favCtx.removeFav(carpark.car_park_no);
+    if(favCarpark.length === 0){
+      setFavCarpark([...favCarpark,carpark.car_park_no]);
+      storeFav({user_id:authCtx.email, favouritedCarpark: [carpark.car_park_no]});
+      Alert.alert("Added to Favourites","This carpark has been added to your favourites list!", [{text:'Ok',style:'destructive'}]);
+    }else if(favCarpark.indexOf(carpark.car_park_no) === -1){
+      setFavCarpark([...favCarpark,carpark.car_park_no]);
+      updateFavorite([...favCarpark,carpark.car_park_no],authCtx.email);
+      Alert.alert("Added to Favourites","This carpark has been added to your favourites list!", [{text:'Ok',style:'destructive'}]);
+    }else{
+      Alert.alert("Already in Favourites","This carpark is already in your favourites list!", [{text:'Ok',style:'destructive'}]);
     }
-    setFav(!fav);
   }
   return (
     <>
@@ -89,7 +103,7 @@ function CarparkInfoCard({ carpark, carparkLots, favourited,loading }) {
           <View style={styles.itemRow}>
             <Text style={[styles.title]}>{carpark.address}</Text>
             <TouchableOpacity onPress={onFavouritePress}>
-              <MaterialIcons  name={ fav ? "favorite" : "favorite-outline"} size={24}/>
+              <MaterialIcons  name={ "add-circle-outline" } size={24}/>
             </TouchableOpacity>
           </View>
             <Text style={[styles.subtitle_lots]}>
