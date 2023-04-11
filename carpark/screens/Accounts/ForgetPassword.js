@@ -4,9 +4,6 @@ import IconButton from "../../components/IconButton";
 import PrimaryButton from "../../components/PrimaryButton";
 import { resetPassword } from "../../util/AuthManager";
 import { emailChecker } from "../../util/helper";
-import useLoadFonts from '../../util/fonts/loadfont';
-import { FontStyle } from "../../util/fonts/fontstyles";
-
 
 let componentWidth = 0;
 const width = Dimensions.get('window').width;

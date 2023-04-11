@@ -1,6 +1,7 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import { AppLoading } from "expo-app-loading";
 import { StatusBar } from "expo-status-bar";
 
 import Login from "./screens/Accounts/Login";
@@ -19,11 +20,14 @@ import ReportsMade from "./screens/Profile/ReportsMade";
 import MyTabs from "./screens/Tabs";
 import AuthContextProvider, { AuthContext } from "./store/context/user-context";
 
+
+import { useFonts, OpenSans_800ExtraBold, OpenSans_300Light_Italic } from '@expo-google-fonts/open-sans';
+
 const Stack = createNativeStackNavigator();
 
 function AuthStack() {
   return (
-    <Stack.Navigator screenOptions={{ headerShown: false }}>
+    <Stack.Navigator screenOptions={{ headerShown: false }}>  
       <Stack.Screen name="Login" component={Login} />
       <Stack.Screen name="CreateAccount" component={CreateAccount} />
       <Stack.Screen name="ForgetPassword" component={ForgetPassword} />
@@ -74,6 +78,15 @@ function Navigation() {
   );
 }
 export default function App() {
+  let [fontsLoaded] = useFonts({
+    OpenSans_800ExtraBold,
+    OpenSans_300Light_Italic,
+  });
+
+  if (!fontsLoaded) {
+    return null;
+  }
+
   return (
     <>
       <StatusBar style="light" />

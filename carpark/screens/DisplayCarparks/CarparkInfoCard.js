@@ -9,9 +9,7 @@ import {
   Alert
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
-import useLoadFonts from "../../util/fonts/loadfont";
 import MaterialIcons from "react-native-vector-icons/MaterialIcons";
-import { FontStyle } from "../../util/fonts/fontstyles";
 import LoadingScreen from "../../components/LoadingScreen";
 import { AuthContext } from "../../store/context/user-context";
 import { storeFav,fetchFavs,updateFavorite } from "../../util/realtime/realTimeFav";

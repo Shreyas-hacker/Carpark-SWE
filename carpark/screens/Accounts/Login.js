@@ -4,8 +4,6 @@ import PrimaryButton from "../../components/PrimaryButton";
 import IconButton from "../../components/IconButton";
 import { AuthContext } from "../../store/context/user-context";
 import { login } from "../../util/AuthManager";
-import useLoadFonts from '../../util/fonts/loadfont';
-import { FontStyle } from "../../util/fonts/fontstyles";
 
 function Login({navigation}){
     const [filled, setfilled] = useState(false); // state to manage if all fields in the form has been filled
@@ -14,8 +12,6 @@ function Login({navigation}){
     const [show, setShow] = useState(true);
 
     const authCtx = useContext(AuthContext);
-
-    useLoadFonts();
 
     useEffect(()=>{
         if(username!=='' && password !== ''){
@@ -108,12 +104,13 @@ const styles = StyleSheet.create({
     },
     bigdescription:{
         marginTop: deviceHeight < 380 ? 60 : 200,
-        marginLeft: 15
+        marginLeft: 15,
     },
     title:{
         fontSize: 30,
         fontWeight: "bold",
         color: 'white',
+        fontFamily: 'OpenSans_300Light_Italic',
     },
     inputContainer:{
         marginTop: 40,

@@ -14,8 +14,6 @@ import CarparkBackground from "../../assets/CarparkBackground.jpg";
 import DropDownPicker from "react-native-dropdown-picker";
 import PrimaryButton from "../../components/PrimaryButton";
 import IconButton from "../../components/IconButton";
-import useLoadFonts from "../../util/fonts/loadfont";
-import { FontStyle } from "../../util/fonts/fontstyles";
 import { uploadImage } from "../../util/realtime/storeImage";
 import { storeReport } from "../../util/realtime/realTimeStorage";
 import { AuthContext } from "../../store/context/user-context";
