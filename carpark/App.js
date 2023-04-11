@@ -13,8 +13,8 @@ import Camera from "./screens/ReportFault/MediaFunction";
 import DisplayCarpark from "./screens/DisplayCarparks/DisplayCarparks";
 import ChangePassword from "./screens/Accounts/ChangePassword";
 import EditProfile from "./screens/Profile/EditProfile";
-import ReportsMade from "./screens/Profile/ReportsMade";
 import Favourite from "./screens/Favourite/Favourite";
+import ReportsMade from "./screens/Profile/ReportsMade";
 
 import MyTabs from "./screens/Tabs";
 import AuthContextProvider, { AuthContext } from "./store/context/user-context";
@@ -52,7 +52,7 @@ function AuthenticatedStack() {
         name="DisplayCarpark"
         component={DisplayCarpark}
         options={{
-          presentation: "modal",
+          presentation:"modal",
         }}
       />
       <Stack.Screen name="ChangePassword" component={ChangePassword} />

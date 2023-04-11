@@ -1,4 +1,5 @@
-import { View,Text,StyleSheet } from "react-native";
+import { View,Text,StyleSheet, Button } from "react-native";
+import { useNavigation } from "@react-navigation/native";
 
 function ReportCard({report}){
     const colors = ["#FFFFFF", "#FFC107", "#FF0000"];
@@ -6,6 +7,8 @@ function ReportCard({report}){
   
     const backgroundColor = colors[report.severity-1];
     const faultType = severity[report.fault];
+
+    const navigation = useNavigation();
   
     return (
       <View style={styles.container}>

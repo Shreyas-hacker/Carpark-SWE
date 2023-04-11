@@ -28,7 +28,6 @@ let componentWidth = 0;
 
 function ReportFault({ navigation, route }) {
   const authCtx = useContext(AuthContext);
-  const reportCtx = useContext(ReportContext);
 
   const [faultDropOpen, setFaultDropOpen] = useState(false);
   const [severityDropOpen, setSeverityDropOpen] = useState(false);
