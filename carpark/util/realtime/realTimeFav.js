@@ -28,8 +28,11 @@ export async function updateFavorite(favData,email){
 
     for (const key in response.data){
         if(response.data[key].user_id === email){
-            console.log("executed");
-            axios.put(BACKEND_URL+`/favourites/${key}/favouritedCarpark.json`,favData);
+            if(favData.length === 0){
+                axios.delete(BACKEND_URL+`/favourites/${key}.json`);
+            }else{
+                axios.put(BACKEND_URL+`/favourites/${key}/favouritedCarpark.json`,favData);
+            }
         }
     }
 }
