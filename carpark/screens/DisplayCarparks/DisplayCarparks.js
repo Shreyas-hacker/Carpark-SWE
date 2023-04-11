@@ -25,7 +25,7 @@ const DisplayCarpark = ({ route }) => {
       const location = await getCurrentLocation();
       setMapRegion(location);
 
-      if (searchTerm !== "") {
+      if (searchTerm === "") {
         const carparks = await searchCarpark(location);
         const filteredCarparks = carparks.filter((carpark) => {
           // Calculate the distance between the user's location and the carpark
@@ -47,6 +47,8 @@ const DisplayCarpark = ({ route }) => {
             setErrorMessage("");
           }, 2000);
         }
+      }else{
+        handleSearchCarpark();
       }
     }
 
