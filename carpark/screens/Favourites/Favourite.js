@@ -62,7 +62,7 @@ function Favourite({ navigation }) {
         !hasFavourites ? (<LoadingScreen/> ) : (favourites.length > 0 ? (
           <FlatList
             data={favourites}
-            renderItem={({ item }) => <FavouriteCard favCarpark={item} removeFavourite={removeFavourite.bind(this,item,authCtx.email)}  goMap={goMap.bind(this,item.address)}/>}
+            renderItem={({ item }) => <FavouriteCard favCarpark={item} removeFavourite={removeFavourite.bind(this,item,authCtx.email)}  goMap={goMap.bind(this,item.car_park_no)}/>}
             keyExtractor={(item) => item._id}
           />
         ) : (
