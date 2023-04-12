@@ -1,14 +1,11 @@
-import { title } from "process";
 import { View,Text,StyleSheet } from "react-native";
-
 
 function FaultCard({fault}){
     return(
         <View style={styles.container}>
             <View style={styles.card}>
-                <Text style={styles.title}>Carpark</Text>
-                <Text style={styles.text}>Fault Type: <Text style={styles.boldText}>Lighting</Text></Text>
-                <Text style={styles.text}>Description: {" "}<Text style={styles.boldText} numberOfLines={2}>Lighting</Text></Text>
+                <Text style={styles.title}>{fault.carpark}</Text>
+                <Text style={styles.text}>Description: {" "}<Text style={styles.boldText} numberOfLines={2}>{fault.description}</Text></Text>
             </View>
         </View>
     )
@@ -19,7 +16,7 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: "center",
         aligntitems: "center",
-        marginTop: 20,
+        marginHorizontal: 20,
     },
     card:{
         backgroundColor: "#fff",
@@ -31,7 +28,8 @@ const styles = StyleSheet.create({
         shadowRadius: 3.84,
         elevation: 5,
         maxWidth: 400,
-        width: "80%",
+        width: 200,
+        height: 150
     },
     title:{
         fontSize: 24,

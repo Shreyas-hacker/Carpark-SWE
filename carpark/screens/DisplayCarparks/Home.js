@@ -14,8 +14,8 @@ import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 import LoadingScreen from "../../components/LoadingScreen";
 import CarparkBackground from "../../assets/CarparkBackground.jpg";
 import { searchCarpark } from "./SearchCarpark";
-import ShowFault from "../Home/ShowFaults";
-import fetchSevereFaults from "../../util/realtime/realTimeStorage";
+import ShowFaults from "../Home/ShowFaults";
+import { fetchSevereFaults } from "../../util/realtime/realTimeStorage";
 
 function HomeScreen({ navigation }) {
   const API_KEY = "AIzaSyCX5cIGMG23hoatqCPLZnSQJX_6klMLbRk";
@@ -24,7 +24,6 @@ function HomeScreen({ navigation }) {
   const [email, setEmail] = useState("");
   const [searchText, setSearchText] = useState("");
   const [searchResults, setSearchResults] = useState([]);
-
 
   useEffect(() => {
     const token = authCtx.token;
@@ -49,7 +48,7 @@ function HomeScreen({ navigation }) {
         });
     }
     getDisplayName();
-  });
+  },[]);
 
   return displayName ? (
     <View style={styles.container}>
@@ -93,7 +92,7 @@ function HomeScreen({ navigation }) {
         <Text style={styles.reportText}>
           Carparks to avoid:
         </Text>
-        <ShowFault/>
+        <ShowFaults />
       </View>
     </View>
   ) : (

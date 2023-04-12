@@ -32,16 +32,16 @@ export async function fetchSevereFaults(){
     const Severefaults = [];
 
     for (const key in response.data){
-        if(response.data[key].severity === 'Severe'){
+        if(response.data[key].severity === '2'){
             const reportObject = {
                 id: key,
                 carpark: response.data[key].carpark_no,
                 description: response.data[key].description,
-                severity: response.data[key].severity,
                 fault: response.data[key].fault_type,
             }
             Severefaults.push(reportObject);
         }
     }
+    console.log(Severefaults);
     return Severefaults;
 }

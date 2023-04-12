@@ -4,8 +4,11 @@ import SearchBar from "../../components/SearchBar";
 import Map from "./Maps";
 import { getCurrentLocation } from "./LocationService";
 import { searchCarpark } from "./SearchCarpark";
+<<<<<<< Updated upstream
 import CarparkInfoCard from "./CarparkInfoCard";
 import { StatusBar } from "expo-status-bar";
+=======
+>>>>>>> Stashed changes
 
 const DisplayCarpark = ({ route }) => {
   const [filteredCarparks, setFilteredCarparks] = useState([]);

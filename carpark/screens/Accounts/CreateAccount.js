@@ -7,7 +7,6 @@ import {
   TextInput,
   ScrollView,
   Alert,
-  Button,
   TouchableOpacity,
 } from "react-native";
 import { useEffect, useState, useContext } from "react";
