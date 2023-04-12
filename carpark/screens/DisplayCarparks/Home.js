@@ -89,6 +89,9 @@ function HomeScreen({ navigation }) {
       </View>
 
       <View style={styles.body}>
+        <Text style={styles.reportText}>
+          Carparks to avoid:
+        </Text>
       </View>
     </View>
   ) : (
@@ -174,26 +177,8 @@ const styles = StyleSheet.create({
     height: 50,
     fontSize: 20,
   },
-  button2: {
-    backgroundColor: "gold",
-    borderRadius: 5,
-    paddingVertical: 15,
-    paddingHorizontal: 25,
-    marginLeft: 20,
-    marginRight: 20,
-    flexDirection: "row",
-    alignItems: "center",
-    marginBottom: 20,
-  },
-  button3: {
-    backgroundColor: "pink",
-    borderRadius: 5,
-    paddingVertical: 15,
-    paddingHorizontal: 25,
-    marginLeft: 20,
-    marginRight: 20,
-    flexDirection: "row",
-    alignItems: "center",
-    marginBottom: 20,
-  },
+  reportText:{
+    fontSize: 20,
+    fontFamily: 'OpenSans_700Bold'
+  }
 });
