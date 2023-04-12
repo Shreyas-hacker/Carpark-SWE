@@ -173,7 +173,7 @@ const deviceHeight = Dimensions.get("window").height;
 
 const styles = StyleSheet.create({
   form: {
-    backgroundColor: '#052736',
+    backgroundColor: "#052736",
     flex: 1,
   },
   bigdescription: {
@@ -183,7 +183,7 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 30,
     fontWeight: "bold",
-    color: '#3FE0D2',
+    color: "#3FE0D2",
     fontFamily: "OpenSans_700Bold",
   },
   inputContainer: {
@@ -208,16 +208,16 @@ const styles = StyleSheet.create({
   text: {
     color: "white",
     fontSize: 13,
-    fontFamily: 'OpenSans_300Light',
+    fontFamily: "OpenSans_300Light",
   },
   loginText: {
-    color: 'white',
-    fontFamily: 'OpenSans_700Bold',
-    color: '#3FE0D2'
+    color: "white",
+    fontFamily: "OpenSans_700Bold",
+    color: "#3FE0D2",
   },
   description: {
     color: "white",
-    fontFamily: 'OpenSans_300Light',
+    fontFamily: "OpenSans_300Light",
     marginTop: 10,
     fontSize: 15,
     padding: 4,

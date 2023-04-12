@@ -1,4 +1,4 @@
-import * as Font from 'expo-font';
+import * as Font from "expo-font";
 import {
   OpenSans_300Light,
   OpenSans_300Light_Italic,
@@ -10,7 +10,7 @@ import {
   OpenSans_700Bold_Italic,
   OpenSans_800ExtraBold,
   OpenSans_800ExtraBold_Italic,
-} from '@expo-google-fonts/open-sans';
+} from "@expo-google-fonts/open-sans";
 
 const useFonts = async () => {
   await Font.loadAsync({

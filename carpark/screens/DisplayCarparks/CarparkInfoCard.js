@@ -30,6 +30,7 @@ function CarparkInfoCard({ carpark, carparkLots, loading }) {
   const [isHidden, setIsHidden] = useState(false);
   const [iconColor, setIconColor] = useState("black");
 
+
   useEffect(() => {
     async function getReports() {
       try {
@@ -81,32 +82,39 @@ function CarparkInfoCard({ carpark, carparkLots, loading }) {
   }
 
   function onFavouritePress() {
-    if (favCarpark.length === 0) {
-      setFavCarpark([...favCarpark, carpark.car_park_no]);
-      storeFav({ user_id: authCtx.email, favouritedCarpark: [carpark] });
-      setIconColor("orange");
-      Alert.alert(
-        "Added to Favourites",
-        "This carpark has been added to your favourites list!",
-        [{ text: "Ok", style: "destructive" }]
+    if(iconColor=='black'){
+      if (favCarpark.length === 0) {
+        setFavCarpark([...favCarpark, carpark.car_park_no]);
+        storeFav({ user_id: authCtx.email, favouritedCarpark: [carpark] });
+        setIconColor("orange");
+        Alert.alert(
+          "Added to Favourites",
+          "This carpark has been added to your favourites list!",
+          [{ text: "Ok", style: "destructive" }]
+        );
+      } else if (
+        favCarpark.findIndex((fav) => fav.car_park_no === carpark.car_park_no) ===
+        -1
+      ) {
+        setFavCarpark([...favCarpark, carpark]);
+        updateFavorite([...favCarpark, carpark], authCtx.email);
+        setIconColor("orange");
+        Alert.alert(
+          "Added to Favourites",
+          "This carpark has been added to your favourites list!",
+          [{ text: "Ok", style: "destructive" }]
+        );
+      } 
+    }else{
+      setIconColor("black");
+      const index = favCarpark.findIndex(
+        (fav) => fav.car_park_no === carpark.car_park_no
       );
-    } else if (
-      favCarpark.findIndex((fav) => fav.car_park_no === carpark.car_park_no) ===
-      -1
-    ) {
-      setFavCarpark([...favCarpark, carpark]);
-      updateFavorite([...favCarpark, carpark], authCtx.email);
-      setIconColor("orange");
+      favCarpark.splice(index, 1);
+      updateFavorite(favCarpark, authCtx.email);
       Alert.alert(
-        "Added to Favourites",
-        "This carpark has been added to your favourites list!",
-        [{ text: "Ok", style: "destructive" }]
-      );
-    } else {
-      setIconColor("orange");
-      Alert.alert(
-        "Already in Favourites",
-        "This carpark is already in your favourites list!",
+        "Removed from Favourites",
+        "This carpark has been removed from your favourites list!",
         [{ text: "Ok", style: "destructive" }]
       );
     }
@@ -140,18 +148,16 @@ function CarparkInfoCard({ carpark, carparkLots, loading }) {
             <View style={styles.arrow} />
           </TouchableOpacity>
           <TouchableOpacity onPress={onFavouritePress}>
-                  <MaterialIcons name={'star'} color={iconColor} size={32} />
+            <MaterialIcons name={"star"} color={iconColor} size={32} />
           </TouchableOpacity>
         </View>
-        
+
         {!loading ? (
           <>
             <View style={styles.itemRow}>
               <Text style={[styles.title]}>{carpark.address}</Text>
             </View>
 
-            
-            
             <Text style={[styles.subtitle_lots]}>
               Total Slots: {carparkLots[1]}
             </Text>
@@ -185,21 +191,22 @@ function CarparkInfoCard({ carpark, carparkLots, loading }) {
               </>
             )}
 
-            <View style marginBottom={50}>
-              </View>
+            <View style marginBottom={50}></View>
 
-            {isHidden && <TouchableOpacity
-              style={styles.button2}
-              onPress={() => {
-                navigation.goBack();
-                navigation.navigate("ReportFault", {
-                  carpark: carpark.car_park_no,
-                });
-              }}
-            >
-              <MaterialIcons name="report-problem" color="red" size={24} />
-              <Text style={[styles.buttonText]}> Report</Text>
-            </TouchableOpacity>}
+            {isHidden && (
+              <TouchableOpacity
+                style={styles.button2}
+                onPress={() => {
+                  navigation.goBack();
+                  navigation.navigate("ReportFault", {
+                    carpark: carpark.car_park_no,
+                  });
+                }}
+              >
+                <MaterialIcons name="report-problem" color="red" size={24} />
+                <Text style={[styles.buttonText]}> Report</Text>
+              </TouchableOpacity>
+            )}
           </>
         ) : (
           <LoadingScreen />

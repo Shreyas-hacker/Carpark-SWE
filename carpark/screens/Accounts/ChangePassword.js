@@ -1,6 +1,6 @@
 import { StatusBar } from "expo-status-bar";
 import { useEffect, useState } from "react";
-import { Dimensions, TextInput, StyleSheet, Text, View, Alert, Keyboard, TouchableWithoutFeedback} from "react-native";
+import { Dimensions, TextInput, StyleSheet, Text, View, Alert, Keyboard, TouchableWithoutFeedback,} from "react-native";
 import IconButton from "../../components/IconButton";
 import PrimaryButton from "../../components/PrimaryButton";
 import { resetPassword } from "../../util/AuthManager";
@@ -31,23 +31,23 @@ function ChangePassword({ navigation }) {
         [{ text: "Okay", style: "destructive" }]
       );
     } else {
-      try{
+      try {
         await resetPassword(email);
-      }catch(error){
-          changed = false;
-          Alert.alert(
-              "Unsuccessful",
-              "Error: There is no user record corresponding to this identifier. The user may have been deleted OR password is invalid",
-              [{ text: "Okay", style: "destructive" }]
-          );
+      } catch (error) {
+        changed = false;
+        Alert.alert(
+          "Unsuccessful",
+          "Error: There is no user record corresponding to this identifier. The user may have been deleted OR password is invalid",
+          [{ text: "Okay", style: "destructive" }]
+        );
       }
-      if(changed===true){
-          Alert.alert(
-              "Email sent",
-              "Email has been sent to your email address, please check your spam box to see if it is there.",
-              [{ text: "Okay", style: "destructive" }]
-          );
-          navigation.navigate('Profile');
+      if (changed === true) {
+        Alert.alert(
+          "Email sent",
+          "Email has been sent to your email address, please check your spam box to see if it is there.",
+          [{ text: "Okay", style: "destructive" }]
+        );
+        navigation.navigate("Profile");
       }
     }
   }
@@ -60,9 +60,11 @@ function ChangePassword({ navigation }) {
   return (
     <>
       <StatusBar />
-      <TouchableWithoutFeedback onPress={()=>{
-        Keyboard.dismiss()
-      }}>
+      <TouchableWithoutFeedback
+        onPress={() => {
+          Keyboard.dismiss();
+        }}
+      >
         <View style={styles.page}>
           <View style={styles.topContent}>
             <IconButton
@@ -87,9 +89,16 @@ function ChangePassword({ navigation }) {
               onChangeText={emailHandler}
               placeholder="Enter your email address"
             />
-            <Text style={{ color: "#57636C", fontFamily: 'OpenSans_600SemiBold', color: '#0D668D' }}>
-              We will send you an email with our database to reset your password,
-              please enter the email associated with your account above.
+            <Text
+              style={{
+                color: "#57636C",
+                fontFamily: "OpenSans_600SemiBold",
+                color: "#0D668D",
+              }}
+            >
+              We will send you an email with our database to reset your
+              password, please enter the email associated with your account
+              above.
             </Text>
           </View>
           <View style={styles.buttonContainer}>
