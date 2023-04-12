@@ -14,6 +14,8 @@ import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 import LoadingScreen from "../../components/LoadingScreen";
 import CarparkBackground from "../../assets/CarparkBackground.jpg";
 import { searchCarpark } from "./SearchCarpark";
+import ShowFault from "../Home/ShowFaults";
+import fetchSevereFaults from "../../util/realtime/realTimeStorage";
 
 function HomeScreen({ navigation }) {
   const API_KEY = "AIzaSyCX5cIGMG23hoatqCPLZnSQJX_6klMLbRk";
@@ -87,11 +89,11 @@ function HomeScreen({ navigation }) {
           }}
         />
       </View>
-
       <View style={styles.body}>
         <Text style={styles.reportText}>
           Carparks to avoid:
         </Text>
+        <ShowFault/>
       </View>
     </View>
   ) : (
@@ -176,6 +178,11 @@ const styles = StyleSheet.create({
     flex: 1,
     height: 50,
     fontSize: 20,
+  },
+  body: {
+    flex: 1,
+    marginTop: height / 4 + 20,
+    marginHorizontal: 20,
   },
   reportText:{
     fontSize: 20,

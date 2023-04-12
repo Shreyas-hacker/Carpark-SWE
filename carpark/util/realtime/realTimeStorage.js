@@ -26,3 +26,22 @@ export async function fetchReports(email){
     }
     return reports;
 }
+
+export async function fetchSevereFaults(){
+    const response = await axios.get(BACKEND_URL+'/reports.json');
+    const Severefaults = [];
+
+    for (const key in response.data){
+        if(response.data[key].severity === 'Severe'){
+            const reportObject = {
+                id: key,
+                carpark: response.data[key].carpark_no,
+                description: response.data[key].description,
+                severity: response.data[key].severity,
+                fault: response.data[key].fault_type,
+            }
+            Severefaults.push(reportObject);
+        }
+    }
+    return Severefaults;
+}
