@@ -2,12 +2,14 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Profile from './Profile/Profile';
 import Home from './DisplayCarparks/Home';
 import { Ionicons } from "@expo/vector-icons";
+import { StatusBar } from 'expo-status-bar';
 
 const Tab = createBottomTabNavigator();
 
 function MyTabs() {
   return (
     <>
+    <StatusBar/>
     <Tab.Navigator screenOptions={{
         tabBarActiveTintColor: '#39D2C0',
         headerShown: false,

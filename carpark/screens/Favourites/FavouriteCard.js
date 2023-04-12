@@ -9,7 +9,8 @@ function FavouriteCard({favCarpark,removeFavourite,goMap}){
     return (
         <View style={styles.container}>
           <View style={[styles.card]}>
-                <Text style={styles.title}>{favCarpark}</Text>
+                <Text style={styles.title}>{favCarpark.car_park_no}</Text>
+                <Text style={styles.text}>Address: {favCarpark.address}</Text>
                 <View style={styles.buttonRow}>
                     <TouchableOpacity onPress={removeFavourite}>
                         <MaterialIcons name="delete" size={30}/>

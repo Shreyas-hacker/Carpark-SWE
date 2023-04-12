@@ -48,8 +48,6 @@ function ReportFault({ navigation, route }) {
 
   var email = authCtx.email;
 
-  useLoadFonts();
-
   useEffect(() => {
     if (
       setFaultDropOpen !== false &&
@@ -150,7 +148,7 @@ function ReportFault({ navigation, route }) {
             setItems={setFaultType}
             textStyle={{
               fontSize: 15,
-              fontFamily: "OpenSans-Bold",
+              fontFamily: "OpenSans_700Bold",
             }}
             dropDownDirection="BOTTOM"
             placeholder="Select Fault Type"
@@ -186,7 +184,7 @@ function ReportFault({ navigation, route }) {
             setItems={setSeverityLevel}
             textStyle={{
               fontSize: 15,
-              fontFamily: "OpenSans-Bold",
+              fontFamily: "OpenSans_700Bold",
             }}
             dropDownDirection="BOTTOM"
             placeholder="Select Fault Severity"
@@ -233,7 +231,7 @@ function ReportFault({ navigation, route }) {
 const styles = StyleSheet.create({
   dropdowntext: {
     fontSize: 15,
-    fontFamily: "OpenSans-Bold",
+    fontFamily: "OpenSans_700Bold",
   },
   form: {
     backgroundColor: backColor,
@@ -291,7 +289,7 @@ const styles = StyleSheet.create({
     marginTop: 10,
     maxHeight: 150,
     backgroundColor: "white",
-    fontFamily: "OpenSans-Regular",
+    fontFamily: "OpenSans_400Regular",
   },
   inputText: {
     backgroundColor: "white",
@@ -307,7 +305,7 @@ const styles = StyleSheet.create({
     marginVertical: 10,
     lineHeight: 25,
     minHeight: 100,
-    fontFamily: "OpenSans-Regular",
+    fontFamily: "OpenSans_400Regular",
   },
   description: {
     color: "white",
@@ -315,7 +313,7 @@ const styles = StyleSheet.create({
     paddingTop: 15,
     padding: 20,
     fontSize: 15,
-    fontFamily: "OpenSans-Regular",
+    fontFamily: "OpenSans_400Regular",
   },
   buttonContainer: {
     alignSelf: "center",
@@ -324,7 +322,7 @@ const styles = StyleSheet.create({
     textAlignVertical: "center",
     alignContent: "center",
     marginTop: deviceHeight / 10,
-    fontFamily: "OpenSans-Regular",
+    fontFamily: "OpenSans_400Regular",
   },
   cameraContainer: {
     flexDirection: "row",
@@ -348,7 +346,7 @@ const styles = StyleSheet.create({
     fontSize: 15,
     color: "green",
     textAlign: "center",
-    fontFamily: "OpenSans-Regular",
+    fontFamily: "OpenSans_400Regular",
   },
 });
 

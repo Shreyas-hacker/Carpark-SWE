@@ -32,7 +32,7 @@ function Favourite({ navigation }) {
       }
     }
     getFavourites();
-  })
+  },[])
 
   function goBack(){
     navigation.goBack();
@@ -45,7 +45,7 @@ function Favourite({ navigation }) {
   }
 
   function goMap(carpark){
-    navigation.navigate("DisplayCarpark", { carpark: carpark });
+    navigation.navigate("DisplayCarpark", { searchTerm: carpark });
   }
   return (
     <View style={styles.container}>
@@ -62,8 +62,8 @@ function Favourite({ navigation }) {
         !hasFavourites ? (<LoadingScreen/> ) : (favourites.length > 0 ? (
           <FlatList
             data={favourites}
-            renderItem={({ item }) => <FavouriteCard favCarpark={item} removeFavourite={removeFavourite.bind(this,item,authCtx.email)}  goMap={goMap.bind(this,item)}/>}
-            keyExtractor={(item) => item[item]}
+            renderItem={({ item }) => <FavouriteCard favCarpark={item} removeFavourite={removeFavourite.bind(this,item,authCtx.email)}  goMap={goMap.bind(this,item.address)}/>}
+            keyExtractor={(item) => item._id}
           />
         ) : (
           <View style={styles.imageContainer}>
@@ -74,7 +74,7 @@ function Favourite({ navigation }) {
               style={{ alignSelf: "center" }}
             />
             <Text style={styles.noReportsText}>
-              You have not favourite any car parks yet
+              You have not favourited any car parks yet
             </Text>
           </View>
       ))}

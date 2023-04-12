@@ -38,7 +38,6 @@ function CarparkInfoCard({ carpark, carparkLots,loading }) {
     setArrowDirection(arrowDirection === "up" ? "down" : "up");
   };
 
-  useLoadFonts();
 
   const slidePosition = slideAnimation.interpolate({
     inputRange: [0, 1],
@@ -59,11 +58,11 @@ function CarparkInfoCard({ carpark, carparkLots,loading }) {
   function onFavouritePress() {
     if(favCarpark.length === 0){
       setFavCarpark([...favCarpark,carpark.car_park_no]);
-      storeFav({user_id:authCtx.email, favouritedCarpark: [carpark.car_park_no]});
+      storeFav({user_id:authCtx.email, favouritedCarpark: [carpark]});
       Alert.alert("Added to Favourites","This carpark has been added to your favourites list!", [{text:'Ok',style:'destructive'}]);
-    }else if(favCarpark.indexOf(carpark.car_park_no) === -1){
-      setFavCarpark([...favCarpark,carpark.car_park_no]);
-      updateFavorite([...favCarpark,carpark.car_park_no],authCtx.email);
+    }else if(favCarpark.findIndex((fav) => fav.car_park_no === carpark.car_park_no) === -1){
+      setFavCarpark([...favCarpark,carpark]);
+      updateFavorite([...favCarpark,carpark],authCtx.email);
       Alert.alert("Added to Favourites","This carpark has been added to your favourites list!", [{text:'Ok',style:'destructive'}]);
     }else{
       Alert.alert("Already in Favourites","This carpark is already in your favourites list!", [{text:'Ok',style:'destructive'}]);

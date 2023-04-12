@@ -126,7 +126,7 @@ const styles = StyleSheet.create({
     fontSize: 30,
     fontWeight: "bold",
     color: "black",
-    fontFamily: "OpenSans-Bold"
+    fontFamily: "OpenSans_700Bold",
   },
   displayNameText: {
     fontSize: 20,
