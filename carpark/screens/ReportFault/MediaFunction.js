@@ -16,7 +16,7 @@ import * as MediaLibrary from "expo-media-library";
 const deviceWidth = Dimensions.get("window").width;
 const deviceHeight = Dimensions.get("window").height;
 
-export default function App({ navigation }) {
+export default function App({ navigation,route }) {
   let cameraRef = useRef();
   const [hasCameraPermission, setHasCameraPermission] = useState();
   const [hasMediaLibraryPermission, setHasMediaLibraryPermission] = useState();
@@ -100,22 +100,22 @@ export default function App({ navigation }) {
               bottom: 0,
               borderRadius: 50,
               paddingHorizontal: 10,
-              marginLeft: 57,
-              backgroundColor: "#fff",
+              marginLeft: deviceWidth / 5,
+              marginBottom: 10,
+              backgroundColor: "#ffffff",
             }}
           />
         </View>
 
         <Button
-          title="Back"
+          title="Cancel"
           style={styles.backButton}
           color={"#fff"}
           onPress={() => {
-            navigation.navigate("ReportFault");
+            navigation.navigate("ReportFault",{carpark: route.params.carpark});
           }}
         ></Button>
       </View>
-
       <StatusBar style="auto" />
     </Camera>
   );
@@ -146,6 +146,5 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     backgroundColor: "black",
     opacity: 0.8,
-    borderRadius: 30,
   },
 });

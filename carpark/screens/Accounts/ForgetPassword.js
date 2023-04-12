@@ -4,6 +4,7 @@ import IconButton from "../../components/IconButton";
 import PrimaryButton from "../../components/PrimaryButton";
 import { resetPassword } from "../../util/AuthManager";
 import { emailChecker } from "../../util/helper";
+import { TouchableWithoutFeedback,Keyboard } from "react-native";
 
 let componentWidth = 0;
 const width = Dimensions.get('window').width;
@@ -18,12 +19,13 @@ function ForgetPassword({ navigation }) {
 
     const [filled, setFilled] = useState(false);
     const [email, setEmail] = useState("");
+    let changed = false;
 
     function emailHandler(enteredEmail){
         setEmail(enteredEmail);
     }
 
-    function sendEmail(){
+    async function sendEmail(){
         if(!emailChecker(email)){
             Alert.alert(
                 "Unsuccessful",
@@ -31,13 +33,24 @@ function ForgetPassword({ navigation }) {
                 [{ text: "Okay", style: "destructive" }]
             );
         }else{
-            resetPassword(email)
-            navigation.navigate('Login');
-            Alert.alert(
-                "Email sent",
-                "Email has been sent to your email address, please check your spam box to see if it is there.",
-                [{ text: "Okay", style: "destructive" }]
-            );
+            try{
+                await resetPassword(email);
+            }catch(error){
+                changed = false;
+                Alert.alert(
+                    "Unsuccessful",
+                    "Error: There is no user record corresponding to this identifier. The user may have been deleted OR password is invalid",
+                    [{ text: "Okay", style: "destructive" }]
+                );
+            }
+            if(changed===true){
+                Alert.alert(
+                    "Email sent",
+                    "Email has been sent to your email address, please check your spam box to see if it is there.",
+                    [{ text: "Okay", style: "destructive" }]
+                );
+                navigation.navigate('Login');
+            }
         }
     }
     useEffect(()=>{
@@ -48,21 +61,25 @@ function ForgetPassword({ navigation }) {
 
 
     return (
-        <View style={styles.page}>
-            <View style={styles.topContent}>
-                <IconButton onPress={goBack} icon="arrow-back" size={28} color="black"/>
-                <Text style={styles.title} onLayout={(event)=>{
-                    measureView(event);
-                }}>Forget Password</Text>
+        <TouchableWithoutFeedback onPress={() =>
+            Keyboard.dismiss()
+          }>
+            <View style={styles.page}>
+                <View style={styles.topContent}>
+                    <IconButton onPress={goBack} icon="arrow-back" size={28} color="black"/>
+                    <Text style={styles.title} onLayout={(event)=>{
+                        measureView(event);
+                    }}>Forget Password</Text>
+                </View>
+                <View style={styles.inputConfig}>
+                    <TextInput style={styles.inputStyles} value={email} onChangeText={emailHandler} placeholder="Enter your email address"/>
+                    <Text style={[{color: '#57636C'}]}>We will need to verify your email with our database to reset your password, please enter the email associated with your account above.</Text>
+                </View>
+                <View style={styles.buttonContainer}>
+                    <PrimaryButton text="Verify email" onSuccess={filled} onAttempt={sendEmail}/>
+                </View>
             </View>
-            <View style={styles.inputConfig}>
-                <TextInput style={styles.inputStyles} value={email} onChangeText={emailHandler} placeholder="Enter your email address"/>
-                <Text style={[{color: '#57636C'}]}>We will need to verify your email with our database to reset your password, please enter the email associated with your account above.</Text>
-            </View>
-            <View style={styles.buttonContainer}>
-                <PrimaryButton text="Verify email" onSuccess={filled} onAttempt={sendEmail}/>
-            </View>
-        </View>
+        </TouchableWithoutFeedback>
   );
 }
 

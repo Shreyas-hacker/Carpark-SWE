@@ -1,4 +1,4 @@
-import { View, StyleSheet, Text, Dimensions, Pressable, TextInput, ScrollView, Alert, Button, TouchableOpacity } from "react-native";
+import { View, StyleSheet, Text, Dimensions, Pressable, TextInput, ScrollView, Alert, Button, TouchableOpacity,Keyboard, TouchableWithoutFeedback } from "react-native";
 import { useContext, useEffect, useState } from "react";
 import PrimaryButton from "../../components/PrimaryButton";
 import IconButton from "../../components/IconButton";
@@ -48,16 +48,16 @@ function Login({navigation}){
     }
 
     return(
-        <ScrollView style={styles.form} keyboardShouldPersistTaps='handled'>
-            <View>
+        <TouchableWithoutFeedback onPress={() =>
+            Keyboard.dismiss()
+          }>
+            <View style={styles.form}>
                 <View style={[styles.bigdescription]}>
-                    <Text style={[styles.title]}>Welcome!</Text>
-                    {/*here is the font error                ^^^^^^^*/}
+                    <Text style={[styles.title]}>ezPark</Text>
                     <Text style={[styles.description]}>Finding Carparks in a jiffy!</Text>
                 </View>
                 <View style={styles.inputContainer}>
-                    {/* This is the input component, wasnt working as a component so i broke it down further in this file */}
-                    <TextInput style={styles.inputText} onChangeText={usernameHandler} placeholder='Username' value={username}/>
+                    <TextInput style={styles.inputText} onChangeText={usernameHandler} placeholder='Email' value={username}/>
                     <View style={{flexDirection: 'row'}}>
                         <TextInput style={styles.inputText} onChangeText={passwordHandler} placeholder='Password' value={password} secureTextEntry={show}/>
                         <TouchableOpacity>
@@ -67,29 +67,29 @@ function Login({navigation}){
                 </View>
                 <View style={styles.container}>
                     <View>
-                        <Text style={[styles.text]}>Don't have an account?</Text>
+                        <Text style={[styles.text]}>New User?</Text>
                         <Pressable onPress={()=>{navigation.navigate("CreateAccount")}}>
-                            <Text style={[styles.text]}>Create account</Text>
+                            <Text style={[styles.createText]}>Create account here!</Text>
                         </Pressable>
                     </View>
-                    <View style={styles.buttonContainer}>
+                    <View style={styles.container}>
                         <PrimaryButton onSuccess={filled} onAttempt={loginAttempt} text="Login"/>
                     </View>
                 </View>
                 <View style={styles.forgetpassword}>
                     <Pressable onPress={()=>{navigation.navigate("ForgetPassword")}}>
-                        <Text style={[styles.text]}>Forget Password?</Text>
+                        <Text style={[styles.forgetText]}>Forget Password?</Text>
                     </Pressable>
                 </View>
-                <View style={styles.socialmedia}>
+                {/* <View style={styles.socialmedia}>
                     <Text style={styles.text}>Use a Social Platform to Login</Text>
                     <View style={styles.socialMediaButton}>
                         <Button title="Google"/>
                         <Button title="Facebook"/>
                     </View>
-                </View>
+                </View> */}
             </View>
-        </ScrollView>
+        </TouchableWithoutFeedback>
     )
 }
 
@@ -104,13 +104,13 @@ const styles = StyleSheet.create({
     },
     bigdescription:{
         marginTop: deviceHeight < 380 ? 60 : 200,
-        marginLeft: 15,
+        marginLeft: 20,
     },
     title:{
-        fontSize: 30,
-        fontWeight: "bold",
+        fontSize: 45,
         color: 'white',
-        fontFamily: 'OpenSans_300Light_Italic',
+        fontFamily: 'OpenSans_600SemiBold_Italic',
+        color: '#3FE0D2'
     },
     inputContainer:{
         marginTop: 40,
@@ -132,23 +132,37 @@ const styles = StyleSheet.create({
         marginTop: 23
     },
     text:{
-        color: 'white'
+        color: 'white',
+        fontFamily: 'OpenSans_300Light',
+        fontSize: 13,
+    },
+    createText:{
+        color: 'white',
+        fontFamily: 'OpenSans_700Bold',
+        color: '#3FE0D2'
+    },
+    forgetText:{
+        color: 'white',
+        fontFamily: 'OpenSans_700Bold',
+        color: '#3FE0D2'
     },
     description:{
         color: 'white',
         marginTop: 10,
+        fontFamily: 'OpenSans_400Regular',
+        fontSize: 15
     },
     container: {
-        flex: 1,
-        flexDirection: "row",
+        flexDirection: 'row',
+        marginBottom: 50,
         justifyContent: 'space-between',
         marginTop: 15,
         marginHorizontal: 20
     },
     forgetpassword:{
         alignItems: 'center',
-        marginTop: 60,
-        marginBottom: 30
+        marginTop: 10,
+        marginBottom: 30,
     },
     socialmedia:{
         alignItems: 'center'

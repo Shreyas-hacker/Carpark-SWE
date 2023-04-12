@@ -66,7 +66,7 @@ function EditProfile({ navigation }) {
     <TouchableWithoutFeedback onPress={() =>
       Keyboard.dismiss()
     }>
-      <View>
+      <View> 
         <View style={styles.topContent}>
             <IconButton
                 onPress={goBack}

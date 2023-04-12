@@ -211,7 +211,7 @@ function ReportFault({ navigation, route }) {
         <View style={styles.cameraContainer}>
           <IconButton
             onPress={() => {
-              navigation.navigate("Camera");
+              navigation.navigate("Camera",{carpark: carpark});
             }}
             icon="camera"
             size={35}

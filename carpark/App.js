@@ -21,7 +21,16 @@ import MyTabs from "./screens/Tabs";
 import AuthContextProvider, { AuthContext } from "./store/context/user-context";
 
 
-import { useFonts, OpenSans_800ExtraBold, OpenSans_300Light_Italic,OpenSans_700Bold,OpenSans_400Regular, } from '@expo-google-fonts/open-sans';
+import { useFonts, OpenSans_300Light,
+  OpenSans_300Light_Italic,
+  OpenSans_400Regular,
+  OpenSans_400Regular_Italic,
+  OpenSans_600SemiBold,
+  OpenSans_600SemiBold_Italic,
+  OpenSans_700Bold,
+  OpenSans_700Bold_Italic,
+  OpenSans_800ExtraBold,
+  OpenSans_800ExtraBold_Italic, } from '@expo-google-fonts/open-sans';
 
 const Stack = createNativeStackNavigator();
 
@@ -79,10 +88,16 @@ function Navigation() {
 }
 export default function App() {
   let [fontsLoaded] = useFonts({
-    OpenSans_800ExtraBold,
+    OpenSans_300Light,
     OpenSans_300Light_Italic,
-    OpenSans_700Bold,
     OpenSans_400Regular,
+    OpenSans_400Regular_Italic,
+    OpenSans_600SemiBold,
+    OpenSans_600SemiBold_Italic,
+    OpenSans_700Bold,
+    OpenSans_700Bold_Italic,
+    OpenSans_800ExtraBold,
+    OpenSans_800ExtraBold_Italic,
   });
 
   if (!fontsLoaded) {

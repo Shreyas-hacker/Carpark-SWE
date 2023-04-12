@@ -19,11 +19,7 @@ function ReportsMade({navigation}){
                 var email = authCtx.email;
                 const response = await fetchReports(email);
                 setReports(response);
-                if(response.length > 0){
-                    setReportsDone(true);
-                }else{
-                    setReportsDone(false);
-                }
+                setReportsDone(true);
             }catch(error){
                 console.log(error);
             }

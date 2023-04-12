@@ -76,7 +76,7 @@ function CreateAccount({ navigation }) {
       try {
         const token = await createUser(username, password);
         authCtx.authenticate(token);
-        authCtx.setEmail(username);
+        authCtx.handleEmail(username);
         navigation.navigate("CreateProfile");
       } catch (error) {
         console.log(error);
@@ -161,13 +161,6 @@ function CreateAccount({ navigation }) {
               onAttempt={createAttempt}
               text="Create"
             />
-          </View>
-        </View>
-        <View style={styles.socialmedia}>
-          <Text style={styles.text}>Use a Social Platform to Login</Text>
-          <View style={styles.socialMediaButton}>
-            <Button title="Google" />
-            <Button title="Facebook" />
           </View>
         </View>
       </View>
