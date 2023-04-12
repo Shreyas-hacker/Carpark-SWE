@@ -145,7 +145,8 @@ const styles = StyleSheet.create({
   title: {
     marginLeft: (width - componentWidth) / 5,
     marginTop: 40,
-    fontSize: 24,
+    fontSize: 20,
+    fontFamily: "OpenSans_700Bold"
   },
   inputContainer: {
     marginTop: 30,
@@ -158,9 +159,9 @@ const styles = StyleSheet.create({
     color: "grey",
     padding: 15,
     borderRadius: 12,
-    fontSize: 15,
+    fontSize: 13,
     marginHorizontal: 10,
-    marginBottom: 40,
+    marginBottom: 25,
   },
   buttonContainer: {},
 });

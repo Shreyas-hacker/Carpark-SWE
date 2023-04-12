@@ -73,7 +73,8 @@ function ReportFault({ navigation, route }) {
     componentWidth = event.nativeEvent.layout.width;
   }
   function goBack() {
-    navigation.goBack();
+    navigation.navigate("Tab");
+    navigation.navigate("DisplayCarpark", { searchTerm: route.params.carpark });
   }
   async function submit() {
     var photoURL = "";
@@ -147,7 +148,7 @@ function ReportFault({ navigation, route }) {
             setValue={setFault}
             setItems={setFaultType}
             textStyle={{
-              fontSize: 15,
+              fontSize: 13,
               fontFamily: "OpenSans_700Bold",
             }}
             dropDownDirection="BOTTOM"
@@ -183,7 +184,7 @@ function ReportFault({ navigation, route }) {
             setValue={setSeverity}
             setItems={setSeverityLevel}
             textStyle={{
-              fontSize: 15,
+              fontSize: 13,
               fontFamily: "OpenSans_700Bold",
             }}
             dropDownDirection="BOTTOM"
@@ -205,6 +206,7 @@ function ReportFault({ navigation, route }) {
             value={description}
             multiline={true}
             numberOfLines={4}
+            maxLength={100}
           />
         </View>
 
@@ -219,7 +221,6 @@ function ReportFault({ navigation, route }) {
           />
         </View>
         {photoPreview && <Text style={styles.imageText}>Image Stored</Text>}
-        {/* <Image style={styles.preview} source={{uri: photoPreview}}/> */}
         <View style={styles.buttonContainer}>
           <PrimaryButton text="Submit" onSuccess={filled} onAttempt={submit} />
         </View>
@@ -252,22 +253,25 @@ const styles = StyleSheet.create({
   },
   reportTitle: {
     fontSize: 20,
-    marginHorizontal: (deviceWidth - componentWidth - 70) / 4,
+    marginHorizontal: (deviceWidth - componentWidth) / 5.2,
+    fontFamily: "OpenSans_700Bold",
   },
   carparkTitle: {
-    fontSize: 35,
+    fontSize: 30,
     color: "black",
     textAlign: "center",
+    fontFamily: "OpenSans_600SemiBold",
   },
   helpFault: {
-    marginBottom: 5,
+    marginBottom: 8,
     marginTop: 9,
-    fontSize: 27,
+    fontSize: 21,
     fontWeight: "regular",
     color: "black",
     justifyContent: "center",
     alignItems: "center",
     textAlignVertical: "center",
+    fontFamily: "OpenSans_400Regular",
   },
   reportDescription: {
     fontSize: 15,
@@ -287,6 +291,7 @@ const styles = StyleSheet.create({
     borderRadius: 30,
     marginHorizontal: 10,
     marginTop: 10,
+    marginBottom: 10,
     maxHeight: 150,
     backgroundColor: "white",
     fontFamily: "OpenSans_400Regular",
@@ -296,14 +301,11 @@ const styles = StyleSheet.create({
     color: "black",
     textAlignVertical: "top",
     textAlign: "left",
-    paddingTop: 5,
     padding: 10,
-    paddingBottom: 5,
-    borderRadius: 12,
     fontSize: 15,
     marginHorizontal: 10,
     marginVertical: 10,
-    lineHeight: 25,
+    lineHeight: 20,
     minHeight: 100,
     fontFamily: "OpenSans_400Regular",
   },

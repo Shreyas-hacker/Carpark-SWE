@@ -5,6 +5,7 @@ import Map from "./Maps";
 import { getCurrentLocation } from "./LocationService";
 import { searchCarpark } from "./SearchCarpark";
 import CarparkInfoCard from "./CarparkInfoCard";
+import { StatusBar } from "expo-status-bar";
 
 const DisplayCarpark = ({ route }) => {
   const [filteredCarparks, setFilteredCarparks] = useState([]);
@@ -79,6 +80,8 @@ const DisplayCarpark = ({ route }) => {
   };
 
   return (
+    <>
+    <StatusBar style="light"/>
     <View style={styles.container}>
       {mapRegion && (
         <Map
@@ -100,6 +103,7 @@ const DisplayCarpark = ({ route }) => {
         </View>
       )}
     </View>
+    </>
   );
 };
 

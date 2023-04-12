@@ -3,8 +3,8 @@ import { StyleSheet,Text,Pressable,View } from "react-native";
 
 function LongButton({text,onPress}) {
     return <View style={styles.buttonOuterContainer}>
-        <Pressable style={styles.buttonInnerContainer} onPress={onPress}>
-            <Text>{text}</Text>
+        <Pressable style={styles.buttonInnerContainer} onPress={onPress} >
+            <Text style = {{fontFamily: 'OpenSans_600SemiBold', fontSize: 12}}>{text}</Text>
         </Pressable>
     </View>
 }
@@ -12,17 +12,17 @@ function LongButton({text,onPress}) {
 const styles = StyleSheet.create({
     buttonOuterContainer:{
         borderRadius: 8,
-        borderColor: '#DBE2E7',
+        borderColor: '#C0D1DD',
         borderWidth:2,
         overflow: 'hidden',
         width: "90%",
         alignSelf:'center',
-        marginVertical: 10,
+        marginVertical: 8,
     },
     buttonInnerContainer:{
         backgroundColor:'#FFFFFF',
         paddingVertical: 20,
-        paddingHorizontal: 30
+        paddingHorizontal: 25,
     },
 });
 

@@ -87,7 +87,7 @@ function ChangePassword({ navigation }) {
               onChangeText={emailHandler}
               placeholder="Enter your email address"
             />
-            <Text style={{ color: "#57636C" }}>
+            <Text style={{ color: "#57636C", fontFamily: 'OpenSans_600SemiBold', color: '#0D668D' }}>
               We will send you an email with our database to reset your password,
               please enter the email associated with your account above.
             </Text>
@@ -118,7 +118,10 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   title: {
-    marginLeft: (width - componentWidth) / 5,
+    marginTop: 20,
+    marginLeft: (width - componentWidth) / 9.1,
+    fontFamily: "OpenSans_700Bold",
+    fontSize: 22,
   },
   inputConfig: {
     marginHorizontal: "5%",
@@ -126,12 +129,13 @@ const styles = StyleSheet.create({
   },
   inputStyles: {
     borderRadius: 6,
-    fontSize: 14,
+    fontSize: 13,
     padding: 12,
     borderColor: "#DBE2E7",
     backgroundColor: "#FFFFFF",
     borderWidth: 2,
     marginBottom: 20,
+    fontFamily: "OpenSans_400Regular",
   },
   buttonContainer: {
     marginVertical: 30,

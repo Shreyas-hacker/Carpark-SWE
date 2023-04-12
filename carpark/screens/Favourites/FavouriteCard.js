@@ -15,6 +15,7 @@ function FavouriteCard({favCarpark,removeFavourite,goMap}){
                     <TouchableOpacity onPress={removeFavourite}>
                         <MaterialIcons name="delete" size={30}/>
                     </TouchableOpacity>
+                    <View style={{width:10}}/>
                     <TouchableOpacity onPress={goMap}>
                         <MaterialIcons name="map" size={30}/>
                     </TouchableOpacity>
@@ -38,18 +39,21 @@ const styles = StyleSheet.create({
       elevation: 5,
       maxWidth: 400,
       width: "90%",
+      borderColor: "#444444",
+      borderWidth: 1,
     },
     title: {
       fontSize: 24,
-      fontWeight: "bold",
       marginBottom: 10,
       textAlign:"left",
       color: "#444444",
+      fontFamily: "OpenSans_700Bold",
     },
     text: {
       fontSize: 16,
       marginBottom: 5,
       color: "#444444",
+      fontFamily: "OpenSans_400Regular",
     },
     boldText: {
       fontWeight: "bold",

@@ -66,6 +66,8 @@ export default function App({ navigation,route }) {
     };
 
     return (
+      <>
+      <StatusBar style="light"/>
       <SafeAreaView style={styles.container}>
         <Image
           style={styles.preview}
@@ -79,6 +81,7 @@ export default function App({ navigation,route }) {
           <Button title="Submit Photo" onPress={savePhoto} />
         ) : undefined}
       </SafeAreaView>
+      </>
     );
   }
 
@@ -126,7 +129,8 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
     justifyContent: "center",
-    textcolor: "white",
+    backgroundColor: "#052736",
+    fontFamily: "OpenSans_400Regular",
   },
   buttonContainer: {
     backgroundColor: "#fff",

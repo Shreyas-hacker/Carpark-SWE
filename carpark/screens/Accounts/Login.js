@@ -6,7 +6,7 @@ import { AuthContext } from "../../store/context/user-context";
 import { login } from "../../util/AuthManager";
 
 function Login({navigation}){
-    const [filled, setfilled] = useState(false); // state to manage if all fields in the form has been filled
+    const [filled, setfilled] = useState(false); 
     const [username,setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [show, setShow] = useState(true);
@@ -54,7 +54,7 @@ function Login({navigation}){
             <View style={styles.form}>
                 <View style={[styles.bigdescription]}>
                     <Text style={[styles.title]}>ezPark</Text>
-                    <Text style={[styles.description]}>Finding Carparks in a jiffy!</Text>
+                    <Text style={[styles.description]}>We know where the lots are!</Text>
                 </View>
                 <View style={styles.inputContainer}>
                     <TextInput style={styles.inputText} onChangeText={usernameHandler} placeholder='Email' value={username}/>
@@ -81,13 +81,6 @@ function Login({navigation}){
                         <Text style={[styles.forgetText]}>Forget Password?</Text>
                     </Pressable>
                 </View>
-                {/* <View style={styles.socialmedia}>
-                    <Text style={styles.text}>Use a Social Platform to Login</Text>
-                    <View style={styles.socialMediaButton}>
-                        <Button title="Google"/>
-                        <Button title="Facebook"/>
-                    </View>
-                </View> */}
             </View>
         </TouchableWithoutFeedback>
     )
@@ -99,7 +92,7 @@ const deviceHeight = Dimensions.get('window').height
 
 const styles = StyleSheet.create({
     form:{
-        backgroundColor: 'black',
+        backgroundColor: '#052736',
         flex:1,
     },
     bigdescription:{

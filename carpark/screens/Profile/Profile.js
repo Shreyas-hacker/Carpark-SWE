@@ -110,16 +110,15 @@ const styles = StyleSheet.create({
     flexDirection: "row",
   },
   textStyle: {
-    fontSize: 20,
-    fontWeight: "bold",
-    marginBottom: 10,
-    marginLeft: 50,
+    fontSize: 25,
+    marginLeft: 40,
+    fontFamily: "OpenSans_700Bold",
   },
   emailStyle: {
     fontSize: 12,
-    fontWeight: "bold",
     marginBottom: 10,
-    marginLeft: 50,
+    marginLeft: 40,
+    fontFamily: "OpenSans_400Regular_Italic",
   },
   buttonContainer: {
     backgroundColor: "#F0F5F6",

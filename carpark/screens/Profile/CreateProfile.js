@@ -4,6 +4,9 @@ import { Text } from "react-native";
 import { AuthContext } from "../../store/context/user-context";
 import { updateAccount } from "../../util/AuthManager";
 import PrimaryButton from "../../components/PrimaryButton";
+import { StatusBar } from "expo-status-bar";
+import { Image } from "react-native";
+import ProfilePicture from "../../assets/ProfilePicture.png";
 
 
 let componentWidth = 0;
@@ -55,6 +58,8 @@ function CreateProfile({navigation}){
         console.log('Profile created');
     }
     return (
+        <>
+        <StatusBar />
         <TouchableWithoutFeedback onPress={() =>
             Keyboard.dismiss()
           }>
@@ -64,6 +69,15 @@ function CreateProfile({navigation}){
                         measureView(event);
                     }}>Create your Profile</Text>
                 </View>
+                <Image
+                    source={ProfilePicture}
+                    style={{
+                        width: 100,
+                        height: 100,
+                        borderRadius: 100 / 2,
+                        alignSelf: "center",
+                    }}
+                    />
                 <View style={styles.inputContainer}>
                     <TextInput style={styles.inputText} onChangeText={fullNameHandler} placeholder='Display Name here..' value={fullName}/>
                     <TextInput style={styles.inputText} onChangeText={ageHandler} placeholder='Enter your age here'value={age} keyboardType="decimal-pad" maxLength={2}/>
@@ -74,6 +88,7 @@ function CreateProfile({navigation}){
                 </View>
             </View>
         </TouchableWithoutFeedback>
+        </>
     )
 }
 
@@ -87,15 +102,17 @@ const styles = StyleSheet.create({
     topContent:{
         flexDirection: 'row',
         marginTop: 40,
-        alignContent: 'center'
+        marginBottom: 20,
+        alignContent: 'center',
     },
     title:{
-        marginLeft: (width-componentWidth)/5,
+        marginLeft: (width-componentWidth)/6,
         marginTop: 40,
-        fontSize: 24
+        fontSize: 24,
+        fontFamily: 'OpenSans_700Bold'
     },
     inputContainer:{
-        marginTop:40
+        marginTop : 30
     },
     inputText:{
         width: '95%',
@@ -105,9 +122,9 @@ const styles = StyleSheet.create({
         color: 'grey',
         padding: 15,
         borderRadius: 12,
-        fontSize: 15,
+        fontSize: 13,
         marginHorizontal: 10,
-        marginBottom: 40
+        marginBottom: 20
     },
     buttonContainer:{
 

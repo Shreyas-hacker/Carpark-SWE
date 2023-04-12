@@ -27,6 +27,9 @@ function CarparkInfoCard({ carpark, carparkLots, loading }) {
   const [favCarpark, setFavCarpark] = useState([]);
   const [reports, setReports] = useState([]);
 
+  const [isHidden, setIsHidden] = useState(false);
+  const [iconColor, setIconColor] = useState("black");
+
   useEffect(() => {
     async function getReports() {
       try {
@@ -50,11 +53,16 @@ function CarparkInfoCard({ carpark, carparkLots, loading }) {
   const toggleCard = () => {
     Animated.timing(slideAnimation, {
       toValue: slideAnimation._value === 0 ? 1 : 0,
-      duration: 300,
+      duration: 500,
       useNativeDriver: false,
     }).start();
     setArrowDirection(arrowDirection === "up" ? "down" : "up");
+    setIsHidden(!isHidden);
   };
+
+  useEffect(() => {
+    setIconColor("black");
+  }, [carpark]);
 
   const slidePosition = slideAnimation.interpolate({
     inputRange: [0, 1],
@@ -76,6 +84,7 @@ function CarparkInfoCard({ carpark, carparkLots, loading }) {
     if (favCarpark.length === 0) {
       setFavCarpark([...favCarpark, carpark.car_park_no]);
       storeFav({ user_id: authCtx.email, favouritedCarpark: [carpark] });
+      setIconColor("orange");
       Alert.alert(
         "Added to Favourites",
         "This carpark has been added to your favourites list!",
@@ -87,12 +96,14 @@ function CarparkInfoCard({ carpark, carparkLots, loading }) {
     ) {
       setFavCarpark([...favCarpark, carpark]);
       updateFavorite([...favCarpark, carpark], authCtx.email);
+      setIconColor("orange");
       Alert.alert(
         "Added to Favourites",
         "This carpark has been added to your favourites list!",
         [{ text: "Ok", style: "destructive" }]
       );
     } else {
+      setIconColor("orange");
       Alert.alert(
         "Already in Favourites",
         "This carpark is already in your favourites list!",
@@ -114,27 +125,33 @@ function CarparkInfoCard({ carpark, carparkLots, loading }) {
           },
         ]}
       >
-        <TouchableOpacity
-          style={[
-            styles.slideBar,
-            {
-              transform: [
-                { rotate: arrowDirection === "up" ? "180deg" : "0deg" },
-              ],
-            },
-          ]}
-          onPress={toggleCard}
-        >
-          <View style={styles.arrow} />
-        </TouchableOpacity>
+        <View style={styles.cardHeader}>
+          <TouchableOpacity
+            style={[
+              styles.slideBar,
+              {
+                transform: [
+                  { rotate: arrowDirection === "up" ? "180deg" : "0deg" },
+                ],
+              },
+            ]}
+            onPress={toggleCard}
+          >
+            <View style={styles.arrow} />
+          </TouchableOpacity>
+          <TouchableOpacity onPress={onFavouritePress}>
+                  <MaterialIcons name={'star'} color={iconColor} size={32} />
+          </TouchableOpacity>
+        </View>
+        
         {!loading ? (
           <>
             <View style={styles.itemRow}>
               <Text style={[styles.title]}>{carpark.address}</Text>
-              <TouchableOpacity onPress={onFavouritePress}>
-                <MaterialIcons name={"add-circle-outline"} size={24} />
-              </TouchableOpacity>
             </View>
+
+            
+            
             <Text style={[styles.subtitle_lots]}>
               Total Slots: {carparkLots[1]}
             </Text>
@@ -168,7 +185,10 @@ function CarparkInfoCard({ carpark, carparkLots, loading }) {
               </>
             )}
 
-            <TouchableOpacity
+            <View style marginBottom={50}>
+              </View>
+
+            {isHidden && <TouchableOpacity
               style={styles.button2}
               onPress={() => {
                 navigation.goBack();
@@ -178,8 +198,8 @@ function CarparkInfoCard({ carpark, carparkLots, loading }) {
               }}
             >
               <MaterialIcons name="report-problem" color="red" size={24} />
-              <Text style={[styles.buttonText]}>Report</Text>
-            </TouchableOpacity>
+              <Text style={[styles.buttonText]}> Report</Text>
+            </TouchableOpacity>}
           </>
         ) : (
           <LoadingScreen />
@@ -194,8 +214,8 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
     paddingTop: 16,
     paddingBottom: Dimensions.get("window").height / 5,
-    borderTopLeftRadius: 16,
-    borderTopRightRadius: 16,
+    borderTopLeftRadius: 30,
+    borderTopRightRadius: 30,
     shadowColor: "#000000",
     shadowOffset: {
       width: 0,
@@ -214,6 +234,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     marginBottom: 8,
+    marginLeft: 150,
     zIndex: 1,
     shadowColor: "#000000",
     shadowOffset: {
@@ -242,26 +263,29 @@ const styles = StyleSheet.create({
     fontSize: 16,
     marginLeft: 16,
     marginBottom: 8,
-    color: "#484848",
+    color: "#5C5B5B",
+    fontFamily: "OpenSans_700Bold",
   },
   subtitle_lots: {
-    fontSize: 14,
+    fontSize: 13,
     marginLeft: 16,
     marginBottom: 4,
-    color: "#484848",
+    color: "#5C5B5B",
+    fontFamily: "OpenSans_600SemiBold",
   },
   subtitle: {
-    fontSize: 14,
+    fontSize: 13,
     marginLeft: 16,
     marginBottom: 4,
-    color: "#7c7c7c",
+    color: "#5C5B5B",
+    fontFamily: "OpenSans_400Regular",
   },
   button2: {
     backgroundColor: "#F0F0F0",
-    alignItems: "flex-end",
-    bottom: 180,
-    right: 300,
-    position: "absolute",
+    width: "34%",
+    alignSelf: "center",
+    marginTop: 20,
+    marginBottom: 20,
     borderRadius: 5,
     paddingVertical: 15,
     paddingHorizontal: 25,
@@ -272,6 +296,13 @@ const styles = StyleSheet.create({
     color: "black",
     fontSize: 15,
     fontWeight: "bold",
+    fontFamily: "OpenSans_700Bold",
+  },
+  cardHeader: {
+    flexDirection: "row",
+    alignSelf: "center",
+    justifyContent: "space-between",
+    width: "90%",
   },
 });
 

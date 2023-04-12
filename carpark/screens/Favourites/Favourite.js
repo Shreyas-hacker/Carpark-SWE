@@ -99,6 +99,8 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: 'bold',
     textAlign: 'center',
+    fontFamily: 'OpenSans_700Bold',
+    fontSize: 24,
   },
   imageContainer:{
     marginTop: deviceHeight/3,

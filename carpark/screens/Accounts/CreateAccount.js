@@ -96,15 +96,14 @@ function CreateAccount({ navigation }) {
           <Text style={styles.title}>Get Started</Text>
           <Text style={styles.description}>
             Love your carpark to be in tip top condition? No better time to sign
-            up than now
+            up than now!
           </Text>
         </View>
         <View style={styles.inputContainer}>
-          {/* This is the input component, wasnt working as a component so i broke it down further in this file */}
           <TextInput
             style={styles.inputText}
             onChangeText={usernameHandler}
-            placeholder="Username"
+            placeholder="Email"
             value={username}
           />
           <View style={{ flexDirection: "row" }}>
@@ -152,7 +151,7 @@ function CreateAccount({ navigation }) {
                 navigation.navigate("Login");
               }}
             >
-              <Text style={styles.text}>Login</Text>
+              <Text style={styles.loginText}>Login</Text>
             </Pressable>
           </View>
           <View style={styles.buttonContainer}>
@@ -174,7 +173,7 @@ const deviceHeight = Dimensions.get("window").height;
 
 const styles = StyleSheet.create({
   form: {
-    backgroundColor: "black",
+    backgroundColor: '#052736',
     flex: 1,
   },
   bigdescription: {
@@ -184,7 +183,8 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 30,
     fontWeight: "bold",
-    color: "white",
+    color: '#3FE0D2',
+    fontFamily: "OpenSans_700Bold",
   },
   inputContainer: {
     marginTop: 20,
@@ -207,12 +207,19 @@ const styles = StyleSheet.create({
   },
   text: {
     color: "white",
-    fontSize: 16,
+    fontSize: 13,
+    fontFamily: 'OpenSans_300Light',
+  },
+  loginText: {
+    color: 'white',
+    fontFamily: 'OpenSans_700Bold',
+    color: '#3FE0D2'
   },
   description: {
     color: "white",
+    fontFamily: 'OpenSans_300Light',
     marginTop: 10,
-    fontSize: 16,
+    fontSize: 15,
     padding: 4,
   },
   container: {
