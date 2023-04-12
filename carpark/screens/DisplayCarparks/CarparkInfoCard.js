@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState,useContext } from "react";
+import React, { useEffect, useRef, useState, useContext } from "react";
 import {
   View,
   Text,
@@ -6,29 +6,47 @@ import {
   Dimensions,
   Animated,
   TouchableOpacity,
-  Alert
+  Alert,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 import LoadingScreen from "../../components/LoadingScreen";
 import { AuthContext } from "../../store/context/user-context";
-import { storeFav,fetchFavs,updateFavorite } from "../../util/realtime/realTimeFav";
+import {
+  storeFav,
+  fetchFavs,
+  updateFavorite,
+} from "../../util/realtime/realTimeFav";
 
-function CarparkInfoCard({ carpark, carparkLots,loading }) {
+function CarparkInfoCard({ carpark, carparkLots, loading }) {
   const slideAnimation = useRef(new Animated.Value(0)).current;
   const navigation = useNavigation();
   const authCtx = useContext(AuthContext);
 
   const [arrowDirection, setArrowDirection] = useState("up");
-  const [favCarpark,setFavCarpark] = useState([]);
+  const [favCarpark, setFavCarpark] = useState([]);
+  const [reports, setReports] = useState([]);
+
+  useEffect(() => {
+    async function getReports() {
+      try {
+        const response = await fetchReports(carpark);
+        setReports(response);
+        setReportsDone(true);
+      } catch (error) {
+        console.log(error);
+      }
+    }
+    getReports();
+  }, []);
 
   useEffect(() => {
     const fetchFav = async () => {
-      const fav= await fetchFavs(authCtx.email);
+      const fav = await fetchFavs(authCtx.email);
       setFavCarpark(fav);
     };
     fetchFav();
-  },[favCarpark])
+  }, [favCarpark]);
   const toggleCard = () => {
     Animated.timing(slideAnimation, {
       toValue: slideAnimation._value === 0 ? 1 : 0,
@@ -37,7 +55,6 @@ function CarparkInfoCard({ carpark, carparkLots,loading }) {
     }).start();
     setArrowDirection(arrowDirection === "up" ? "down" : "up");
   };
-
 
   const slidePosition = slideAnimation.interpolate({
     inputRange: [0, 1],
@@ -56,16 +73,31 @@ function CarparkInfoCard({ carpark, carparkLots,loading }) {
   }
 
   function onFavouritePress() {
-    if(favCarpark.length === 0){
-      setFavCarpark([...favCarpark,carpark.car_park_no]);
-      storeFav({user_id:authCtx.email, favouritedCarpark: [carpark]});
-      Alert.alert("Added to Favourites","This carpark has been added to your favourites list!", [{text:'Ok',style:'destructive'}]);
-    }else if(favCarpark.findIndex((fav) => fav.car_park_no === carpark.car_park_no) === -1){
-      setFavCarpark([...favCarpark,carpark]);
-      updateFavorite([...favCarpark,carpark],authCtx.email);
-      Alert.alert("Added to Favourites","This carpark has been added to your favourites list!", [{text:'Ok',style:'destructive'}]);
-    }else{
-      Alert.alert("Already in Favourites","This carpark is already in your favourites list!", [{text:'Ok',style:'destructive'}]);
+    if (favCarpark.length === 0) {
+      setFavCarpark([...favCarpark, carpark.car_park_no]);
+      storeFav({ user_id: authCtx.email, favouritedCarpark: [carpark] });
+      Alert.alert(
+        "Added to Favourites",
+        "This carpark has been added to your favourites list!",
+        [{ text: "Ok", style: "destructive" }]
+      );
+    } else if (
+      favCarpark.findIndex((fav) => fav.car_park_no === carpark.car_park_no) ===
+      -1
+    ) {
+      setFavCarpark([...favCarpark, carpark]);
+      updateFavorite([...favCarpark, carpark], authCtx.email);
+      Alert.alert(
+        "Added to Favourites",
+        "This carpark has been added to your favourites list!",
+        [{ text: "Ok", style: "destructive" }]
+      );
+    } else {
+      Alert.alert(
+        "Already in Favourites",
+        "This carpark is already in your favourites list!",
+        [{ text: "Ok", style: "destructive" }]
+      );
     }
   }
   return (
@@ -97,12 +129,12 @@ function CarparkInfoCard({ carpark, carparkLots,loading }) {
         </TouchableOpacity>
         {!loading ? (
           <>
-          <View style={styles.itemRow}>
-            <Text style={[styles.title]}>{carpark.address}</Text>
-            <TouchableOpacity onPress={onFavouritePress}>
-              <MaterialIcons  name={ "add-circle-outline" } size={24}/>
-            </TouchableOpacity>
-          </View>
+            <View style={styles.itemRow}>
+              <Text style={[styles.title]}>{carpark.address}</Text>
+              <TouchableOpacity onPress={onFavouritePress}>
+                <MaterialIcons name={"add-circle-outline"} size={24} />
+              </TouchableOpacity>
+            </View>
             <Text style={[styles.subtitle_lots]}>
               Total Slots: {carparkLots[1]}
             </Text>
@@ -124,6 +156,18 @@ function CarparkInfoCard({ carpark, carparkLots,loading }) {
                 ? carpark.gantry_height + " Metres"
                 : "No Limit"}{" "}
             </Text>
+
+            {reports && (
+              <>
+                <Text style={[styles.subtitle]}>
+                  Last reported by: {reports.username}
+                </Text>
+                <Text style={[styles.subtitle]}>
+                  Report status: {reports.status}
+                </Text>
+              </>
+            )}
+
             <TouchableOpacity
               style={styles.button2}
               onPress={() => {
