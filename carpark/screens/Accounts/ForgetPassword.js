@@ -19,8 +19,6 @@ function ForgetPassword({ navigation }) {
     const [filled, setFilled] = useState(false);
     const [email, setEmail] = useState("");
 
-    useLoadFonts();
-
     function emailHandler(enteredEmail){
         setEmail(enteredEmail);
     }

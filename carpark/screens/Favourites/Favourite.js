@@ -69,12 +69,12 @@ function Favourite({ navigation }) {
           <View style={styles.imageContainer}>
             <MaterialIcons
               name="favorite"
-              color="black"
+              color="plum"
               size={100}
               style={{ alignSelf: "center" }}
             />
             <Text style={styles.noReportsText}>
-              You have not made any reports yet
+              You have not favourite any car parks yet
             </Text>
           </View>
       ))}
@@ -105,6 +105,7 @@ const styles = StyleSheet.create({
   },
   noReportsText:{
     alignSelf: "center",
+    fontSize: 18
   }
 });
 
