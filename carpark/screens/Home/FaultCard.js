@@ -33,7 +33,7 @@ const styles = StyleSheet.create({
     },
     title:{
         fontSize: 24,
-        fontWeight: "OpenSans_700Bold",
+        fontFamily: "OpenSans_700Bold",
         marginBottom: 10,
         textAlign: "center",
         color: "#444444",

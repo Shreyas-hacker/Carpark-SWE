@@ -1,4 +1,4 @@
-import { Dimensions,View,StyleSheet,FlatList, } from 'react-native'; 
+import { Dimensions,View,StyleSheet,FlatList, Text} from 'react-native'; 
 
 import FaultCard from './FaultCard';
 import LoadingScreen from '../../components/LoadingScreen';

@@ -31,7 +31,7 @@ export async function fetchSevereFaults() {
   const response = await axios.get(BACKEND_URL + "/reports.json");
   const Severefaults = [];
   for (const key in response.data) {
-    if (response.data[key].severity === "2") {
+    if (response.data[key].severity === "3") {
       const reportObject = {
         id: key,
         carpark: response.data[key].carpark_no,
@@ -40,9 +40,9 @@ export async function fetchSevereFaults() {
       };
       Severefaults.push(reportObject);
     }
-    console.log(Severefaults);
-    return Severefaults;
   }
+  console.log(Severefaults);
+  return Severefaults;
 }
 
 export async function fetchReport_carparks(carpark) {
