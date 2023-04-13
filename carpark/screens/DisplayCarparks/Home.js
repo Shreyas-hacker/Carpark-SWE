@@ -73,7 +73,7 @@ function HomeScreen({ navigation }) {
         <MaterialIcons name="search" size={24} style={styles.searchIcon} />
         <TextInput
           style={styles.searchInput}
-          placeholder="Search for carpark"
+          placeholder="Search for carparks"
           onChangeText={(text) => setSearchText(text)}
           value={searchText}
           onSubmitEditing={() => {
@@ -177,17 +177,20 @@ const styles = StyleSheet.create({
   searchInput: {
     flex: 1,
     height: 50,
-    fontSize: 20,
+    fontSize: 18,
+    fontFamily: "OpenSans_400Regular",
   },
   body: {
     flex: 1,
     marginTop: height / 4 + 20,
-    marginHorizontal: 20,
+    backgroundColor: "#FFFFFF",
+    borderTopColor: "#DEDCDC",
+    borderTopWidth: 1,
   },
   reportText:{
     fontSize: 20,
     fontFamily: 'OpenSans_700Bold',
-    marginLeft: 10,
+    marginLeft: 20,
     marginTop: 50
   }
 });
