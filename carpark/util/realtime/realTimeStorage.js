@@ -64,3 +64,23 @@ export async function fetchReport_carparks(carpark) {
   }
   return reports;
 }
+
+export async function fetchFavs(email) {
+  const response = await axios.get(BACKEND_URL + "/favorites.json");
+  const favorites = [];
+
+  for (const key in response.data) {
+    if (response.data[key].user_id === email) {
+      const FavObject = {
+        id: key,
+        email: response.data[key].user_id,
+        carpark: response.data[key].carpark_no,
+        address: response.data[key].address,
+        x_cood: response.data[key].x_coord,
+        y_cood: response.data[key].y_coord,
+      };
+      favorites.push(FavObject);
+    }
+  }
+  return favorites;
+}
