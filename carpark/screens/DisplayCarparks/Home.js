@@ -127,7 +127,7 @@ const styles = StyleSheet.create({
     marginLeft: 30,
   },
   headerText: {
-    fontSize: 30,
+    fontSize: 35,
     fontWeight: "bold",
     color: "black",
     fontFamily: "OpenSans_700Bold",
@@ -136,6 +136,7 @@ const styles = StyleSheet.create({
     fontSize: 20,
     color: "black",
     width: 120,
+    fontFamily: "OpenSans_600SemiBold",
   },
   button1: {
     backgroundColor: "white",
@@ -185,6 +186,8 @@ const styles = StyleSheet.create({
   },
   reportText:{
     fontSize: 20,
-    fontFamily: 'OpenSans_700Bold'
+    fontFamily: 'OpenSans_700Bold',
+    marginLeft: 10,
+    marginTop: 50
   }
 });
