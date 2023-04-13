@@ -16,6 +16,7 @@ import CarparkBackground from "../../assets/CarparkBackground.jpg";
 import { searchCarpark } from "./SearchCarpark";
 import ShowFaults from "../Home/ShowFaults";
 import { fetchSevereFaults } from "../../util/realtime/realTimeStorage";
+import ShowFavs from "../Home/ShowFav";
 
 function HomeScreen({ navigation }) {
   const API_KEY = "AIzaSyCX5cIGMG23hoatqCPLZnSQJX_6klMLbRk";
@@ -48,7 +49,7 @@ function HomeScreen({ navigation }) {
         });
     }
     getDisplayName();
-  },[]);
+  }, []);
 
   return displayName ? (
     <View style={styles.container}>
@@ -59,7 +60,9 @@ function HomeScreen({ navigation }) {
       <View style={styles.rowShown}>
         <View style={styles.header}>
           <Text style={[styles.headerText]}>Hello!</Text>
-          <Text style={[styles.displayNameText]} numberOfLines={1}>{displayName}</Text>
+          <Text style={[styles.displayNameText]} numberOfLines={1}>
+            {displayName}
+          </Text>
         </View>
         <TouchableOpacity
           style={styles.button1}
@@ -89,9 +92,9 @@ function HomeScreen({ navigation }) {
         />
       </View>
       <View style={styles.body}>
-        <Text style={styles.reportText}>
-          Carparks to avoid:
-        </Text>
+        {/* <Text style={styles.reportText}>Favourites:</Text>
+        <ShowFavs /> */}
+        <Text style={styles.reportText}>Carparks to avoid:</Text>
         <ShowFaults />
       </View>
     </View>
@@ -146,7 +149,7 @@ const styles = StyleSheet.create({
     paddingVertical: 10,
     flexDirection: "row",
     alignSelf: "center",
-    marginLeft: width/3+30,
+    marginLeft: width / 3 + 30,
   },
   buttonText: {
     color: "black",
@@ -187,10 +190,10 @@ const styles = StyleSheet.create({
     borderTopColor: "#DEDCDC",
     borderTopWidth: 1,
   },
-  reportText:{
+  reportText: {
     fontSize: 20,
-    fontFamily: 'OpenSans_700Bold',
+    fontFamily: "OpenSans_700Bold",
     marginLeft: 20,
-    marginTop: 50
-  }
+    marginTop: 50,
+  },
 });

@@ -22,7 +22,6 @@ function ShowFaults() {
       }
     }
     getSevereFaults();
-    console.log(SevereFaults);
   }, []);
   return (
     <View style={styles.container}>

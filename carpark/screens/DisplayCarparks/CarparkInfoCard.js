@@ -44,10 +44,6 @@ function CarparkInfoCard({ carpark, carparkLots, loading }) {
   }, []);
 
   useEffect(() => {
-    console.log(reports);
-  }, [reports]);
-
-  useEffect(() => {
     const fetchFav = async () => {
       const fav = await fetchFavs(authCtx.email);
       setFavCarpark(fav);
@@ -200,7 +196,7 @@ function CarparkInfoCard({ carpark, carparkLots, loading }) {
                 : "No Limit"}{" "}
             </Text>
 
-            {reports && (
+            {reports[reports.length - 1] > 0 ? (
               <>
                 <Text style={[styles.reportHeader, { color: reportTextColor }]}>
                   Last reported by: {reports[reports.length - 1].email}
@@ -212,6 +208,8 @@ function CarparkInfoCard({ carpark, carparkLots, loading }) {
                   Report description: {reports[reports.length - 1].description}
                 </Text>
               </>
+            ) : (
+              <Text>No Reports Done</Text>
             )}
 
             <View style marginBottom={50}></View>
