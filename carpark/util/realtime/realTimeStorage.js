@@ -27,6 +27,24 @@ export async function fetchReports(email) {
   return reports;
 }
 
+export async function fetchSevereFaults() {
+  const response = await axios.get(BACKEND_URL + "/reports.json");
+  const Severefaults = [];
+  for (const key in response.data) {
+    if (response.data[key].severity === "2") {
+      const reportObject = {
+        id: key,
+        carpark: response.data[key].carpark_no,
+        description: response.data[key].description,
+        fault: response.data[key].fault_type,
+      };
+      Severefaults.push(reportObject);
+    }
+    console.log(Severefaults);
+    return Severefaults;
+  }
+}
+
 export async function fetchReport_carparks(carpark) {
   const response = await axios.get(BACKEND_URL + "/reports.json");
   const reports = [];
