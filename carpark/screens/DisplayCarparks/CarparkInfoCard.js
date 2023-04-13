@@ -199,7 +199,7 @@ function CarparkInfoCard({ carpark, carparkLots, loading }) {
                 : "No Limit"}{" "}
             </Text>
 
-            {reports ? (
+            {reports && reports.length > 0 ? (
               <>
                 <Text style={[styles.reportHeader, { color: reportTextColor }]}>
                   Last reported by: {reports[reports.length - 1].email}
