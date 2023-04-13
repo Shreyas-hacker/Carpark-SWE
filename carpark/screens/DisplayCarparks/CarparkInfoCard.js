@@ -85,14 +85,19 @@ function CarparkInfoCard({ carpark, carparkLots, loading }) {
   }
 
   let reportTextColor;
-  if (reports.severity === "1" || reports.severity === " ") {
+  let report_status = "";
+  if (reports[reports.length - 1].severity === "1") {
     reportTextColor = "green";
-  } else if (reports.severity === "2") {
+    report_status = "Low";
+  } else if (reports[reports.length - 1].severity === "2") {
     reportTextColor = "orange";
-  } else if (reports.severity === "3") {
+    report_status = "Medium";
+  } else if (reports[reports.length - 1].severity === "3") {
     reportTextColor = "red";
+    report_status = "High";
   } else {
     resultTextColor = "green";
+    report_status = "Low";
   }
 
   function onFavouritePress() {
@@ -198,13 +203,13 @@ function CarparkInfoCard({ carpark, carparkLots, loading }) {
             {reports && (
               <>
                 <Text style={[styles.reportHeader, { color: reportTextColor }]}>
-                  Last reported by: {reports.username}
+                  Last reported by: {reports[reports.length - 1].email}
                 </Text>
                 <Text style={[styles.reportSubs, { color: reportTextColor }]}>
-                  Report status: {reports.status}
+                  Report status: {report_status}
                 </Text>
                 <Text style={[styles.reportSubs, { color: reportTextColor }]}>
-                  Report description: {reports.description}
+                  Report description: {reports[reports.length - 1].description}
                 </Text>
               </>
             )}

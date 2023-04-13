@@ -31,7 +31,7 @@ function ShowFavs() {
       ) : Favorites.length > 0 ? (
         <FlatList
           data={Favorites}
-          renderItem={({ item }) => <FaultCard fault={item} />}
+          renderItem={({ item }) => <FaultCard Favorites={item} />}
           keyExtractor={(item) => item.id}
           horizontal
           showsHorizontalScrollIndicator={true}
