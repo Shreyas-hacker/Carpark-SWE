@@ -17,6 +17,7 @@ import {
   fetchFavs,
   updateFavorite,
 } from "../../util/realtime/realTimeFav";
+import { fetchReport_carparks } from "../../util/realtime/realTimeStorage";
 
 function CarparkInfoCard({ carpark, carparkLots, loading }) {
   const slideAnimation = useRef(new Animated.Value(0)).current;
@@ -30,19 +31,21 @@ function CarparkInfoCard({ carpark, carparkLots, loading }) {
   const [isHidden, setIsHidden] = useState(false);
   const [iconColor, setIconColor] = useState("black");
 
-
   useEffect(() => {
     async function getReports() {
       try {
-        const response = await fetchReports(carpark);
+        const response = await fetchReport_carparks(carpark);
         setReports(response);
-        setReportsDone(true);
       } catch (error) {
         console.log(error);
       }
     }
     getReports();
   }, []);
+
+  useEffect(() => {
+    console.log(reports);
+  }, [reports]);
 
   useEffect(() => {
     const fetchFav = async () => {
@@ -81,8 +84,19 @@ function CarparkInfoCard({ carpark, carparkLots, loading }) {
     resultTextColor = "red";
   }
 
+  let reportTextColor;
+  if (reports.severity === "1" || reports.severity === " ") {
+    reportTextColor = "green";
+  } else if (reports.severity === "2") {
+    reportTextColor = "orange";
+  } else if (reports.severity === "3") {
+    reportTextColor = "red";
+  } else {
+    resultTextColor = "green";
+  }
+
   function onFavouritePress() {
-    if(iconColor=='black'){
+    if (iconColor == "black") {
       if (favCarpark.length === 0) {
         setFavCarpark([...favCarpark, carpark.car_park_no]);
         storeFav({ user_id: authCtx.email, favouritedCarpark: [carpark] });
@@ -93,8 +107,9 @@ function CarparkInfoCard({ carpark, carparkLots, loading }) {
           [{ text: "Ok", style: "destructive" }]
         );
       } else if (
-        favCarpark.findIndex((fav) => fav.car_park_no === carpark.car_park_no) ===
-        -1
+        favCarpark.findIndex(
+          (fav) => fav.car_park_no === carpark.car_park_no
+        ) === -1
       ) {
         setFavCarpark([...favCarpark, carpark]);
         updateFavorite([...favCarpark, carpark], authCtx.email);
@@ -104,8 +119,8 @@ function CarparkInfoCard({ carpark, carparkLots, loading }) {
           "This carpark has been added to your favourites list!",
           [{ text: "Ok", style: "destructive" }]
         );
-      } 
-    }else{
+      }
+    } else {
       setIconColor("black");
       const index = favCarpark.findIndex(
         (fav) => fav.car_park_no === carpark.car_park_no
@@ -182,11 +197,14 @@ function CarparkInfoCard({ carpark, carparkLots, loading }) {
 
             {reports && (
               <>
-                <Text style={[styles.subtitle]}>
+                <Text style={[styles.reportHeader, { color: reportTextColor }]}>
                   Last reported by: {reports.username}
                 </Text>
-                <Text style={[styles.subtitle]}>
+                <Text style={[styles.reportSubs, { color: reportTextColor }]}>
                   Report status: {reports.status}
+                </Text>
+                <Text style={[styles.reportSubs, { color: reportTextColor }]}>
+                  Report description: {reports.description}
                 </Text>
               </>
             )}
@@ -281,6 +299,21 @@ const styles = StyleSheet.create({
     fontFamily: "OpenSans_600SemiBold",
   },
   subtitle: {
+    fontSize: 13,
+    marginLeft: 16,
+    marginBottom: 4,
+    color: "#5C5B5B",
+    fontFamily: "OpenSans_400Regular",
+  },
+  reportHeader: {
+    marginTop: 10,
+    fontSize: 13,
+    marginLeft: 16,
+    marginBottom: 4,
+    color: "#5C5B5B",
+    fontFamily: "OpenSans_400Regular",
+  },
+  reportSubs: {
     fontSize: 13,
     marginLeft: 16,
     marginBottom: 4,
