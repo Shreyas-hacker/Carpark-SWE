@@ -41,6 +41,7 @@ function CarparkInfoCard({ carpark, carparkLots, loading }) {
       }
     }
     getReports();
+    console.log(reports);
   }, []);
 
   useEffect(() => {
@@ -82,15 +83,17 @@ function CarparkInfoCard({ carpark, carparkLots, loading }) {
 
   let reportTextColor;
   let report_status = "";
-  if (reports[reports.length - 1].severity === "1") {
-    reportTextColor = "green";
-    report_status = "Low";
-  } else if (reports[reports.length - 1].severity === "2") {
-    reportTextColor = "orange";
-    report_status = "Medium";
-  } else if (reports[reports.length - 1].severity === "3") {
-    reportTextColor = "red";
-    report_status = "High";
+  if (reports.length > 0) {
+    if (reports[reports.length - 1].severity === "1") {
+      reportTextColor = "green";
+      report_status = "Low";
+    } else if (reports[reports.length - 1].severity === "2") {
+      reportTextColor = "orange";
+      report_status = "Medium";
+    } else if (reports[reports.length - 1].severity === "3") {
+      reportTextColor = "red";
+      report_status = "High";
+    }
   } else {
     resultTextColor = "green";
     report_status = "Low";
@@ -196,7 +199,7 @@ function CarparkInfoCard({ carpark, carparkLots, loading }) {
                 : "No Limit"}{" "}
             </Text>
 
-            {reports[reports.length - 1] > 0 ? (
+            {reports ? (
               <>
                 <Text style={[styles.reportHeader, { color: reportTextColor }]}>
                   Last reported by: {reports[reports.length - 1].email}
@@ -209,7 +212,9 @@ function CarparkInfoCard({ carpark, carparkLots, loading }) {
                 </Text>
               </>
             ) : (
-              <Text>No Reports Done</Text>
+              <Text style={[styles.reportSubs, { color: reportTextColor }]}>
+                No Reports Done
+              </Text>
             )}
 
             <View style marginBottom={50}></View>
