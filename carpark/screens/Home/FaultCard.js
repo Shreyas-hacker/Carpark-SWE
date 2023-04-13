@@ -35,8 +35,9 @@ const styles = StyleSheet.create({
     shadowRadius: 5,
     elevation: 5,
     maxWidth: 400,
-    width: 200,
+    width: 300,
     height: 150,
+    marginBottom: 20,
   },
   title: {
     fontSize: 24,

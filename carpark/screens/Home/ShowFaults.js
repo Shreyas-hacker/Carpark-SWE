@@ -32,7 +32,6 @@ function ShowFaults() {
           data={SevereFaults}
           renderItem={({ item }) => <FaultCard fault={item} />}
           keyExtractor={(item) => item.id}
-          horizontal
           showsHorizontalScrollIndicator={true}
         />
       ) : (

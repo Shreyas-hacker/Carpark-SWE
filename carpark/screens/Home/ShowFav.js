@@ -13,19 +13,6 @@ function ShowFavs() {
   const [Favorites, setFavorites] = useState([]);
   const authCtx = useContext(AuthContext);
 
-  useEffect(() => {
-    async function getFavorites() {
-      try {
-        const response = await fetchFavs(authCtx.email);
-        setFavorites(response);
-        setIsSearching(true);
-      } catch (error) {
-        console.log(error);
-      }
-    }
-    getFavorites();
-    console.log(Favorites);
-  }, []);
   return (
     <View style={styles.container}>
       {!isSearching ? (

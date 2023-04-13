@@ -15,8 +15,8 @@ import LoadingScreen from "../../components/LoadingScreen";
 import CarparkBackground from "../../assets/CarparkBackground.jpg";
 import { searchCarpark } from "./SearchCarpark";
 import ShowFaults from "../Home/ShowFaults";
-import { fetchSevereFaults } from "../../util/realtime/realTimeStorage";
 import ShowFavs from "../Home/ShowFav";
+import { fetchFavs } from "../../util/realtime/realTimeFav";
 
 function HomeScreen({ navigation }) {
   const API_KEY = "AIzaSyCX5cIGMG23hoatqCPLZnSQJX_6klMLbRk";
@@ -92,8 +92,6 @@ function HomeScreen({ navigation }) {
         />
       </View>
       <View style={styles.body}>
-        {/* <Text style={styles.reportText}>Favourites:</Text>
-        <ShowFavs /> */}
         <Text style={styles.reportText}>Carparks to avoid:</Text>
         <ShowFaults />
       </View>
@@ -184,8 +182,7 @@ const styles = StyleSheet.create({
     fontFamily: "OpenSans_400Regular",
   },
   body: {
-    flex: 1,
-    marginTop: height / 4 + 20,
+    flex: 2,
     backgroundColor: "#FFFFFF",
     borderTopColor: "#DEDCDC",
     borderTopWidth: 1,
@@ -194,6 +191,7 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontFamily: "OpenSans_700Bold",
     marginLeft: 20,
-    marginTop: 50,
+    marginTop: 10,
+    marginBottom: 10,
   },
 });
