@@ -41,12 +41,12 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 24,
     fontFamily: "OpenSans_700Bold",
-    marginBottom: 10,
+    marginBottom: 5,
     textAlign: "center",
     color: "#444444",
   },
   text: {
-    fontSize: 16,
+    fontSize: 14,
     marginBottom: 5,
     color: "#444444",
     fontFamily: "OpenSans_400Regular",
