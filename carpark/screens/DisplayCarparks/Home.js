@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useState, forceUpdate } from "react";
 import {
   Text,
   StyleSheet,
@@ -18,6 +18,7 @@ import ShowFaults from "../Home/ShowFaults";
 import ShowFavs from "../Home/ShowFav";
 import { fetchFavs } from "../../util/realtime/realTimeFav";
 
+
 function HomeScreen({ navigation }) {
   const API_KEY = "AIzaSyCX5cIGMG23hoatqCPLZnSQJX_6klMLbRk";
   const authCtx = useContext(AuthContext);
@@ -25,6 +26,7 @@ function HomeScreen({ navigation }) {
   const [email, setEmail] = useState("");
   const [searchText, setSearchText] = useState("");
   const [searchResults, setSearchResults] = useState([]);
+  const [faultCard, setFaultCard] = useState(false);
 
   useEffect(() => {
     const token = authCtx.token;
@@ -49,6 +51,21 @@ function HomeScreen({ navigation }) {
         });
     }
     getDisplayName();
+  }, []);
+
+  useEffect(() => {
+    // This effect will run whenever `faultCard` changes
+    navigation.setParams({ faultCard }); // Update the navigation params
+  }, [faultCard]);
+
+  useEffect(() => {
+    // This effect will run every 5 seconds and update the `faultCard` state
+    const intervalId = setInterval(() => {
+      setFaultCard((prevFaultCard) => !prevFaultCard);
+    }, 5000);
+
+    // Return a cleanup function that clears the interval when the component unmounts
+    return () => clearInterval(intervalId);
   }, []);
 
   return displayName ? (
@@ -93,7 +110,7 @@ function HomeScreen({ navigation }) {
       </View>
       <View style={styles.body}>
         <Text style={styles.reportText}>Carparks to avoid:</Text>
-        <ShowFaults />
+        <ShowFaults key={faultCard} />
       </View>
     </View>
   ) : (
