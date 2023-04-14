@@ -42,7 +42,7 @@ function CarparkInfoCard({ carpark, carparkLots, loading }) {
     }
     getReports();
     console.log(reports);
-  }, []);
+  }, [carpark]);
 
   useEffect(() => {
     const fetchFav = async () => {
@@ -95,7 +95,7 @@ function CarparkInfoCard({ carpark, carparkLots, loading }) {
       report_status = "High";
     }
   } else {
-    resultTextColor = "green";
+    reportTextColor = "green";
     report_status = "Low";
   }
 
@@ -199,13 +199,13 @@ function CarparkInfoCard({ carpark, carparkLots, loading }) {
                 : "No Limit"}{" "}
             </Text>
 
-            {/* {reports && reports.length > 0 ? (
+            {reports && reports.length > 0 ? (
               <>
                 <Text style={[styles.reportHeader, { color: reportTextColor }]}>
                   Last reported by: {reports[reports.length - 1].email}
                 </Text>
                 <Text style={[styles.reportSubs, { color: reportTextColor }]}>
-                  Report status: {report_status}
+                  Report status: {reports[reports.length - 1].report_status}
                 </Text>
                 <Text style={[styles.reportSubs, { color: reportTextColor }]}>
                   Report description: {reports[reports.length - 1].description}
@@ -215,7 +215,7 @@ function CarparkInfoCard({ carpark, carparkLots, loading }) {
               <Text style={[styles.reportSubs, { color: reportTextColor }]}>
                 No Reports Done
               </Text>
-            )} */}
+            )}
 
             <View style marginBottom={50}></View>
 
