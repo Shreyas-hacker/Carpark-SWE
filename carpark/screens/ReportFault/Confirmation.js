@@ -2,8 +2,13 @@ import { Text,View,StyleSheet,Image,TouchableOpacity,Alert } from 'react-native'
 import IconButton from '../../components/IconButton';
 import { uploadImage } from "../../util/realtime/storeImage";
 import { storeReport } from "../../util/realtime/realTimeStorage";
+import { AuthContext } from '../../store/context/user-context';
+import { useContext } from 'react';
 
 function ConfirmationPage({navigation,route}) {
+    const authCtx = useContext(AuthContext);
+    const email = authCtx.email;
+    
     const fault_dict  = {
         1: "Light",
         2: "Gantry Machine",
@@ -22,6 +27,7 @@ function ConfirmationPage({navigation,route}) {
     }
 
     async function submit(){
+        print(route.params.photoPreview);
         var photoURL = "";
         if(route.params.photoPreview !== ""){
             photoURL = await uploadImage(route.params.photoPreview,route.params.carpark);
@@ -36,7 +42,7 @@ function ConfirmationPage({navigation,route}) {
         };
         storeReport(data);
 
-        Alert.alert("Fault Reported", "Thank you for your feedback!", [{ text: "OK", onPress: () => navigation.goBack() }]);
+        Alert.alert("Fault Reported", "Thank you for your feedback!", [{ text: "OK", onPress: () => navigation.navigate("Home") }]);
     }
     return (
         <View style={styles.container}>
