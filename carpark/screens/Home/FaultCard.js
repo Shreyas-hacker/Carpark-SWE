@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet } from "react-native";
+import { View, Text, StyleSheet, Button } from "react-native";
 
 function FaultCard({ fault }) {
   return (
@@ -11,6 +11,7 @@ function FaultCard({ fault }) {
             {fault.description}
           </Text>
         </Text>
+        <Button title="View"/>
       </View>
     </View>
   );
