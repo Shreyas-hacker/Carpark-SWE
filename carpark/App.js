@@ -16,6 +16,7 @@ import ChangePassword from "./screens/Accounts/ChangePassword";
 import EditProfile from "./screens/Profile/EditProfile";
 import Favourite from "./screens/Favourites/Favourite";
 import ReportsMade from "./screens/Profile/ReportsMade";
+import ConfirmationPage from "./screens/ReportFault/Confirmation";
 
 import MyTabs from "./screens/Tabs";
 import AuthContextProvider, { AuthContext } from "./store/context/user-context";
@@ -67,6 +68,7 @@ function AuthenticatedStack() {
           presentation:"modal",
         }}
       />
+      <Stack.Screen name="Confirmation" component={ConfirmationPage} />
       <Stack.Screen name="ChangePassword" component={ChangePassword} />
       <Stack.Screen name="EditProfile" component={EditProfile} />
       <Stack.Screen name="ReportsMade" component={ReportsMade} />

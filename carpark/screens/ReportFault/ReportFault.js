@@ -7,15 +7,12 @@ import {
   TextInput,
   TouchableWithoutFeedback,
   Keyboard,
-  Alert,
 } from "react-native";
 import { React, useEffect, useState,useContext } from "react";
 import CarparkBackground from "../../assets/CarparkBackground.jpg";
 import DropDownPicker from "react-native-dropdown-picker";
 import PrimaryButton from "../../components/PrimaryButton";
 import IconButton from "../../components/IconButton";
-import { uploadImage } from "../../util/realtime/storeImage";
-import { storeReport } from "../../util/realtime/realTimeStorage";
 import { AuthContext } from "../../store/context/user-context";
 
 const backColor = "#FFFFFF";
@@ -64,6 +61,7 @@ function ReportFault({ navigation, route }) {
     } else {
       setPhotoPreview(null);
     }
+    console.log(photoPreview)
   }, [route.params]);
 
   function descriptionHandler(enteredDescription) {
@@ -72,26 +70,14 @@ function ReportFault({ navigation, route }) {
   function measureView(event) {
     componentWidth = event.nativeEvent.layout.width;
   }
+
   function goBack() {
     navigation.navigate("Tab");
     navigation.navigate("DisplayCarpark", { searchTerm: route.params.carpark });
   }
-  async function submit() {
-    var photoURL = "";
-    if(photoPreview){
-      photoURL = await uploadImage(photoPreview,carpark);
-    }
-    const data = {
-      user_id: email,
-      carpark_no: carpark,
-      fault_type: Fault,
-      severity: Severity,
-      description: description,
-      photo: photoURL,
-    };
-    storeReport(data);
 
-    Alert.alert("Fault Reported", "Thank you for your feedback!", [{ text: "OK", onPress: () => navigation.goBack() }]);
+  function confirmation(){
+    navigation.navigate("Confirmation", {carpark: carpark, fault: Fault, severity: Severity, description: description, photoPreview: photoPreview})
   }
 
   return (
@@ -222,7 +208,7 @@ function ReportFault({ navigation, route }) {
         </View>
         {photoPreview && <Text style={styles.imageText}>Image Stored</Text>}
         <View style={styles.buttonContainer}>
-          <PrimaryButton text="Submit" onSuccess={filled} onAttempt={submit} />
+          <PrimaryButton text="Submit" onSuccess={filled} onAttempt={confirmation} />
         </View>
       </View>
     </TouchableWithoutFeedback>

@@ -41,7 +41,6 @@ export async function fetchSevereFaults() {
       Severefaults.push(reportObject);
     }
   }
-  console.log(Severefaults);
   return Severefaults;
 }
 
@@ -62,6 +61,5 @@ export async function fetchReport_carparks(carpark) {
       reports.push(reportObject);
     }
   }
-  console.log(reports);
   return reports;
 }

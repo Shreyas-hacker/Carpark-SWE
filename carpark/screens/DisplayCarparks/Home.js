@@ -15,8 +15,6 @@ import LoadingScreen from "../../components/LoadingScreen";
 import CarparkBackground from "../../assets/CarparkBackground.jpg";
 import { searchCarpark } from "./SearchCarpark";
 import ShowFaults from "../Home/ShowFaults";
-import ShowFavs from "../Home/ShowFav";
-import { fetchFavs } from "../../util/realtime/realTimeFav";
 
 
 function HomeScreen({ navigation }) {
