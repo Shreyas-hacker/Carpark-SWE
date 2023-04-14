@@ -37,6 +37,7 @@ export async function fetchSevereFaults() {
         carpark: response.data[key].carpark_no,
         description: response.data[key].description,
         fault: response.data[key].fault_type,
+        photo: response.data[key].photo,
       };
       Severefaults.push(reportObject);
     }

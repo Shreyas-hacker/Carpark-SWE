@@ -30,15 +30,15 @@ function ConfirmationPage({navigation,route}) {
         print(route.params.photoPreview);
         var photoURL = "";
         if(route.params.photoPreview !== ""){
-            photoURL = await uploadImage(route.params.photoPreview,route.params.carpark);
+            photoURL = await uploadImage(route.params.photoPreview.uri,route.params.carpark);
         }
         const data = {
             user_id: email,
             carpark_no: route.params.carpark,
             fault_type: route.params.fault,
-            severity: route.params.everity,
+            severity: route.params.severity,
             description: route.params.description,
-            photo: route.params.photoURL,
+            photo: photoURL,
         };
         storeReport(data);
 
