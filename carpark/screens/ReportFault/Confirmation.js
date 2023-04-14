@@ -29,7 +29,7 @@ function ConfirmationPage({navigation,route}) {
     async function submit(){
         print(route.params.photoPreview);
         var photoURL = "";
-        if(route.params.photoPreview !== ""){
+        if(route.params.photoPreview){
             photoURL = await uploadImage(route.params.photoPreview.uri,route.params.carpark);
         }
         const data = {
@@ -60,7 +60,7 @@ function ConfirmationPage({navigation,route}) {
                 <Text style={styles.reportTitle}>Description:</Text>
                 <Text style={[styles.reportText]}>{route.params.description}</Text>
                 <Text style={styles.reportTitle}>Image taken:</Text>
-                <Image style={styles.preview} source={route.params.photoPreview}/>
+                {route.params.photoPreview ? <Image style={styles.preview} source={route.params.photoPreview}/> : <Text style={styles.reportText}>No image taken</Text>}
             </View>
             <View style={{marginBottom: 20}}>
                 <TouchableOpacity style={styles.confirmationButton} onPress={submit}>
