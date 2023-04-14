@@ -1,11 +1,11 @@
-import { View, Text, StyleSheet, Button,Image } from "react-native";
+import { View, Text, StyleSheet, Button, Image } from "react-native";
 import { useState } from "react";
-import { Overlay } from 'react-native-elements';
+import { Overlay } from "react-native-elements";
 
 function FaultCard({ fault }) {
-  const [visible,setVisible] = useState(false);
+  const [visible, setVisible] = useState(false);
 
-  function toggleOverlay(){
+  function toggleOverlay() {
     setVisible(!visible);
   }
 
@@ -19,10 +19,16 @@ function FaultCard({ fault }) {
             {fault.description}
           </Text>
         </Text>
-        <Button title="View" onPress={toggleOverlay}/>
+        <Text style={styles.text}>
+          Report Count:{" "}
+          <Text style={styles.boldText} numberOfLines={2}>
+            {}
+          </Text>
+        </Text>
+        <Button title="View" onPress={toggleOverlay} />
 
         <Overlay isVisible={visible} onBackdropPress={toggleOverlay}>
-          <Image style={styles.preview} source={{ uri: fault.photo}}></Image>
+          <Image style={styles.preview} source={{ uri: fault.photo }}></Image>
         </Overlay>
       </View>
     </View>
@@ -65,10 +71,10 @@ const styles = StyleSheet.create({
     color: "#444444",
     fontFamily: "OpenSans_400Regular",
   },
-  preview:{
+  preview: {
     width: 300,
     height: 300,
-  }
+  },
 });
 
 export default FaultCard;

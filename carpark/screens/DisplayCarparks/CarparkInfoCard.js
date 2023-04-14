@@ -83,20 +83,34 @@ function CarparkInfoCard({ carpark, carparkLots, loading }) {
 
   let reportTextColor;
   let report_status = "";
+  let report_count = 0;
+  let isOrange = 0;
+  let reg = 0;
+
   if (reports.length > 0) {
-    if (reports[reports.length - 1].severity === "1") {
-      reportTextColor = "green";
-      report_status = "Low";
-    } else if (reports[reports.length - 1].severity === "2") {
+    report_count = reports[reports.length - 1].count - 1;
+    for (let i = report_count; i >= 0; i--) {
+      if (reports[i].severity === "1") {
+        reportTextColor = "green";
+        report_status = "Low";
+      } else if (reports[i].severity === "2" && isOrange === 0) {
+        reportTextColor = "orange";
+        report_status = "Medium";
+        isOrange = i;
+      } else if (reports[i].severity === "3") {
+        reportTextColor = "red";
+        report_status = "High";
+        reg = i;
+        break;
+      }
+    }
+    if (isOrange !== 0) {
+      reg = isOrange;
       reportTextColor = "orange";
       report_status = "Medium";
-    } else if (reports[reports.length - 1].severity === "3") {
-      reportTextColor = "red";
-      report_status = "High";
     }
   } else {
     reportTextColor = "green";
-    report_status = "Low";
   }
 
   function onFavouritePress() {
@@ -201,14 +215,17 @@ function CarparkInfoCard({ carpark, carparkLots, loading }) {
 
             {reports && reports.length > 0 ? (
               <>
-                <Text style={[styles.reportHeader, { color: reportTextColor }]}>
-                  Last reported by: {reports[reports.length - 1].email}
+                <Text style={[styles.reportHeader]}>
+                  Total reports made: {report_count + 1}
                 </Text>
                 <Text style={[styles.reportSubs, { color: reportTextColor }]}>
-                  Report status: {reports[reports.length - 1].report_status}
+                  Reported by: {reports[reg].email}
                 </Text>
                 <Text style={[styles.reportSubs, { color: reportTextColor }]}>
-                  Report description: {reports[reports.length - 1].description}
+                  Report status: {report_status}
+                </Text>
+                <Text style={[styles.reportSubs, { color: reportTextColor }]}>
+                  Report description: {reports[reg].description}
                 </Text>
               </>
             ) : (

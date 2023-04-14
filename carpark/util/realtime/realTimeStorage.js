@@ -48,9 +48,11 @@ export async function fetchSevereFaults() {
 export async function fetchReport_carparks(carpark) {
   const response = await axios.get(BACKEND_URL + "/reports.json");
   const reports = [];
+  count = 0;
 
   for (const key in response.data) {
     if (response.data[key].carpark_no === carpark.car_park_no) {
+      count++;
       const reportObject = {
         id: key,
         email: response.data[key].user_id,
@@ -58,6 +60,7 @@ export async function fetchReport_carparks(carpark) {
         description: response.data[key].description,
         severity: response.data[key].severity,
         fault: response.data[key].fault_type,
+        count: count,
       };
       reports.push(reportObject);
     }
