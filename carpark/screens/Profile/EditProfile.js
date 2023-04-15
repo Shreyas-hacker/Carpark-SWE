@@ -15,17 +15,19 @@ import PrimaryButton from "../../components/PrimaryButton";
 import IconButton from "../../components/IconButton";
 import ProfilePicture from "../../assets/ProfilePicture.png";
 import { Alert } from "react-native";
-
+import AddPhoto from "../../components/AddPhoto";
 
 let componentWidth = 0;
 const width = Dimensions.get("window").width;
 const height = Dimensions.get("window").height;
 
-function EditProfile({ navigation }) {
+function EditProfile({ navigation, route }) {
   const [fullName, setFullName] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
   const [filled, setFilled] = useState(false);
+  const [image, setImage] = useState(route.params.image);
   const authCtx = useContext(AuthContext);
+  const idToken = authCtx.token;
 
   useEffect(() => {
     if (fullName !== "" && phoneNumber !== "") {
@@ -57,7 +59,7 @@ function EditProfile({ navigation }) {
       Alert.alert("Same Display name","Please enter a new display name that is different from your current display name",[{text:"OK",style:"destructive"}]);
     }
     else if (fullName !== "" && phoneNumber !== "") {
-      const token = await updateAccount(authCtx.token, fullName);
+      const token = await updateAccount(authCtx.token, fullName,image);
       authCtx.handleDisplayName(fullName);
       Alert.alert("Successful","Profile updated successfully!",[{text:"OK",onPress:()=>{navigation.navigate("Profile")}}]);
     }
@@ -83,15 +85,10 @@ function EditProfile({ navigation }) {
             Edit Profile
           </Text>
         </View>
-        <Image
-          source={ProfilePicture}
-          style={{
-            width: 100,
-            height: 100,
-            borderRadius: 100 / 2,
-            alignSelf: "center",
-          }}
-        />
+        {(!image && image === "") ? 
+        <View style={styles.imageButton}>
+          <AddPhoto />
+        </View> : <Image source={image} style={{width: 100, height: 100, borderRadius: 50, alignSelf: "center", marginTop: 40}}/>}
         <View style={styles.inputContainer}>
           <TextInput
             style={styles.inputText}
@@ -147,6 +144,12 @@ const styles = StyleSheet.create({
     marginTop: 40,
     fontSize: 20,
     fontFamily: "OpenSans_700Bold"
+  },
+  imageButton:{
+    flex:1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginVertical: 40,
   },
   inputContainer: {
     marginTop: 30,

@@ -23,7 +23,7 @@ function ConfirmationPage({navigation,route}) {
     }
 
     function goBack(){
-        navigation.navigate("ReportFault",{carpark: route.params.carpark});
+        navigation.navigate("ReportFault",{carpark: route.params.carpark,address: route.params.address});
     }
 
     async function submit(){

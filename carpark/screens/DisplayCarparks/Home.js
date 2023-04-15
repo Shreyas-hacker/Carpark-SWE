@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState, forceUpdate } from "react";
+import React, { useContext, useEffect, useState, useRef } from "react";
 import {
   Text,
   StyleSheet,
@@ -28,6 +28,8 @@ function HomeScreen({ navigation }) {
   const [faultCard, setFaultCard] = useState(false);
   const [faults, setFaults] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [currentFaultCard, setCurrentFaultCard] = useState(null);
+  const prevFaultCardRef = useRef(null);
 
   useEffect(() => {
     const token = authCtx.token;
@@ -54,30 +56,22 @@ function HomeScreen({ navigation }) {
     getDisplayName();
   }, []);
 
-  // useEffect(() => {
-  //   // This effect will run whenever `faultCard` changes
-  //   navigation.setParams({ faultCard }); // Update the navigation params
-  // }, [faultCard]);
-
-  // useEffect(() => {
-  //   // This effect will run every 5 seconds and update the `faultCard` state
-  //   const intervalId = setInterval(() => {
-  //     setFaultCard((prevFaultCard) => !prevFaultCard);
-  //   }, 5000);
-
-  //   // Return a cleanup function that clears the interval when the component unmounts
-  //   return () => clearInterval(intervalId);
-  // }, []);
-
   useEffect(() => {
-    async function getFaults() {
-      setLoading(true);
-      const response = await fetchSevereFaults();
-      setFaults(response);
-      setLoading(false);
-    }
-    getFaults();
-  },[]);
+    const intervalId = setInterval(() => {
+      setFaultCard((prevFaultCard) => {
+        const newFaultCard = !prevFaultCard;
+        if (newFaultCard !== prevFaultCardRef.current) {
+          prevFaultCardRef.current = newFaultCard;
+          navigation.setParams({ faultCard: newFaultCard });
+          return newFaultCard;
+        }
+        return prevFaultCard;
+      });
+    }, 5000);
+  
+    return () => clearInterval(intervalId);
+  }, []);
+
 
   return displayName ? (
     <View style={styles.container}>

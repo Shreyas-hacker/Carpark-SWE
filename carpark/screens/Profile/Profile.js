@@ -8,33 +8,36 @@ import PrimaryButton from "../../components/PrimaryButton";
 import { AuthContext } from "../../store/context/user-context";
 import ProfilePicture from "../../assets/ProfilePicture.png";
 import { StatusBar } from "expo-status-bar";
+import Icon from "react-native-vector-icons/FontAwesome";
 
 function Profile({ navigation }) {
   const authCtx = useContext(AuthContext);
   const API_KEY = "AIzaSyCX5cIGMG23hoatqCPLZnSQJX_6klMLbRk";
   const [displayName, setDisplayName] = useState(null);
   const [email, setEmail] = useState(null);
+  const [image, setImage] = useState(null);
 
-    useEffect(()=>{
-        const token = authCtx.token;
-        const url = `https://identitytoolkit.googleapis.com/v1/accounts:lookup?key=${API_KEY}`;
-        async function getDisplayName(){
-            const response = await axios.post(url,{idToken:token}).then((response)=>{
-                if(!authCtx.display_name){
-                    setDisplayName(response.data.users[0].displayName);
-                }else{
-                    setDisplayName(authCtx.display_name);
-                }
-                setEmail(authCtx.email)
-            }).catch((error)=>{
-                console.log(error.message)
-        })
-        .catch((error) => {
-          console.log(error.message);
-        });
-    }
-    getDisplayName();
-  });
+  useEffect(()=>{
+      const token = authCtx.token;
+      const url = `https://identitytoolkit.googleapis.com/v1/accounts:lookup?key=${API_KEY}`;
+      async function getDisplayName(){
+          const response = await axios.post(url,{idToken:token}).then((response)=>{
+            setImage(response.data.users[0].photoUrl)
+            if(!authCtx.display_name){
+                setDisplayName(response.data.users[0].displayName);
+            }else{
+                setDisplayName(authCtx.display_name);
+            }
+            setEmail(authCtx.email)
+          }).catch((error)=>{
+              console.log(error.message)
+      })
+      .catch((error) => {
+        console.log(error.message);
+      });
+  }
+  getDisplayName();
+});
 
   function LogOut() {
     Alert.alert("Log Out", "Are you sure you want to log out?", [
@@ -53,10 +56,10 @@ function Profile({ navigation }) {
       {displayName && email ? (
         <View style={{ backgroundColor: "white", flex: 1 }}>
           <View style={styles.profileContainer}>
-            <Image
+            {image ? <Image
               source={ProfilePicture}
               style={{ width: 100, height: 100, borderRadius: 100 / 2 }}
-            />
+            /> : <Icon name="user" size={100} color="#F0F5F6" />}
             <View style={{ marginTop: 20 }}>
               <Text style={styles.textStyle}>{displayName}</Text>
               <Text style={styles.emailStyle}>{email}</Text>
@@ -66,7 +69,7 @@ function Profile({ navigation }) {
             <LongButton
               text="Edit Profile"
               onPress={() => {
-                navigation.navigate("EditProfile");
+                navigation.navigate("EditProfile",{image: image});
               }}
             />
             <LongButton

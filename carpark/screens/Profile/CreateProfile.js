@@ -7,7 +7,7 @@ import PrimaryButton from "../../components/PrimaryButton";
 import { StatusBar } from "expo-status-bar";
 import { Image } from "react-native";
 import ProfilePicture from "../../assets/ProfilePicture.png";
-
+import AddPhoto from "../../components/AddPhoto";
 
 let componentWidth = 0;
 const width = Dimensions.get('window').width;
@@ -69,15 +69,7 @@ function CreateProfile({navigation}){
                         measureView(event);
                     }}>Create your Profile</Text>
                 </View>
-                <Image
-                    source={ProfilePicture}
-                    style={{
-                        width: 100,
-                        height: 100,
-                        borderRadius: 100 / 2,
-                        alignSelf: "center",
-                    }}
-                    />
+                <AddPhoto />
                 <View style={styles.inputContainer}>
                     <TextInput style={styles.inputText} onChangeText={fullNameHandler} placeholder='Display Name here..' value={fullName}/>
                     <TextInput style={styles.inputText} onChangeText={ageHandler} placeholder='Enter your age here'value={age} keyboardType="decimal-pad" maxLength={2}/>

@@ -7,25 +7,25 @@ import { useEffect, useState } from "react";
 
 const width = Dimensions.get("window").width;
 
-function ShowFaults({fault}) {
+function ShowFaults({}) {
   const [isSearching, setIsSearching] = useState(false);
-  const [SevereFaults, setSevereFaults] = useState(fault);
+  const [SevereFaults, setSevereFaults] = useState([]);
 
-  // useEffect(() => {
-  //   async function getSevereFaults() {
-  //     try {
-  //       const response = await fetchSevereFaults();
-  //       setSevereFaults(response);
-  //       setIsSearching(true);
-  //     } catch (error) {
-  //       console.log(error);
-  //     }
-  //   }
-  //   getSevereFaults();
-  // }, []);
+  useEffect(() => {
+    async function getSevereFaults() {
+      try {
+        const response = await fetchSevereFaults();
+        setSevereFaults(response);
+        setIsSearching(true);
+      } catch (error) {
+        console.log(error);
+      }
+    }
+    getSevereFaults();
+  }, []);
   return (
     <View style={styles.container}>
-      {SevereFaults.length > 0 ? (
+      {SevereFaults && SevereFaults.length > 0 ? (
         <FlatList
           data={SevereFaults}
           renderItem={({ item }) => <FaultCard fault={item} />}

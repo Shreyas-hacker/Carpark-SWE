@@ -115,7 +115,7 @@ export default function App({ navigation,route }) {
           style={styles.backButton}
           color={"#fff"}
           onPress={() => {
-            navigation.navigate("ReportFault",{carpark: route.params.carpark});
+            navigation.navigate("ReportFault",{carpark: route.params.carpark,address: route.params.address});
           }}
         ></Button>
       </View>

@@ -17,6 +17,7 @@ import EditProfile from "./screens/Profile/EditProfile";
 import Favourite from "./screens/Favourites/Favourite";
 import ReportsMade from "./screens/Profile/ReportsMade";
 import ConfirmationPage from "./screens/ReportFault/Confirmation";
+import AddPhoto from "./components/AddPhoto";
 
 import MyTabs from "./screens/Tabs";
 import AuthContextProvider, { AuthContext } from "./store/context/user-context";
@@ -71,6 +72,7 @@ function AuthenticatedStack() {
       <Stack.Screen name="Confirmation" component={ConfirmationPage} />
       <Stack.Screen name="ChangePassword" component={ChangePassword} />
       <Stack.Screen name="EditProfile" component={EditProfile} />
+      <Stack.Screen name="AddPhoto" component={AddPhoto} />
       <Stack.Screen name="ReportsMade" component={ReportsMade} />
       <Stack.Screen name="Favourite" component={Favourite} />
     </Stack.Navigator>
