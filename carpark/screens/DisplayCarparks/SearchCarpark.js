@@ -8,7 +8,7 @@ export async function searchCarpark(searchTerm = "") {
       params: {
         resource_id: "139a3035-e624-4f56-b63f-89ae28d4ae4c",
         q: searchTerm,
-        limit: 100,
+        limit: 200,
       },
     });
 

@@ -2,8 +2,8 @@ import React, { useState, useEffect } from "react";
 import { View, StyleSheet, Text } from "react-native";
 import SearchBar from "../../components/SearchBar";
 import Map from "./Maps";
-import { getCurrentLocation } from "./LocationService";
-import { searchCarpark } from "./SearchCarpark";
+import { getCurrentLocation, getPostalAddress } from "./LocationService";
+import { searchCarpark, convertLatLong } from "./SearchCarpark";
 import CarparkInfoCard from "./CarparkInfoCard";
 import { StatusBar } from "expo-status-bar";
 
@@ -27,18 +27,13 @@ const DisplayCarpark = ({ route }) => {
       setMapRegion(location);
 
       if (searchTerm === "") {
-        const carparks = await searchCarpark(location);
+        const postalAdress = await getPostalAddress(location);
+        const district = postalAdress[0].district;
+        const street = postalAdress[0].street.toUpperCase();
+        const carparks = await searchCarpark(district);
         const filteredCarparks = carparks.filter((carpark) => {
-          // Calculate the distance between the user's location and the carpark
-          const distance = Math.sqrt(
-            Math.pow(carpark.x_coord - location.latitude, 2) +
-              Math.pow(carpark.y_coord - location.longitude, 2)
-          );
-
-          // Return true if the carpark is within 1km of the user's location
-          return distance < 0.01;
+          return carpark.address.includes(street)
         });
-
         setFilteredCarparks(filteredCarparks);
         setSelectedCarpark(null);
 
@@ -88,6 +83,7 @@ const DisplayCarpark = ({ route }) => {
           region={mapRegion}
           carparks={filteredCarparks}
           onCarparkSelect={handleCarparkSelect}
+          searchTerm={searchTerm}
         />
       )}
       <View style={styles.searchBar}>
