@@ -53,7 +53,7 @@ function ReportFault({ navigation, route }) {
     ) {
       setfilled(true);
     }
-  }, [carpark, description]);
+  }, [description]);
 
   useEffect(() => {
     if (route.params !== undefined) {
@@ -61,7 +61,6 @@ function ReportFault({ navigation, route }) {
     } else {
       setPhotoPreview(null);
     }
-    console.log(photoPreview)
   }, [route.params]);
 
   function descriptionHandler(enteredDescription) {
@@ -107,7 +106,7 @@ function ReportFault({ navigation, route }) {
         </View>
 
         <Text style={[styles.carparkTitle]}>
-          Carpark {carpark}
+          Carpark {route.params.carpark}
         </Text>
 
         <View style={styles.helpFault}>

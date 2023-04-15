@@ -41,7 +41,7 @@ function CarparkInfoCard({ carpark, carparkLots, loading }) {
       }
     }
     getReports();
-    console.log(reports);
+    console.log(carpark);
   }, [carpark]);
 
   useEffect(() => {
@@ -51,6 +51,7 @@ function CarparkInfoCard({ carpark, carparkLots, loading }) {
     };
     fetchFav();
   }, [favCarpark]);
+
   const toggleCard = () => {
     Animated.timing(slideAnimation, {
       toValue: slideAnimation._value === 0 ? 1 : 0,

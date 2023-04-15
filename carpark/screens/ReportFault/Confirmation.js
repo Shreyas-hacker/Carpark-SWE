@@ -42,7 +42,7 @@ function ConfirmationPage({navigation,route}) {
         };
         storeReport(data);
 
-        Alert.alert("Fault Reported", "Thank you for your feedback!", [{ text: "OK", onPress: () => navigation.navigate("Home") }]);
+        Alert.alert("Fault Reported", "Thank you for your feedback!", [{ text: "OK", onPress: () => navigation.navigate("Tab") }]);
     }
     return (
         <View style={styles.container}>

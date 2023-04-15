@@ -19,16 +19,16 @@ function FaultCard({ fault }) {
             {fault.description}
           </Text>
         </Text>
-        <Text style={styles.text}>
+        <Button title="View" onPress={toggleOverlay} />
+        {/* <Text style={styles.text}>
           Report Count:{" "}
           <Text style={styles.boldText} numberOfLines={2}>
             {}
           </Text>
-        </Text>
-        <Button title="View" onPress={toggleOverlay} />
+        </Text> */}
 
         <Overlay isVisible={visible} onBackdropPress={toggleOverlay}>
-          <Image style={styles.preview} source={{ uri: fault.photo }}></Image>
+          {fault.photo !== "" ? <Image style={styles.preview} source={{ uri: fault.photo }}></Image> : <Text>No image taken</Text>}
         </Overlay>
       </View>
     </View>
