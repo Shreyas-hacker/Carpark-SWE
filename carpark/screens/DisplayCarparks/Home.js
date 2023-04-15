@@ -54,31 +54,30 @@ function HomeScreen({ navigation }) {
     getDisplayName();
   }, []);
 
-  useEffect(() => {
-    // This effect will run whenever `faultCard` changes
-    navigation.setParams({ faultCard }); // Update the navigation params
-  }, [faultCard]);
-
-  useEffect(() => {
-    // This effect will run every 5 seconds and update the `faultCard` state
-    const intervalId = setInterval(() => {
-      setFaultCard((prevFaultCard) => !prevFaultCard);
-    }, 5000);
-
-    // Return a cleanup function that clears the interval when the component unmounts
-    return () => clearInterval(intervalId);
-  }, []);
+  // useEffect(() => {
+  //   // This effect will run whenever `faultCard` changes
+  //   navigation.setParams({ faultCard }); // Update the navigation params
+  // }, [faultCard]);
 
   // useEffect(() => {
-  //   async function getFaults() {
-  //     setLoading(true);
-  //     const response = await fetchSevereFaults();
-  //     setFaults(response);
-  //     setLoading(false);
-  //   }
-  //   getFaults();
-  //   console.log("faults", faults);
-  // },[faults]);
+  //   // This effect will run every 5 seconds and update the `faultCard` state
+  //   const intervalId = setInterval(() => {
+  //     setFaultCard((prevFaultCard) => !prevFaultCard);
+  //   }, 5000);
+
+  //   // Return a cleanup function that clears the interval when the component unmounts
+  //   return () => clearInterval(intervalId);
+  // }, []);
+
+  useEffect(() => {
+    async function getFaults() {
+      setLoading(true);
+      const response = await fetchSevereFaults();
+      setFaults(response);
+      setLoading(false);
+    }
+    getFaults();
+  },[]);
 
   return displayName ? (
     <View style={styles.container}>
