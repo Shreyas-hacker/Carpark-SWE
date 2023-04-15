@@ -17,6 +17,7 @@ export async function fetchReports(email) {
         id: key,
         email: response.data[key].user_id,
         carpark: response.data[key].carpark_no,
+        address: response.data[key].address,
         description: response.data[key].description,
         severity: response.data[key].severity,
         fault: response.data[key].fault_type,
@@ -29,19 +30,22 @@ export async function fetchReports(email) {
 
 export async function fetchSevereFaults() {
   const response = await axios.get(BACKEND_URL + "/reports.json");
-  const Severefaults = [];
+  var Severefaults = [];
   for (const key in response.data) {
     if (response.data[key].severity === "3") {
       const reportObject = {
         id: key,
         carpark: response.data[key].carpark_no,
+        address: response.data[key].address,
         description: response.data[key].description,
         fault: response.data[key].fault_type,
         photo: response.data[key].photo,
+        date: response.data[key].dateOfCreation,
       };
       Severefaults.push(reportObject);
     }
   }
+  Severefaults = Severefaults.reverse();
   return Severefaults;
 }
 
@@ -57,6 +61,7 @@ export async function fetchReport_carparks(carpark) {
         id: key,
         email: response.data[key].user_id,
         carpark: response.data[key].carpark_no,
+        address: response.data[key].address,
         description: response.data[key].description,
         severity: response.data[key].severity,
         fault: response.data[key].fault_type,

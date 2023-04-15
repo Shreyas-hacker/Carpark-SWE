@@ -4,7 +4,7 @@ import MapView, { Marker } from "react-native-maps";
 import { convertLatLong, searchCarparkLots } from "./SearchCarpark";
 import CarparkInfoCard from "./CarparkInfoCard";
 
-function Map({ carparks, region,searchTerm }) {
+function Map({ carparks, region }) {
   const [coordinateArray, setCoordinateArray] = useState([]);
   const [isCoordinateArraySet, setIsCoordinateArraySet] = useState(false);
   const [selectedCarpark, setSelectedCarpark] = useState(null);

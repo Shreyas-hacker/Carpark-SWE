@@ -76,7 +76,7 @@ function ReportFault({ navigation, route }) {
   }
 
   function confirmation(){
-    navigation.navigate("Confirmation", {carpark: carpark, fault: Fault, severity: Severity, description: description, photoPreview: photoPreview})
+    navigation.navigate("Confirmation", {carpark: carpark, fault: Fault, severity: Severity, description: description, photoPreview: photoPreview, address: route.params.address})
   }
 
   return (
@@ -198,7 +198,7 @@ function ReportFault({ navigation, route }) {
         <View style={styles.cameraContainer}>
           <IconButton
             onPress={() => {
-              navigation.navigate("Camera",{carpark: carpark});
+              navigation.navigate("Camera",{carpark: carpark,address: route.params.address});
             }}
             icon="camera"
             size={35}

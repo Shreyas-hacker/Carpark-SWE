@@ -61,7 +61,7 @@ export default function App({ navigation,route }) {
   if (photo) {
     let savePhoto = () => {
       MediaLibrary.saveToLibraryAsync(photo.uri).then(() => {
-        navigation.navigate("ReportFault", { photoPreview: photo, carpark: route.params.carpark });
+        navigation.navigate("ReportFault", { photoPreview: photo, carpark: route.params.carpark,address: route.params.address });
       });
     };
 

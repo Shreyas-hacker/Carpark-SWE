@@ -15,6 +15,9 @@ function ReportCard({report}){
         <View style={[styles.card, { backgroundColor }]}>
           <Text style={styles.title}>{report.carpark}</Text>
           <Text style={styles.text}>
+            Address: <Text style={styles.boldText}>{report.address}</Text>
+          </Text>
+          <Text style={styles.text}>
             Fault Type: <Text style={styles.boldText}>{faultType}</Text>
           </Text>
           <Text style={styles.text}>

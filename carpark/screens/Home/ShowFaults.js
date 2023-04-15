@@ -7,7 +7,7 @@ import { useEffect, useState } from "react";
 
 const width = Dimensions.get("window").width;
 
-function ShowFaults() {
+function ShowFaults({}) {
   const [isSearching, setIsSearching] = useState(false);
   const [SevereFaults, setSevereFaults] = useState([]);
 

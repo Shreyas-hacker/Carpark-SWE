@@ -35,10 +35,12 @@ function ConfirmationPage({navigation,route}) {
         const data = {
             user_id: email,
             carpark_no: route.params.carpark,
+            address: route.params.address,
             fault_type: route.params.fault,
             severity: route.params.severity,
             description: route.params.description,
             photo: photoURL,
+            dateOfCreation: new Date().toISOString().slice(0, 10),
         };
         storeReport(data);
 
@@ -53,6 +55,8 @@ function ConfirmationPage({navigation,route}) {
             </View>
             <View style={styles.reportDone}>
                 <Text style={styles.reportTitle}>Report for Carpark {route.params.carpark}</Text>
+                <Text style={styles.reportTitle}>Address:</Text>
+                <Text style={styles.reportText}>{route.params.address}</Text>
                 <Text style={styles.reportTitle}>Fault:</Text>
                 <Text style={styles.reportText}>{fault_dict[route.params.fault]}</Text>
                 <Text style={styles.reportTitle}>Severity:</Text>
@@ -83,11 +87,10 @@ const styles = StyleSheet.create({
     line:{
         borderWidth: 1,
         borderColor: "blue",
-        margin: 20,
+        marginTop: 20,
+        marginHorizontal: 20,
     },
     reportDone:{
-        borderWidth: 5,
-        borderColor: "green",
         marginHorizontal: 20,
         paddingVertical: 20,
     },

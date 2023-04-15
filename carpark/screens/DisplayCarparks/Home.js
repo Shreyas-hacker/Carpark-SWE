@@ -15,7 +15,8 @@ import LoadingScreen from "../../components/LoadingScreen";
 import CarparkBackground from "../../assets/CarparkBackground.jpg";
 import { searchCarpark } from "./SearchCarpark";
 import ShowFaults from "../Home/ShowFaults";
-
+import { fetchSevereFaults } from "../../util/realtime/realTimeStorage";
+import { isLoading } from "expo-font";
 
 function HomeScreen({ navigation }) {
   const API_KEY = "AIzaSyCX5cIGMG23hoatqCPLZnSQJX_6klMLbRk";
@@ -25,6 +26,8 @@ function HomeScreen({ navigation }) {
   const [searchText, setSearchText] = useState("");
   const [searchResults, setSearchResults] = useState([]);
   const [faultCard, setFaultCard] = useState(false);
+  const [faults, setFaults] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     const token = authCtx.token;
@@ -65,6 +68,17 @@ function HomeScreen({ navigation }) {
     // Return a cleanup function that clears the interval when the component unmounts
     return () => clearInterval(intervalId);
   }, []);
+
+  // useEffect(() => {
+  //   async function getFaults() {
+  //     setLoading(true);
+  //     const response = await fetchSevereFaults();
+  //     setFaults(response);
+  //     setLoading(false);
+  //   }
+  //   getFaults();
+  //   console.log("faults", faults);
+  // },[faults]);
 
   return displayName ? (
     <View style={styles.container}>
@@ -108,7 +122,7 @@ function HomeScreen({ navigation }) {
       </View>
       <View style={styles.body}>
         <Text style={styles.reportText}>Carparks to avoid:</Text>
-        <ShowFaults key={faultCard} />
+        {loading ? <LoadingScreen/> : <ShowFaults key={faultCard} faults={faults}/>}
       </View>
     </View>
   ) : (

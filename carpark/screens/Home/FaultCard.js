@@ -13,6 +13,7 @@ function FaultCard({ fault }) {
     <View style={styles.container}>
       <View style={styles.card}>
         <Text style={styles.title}>{fault.carpark}</Text>
+        <Text style={styles.text}>Address: {fault.address}</Text>
         <Text style={styles.text}>
           Description:{" "}
           <Text style={styles.boldText} numberOfLines={2}>
@@ -53,9 +54,9 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.1,
     shadowRadius: 5,
     elevation: 5,
-    maxWidth: 400,
+    maxHeight: 400,
     width: 300,
-    height: 150,
+    height: 200,
     marginBottom: 20,
   },
   title: {

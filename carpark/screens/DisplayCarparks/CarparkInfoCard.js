@@ -244,6 +244,7 @@ function CarparkInfoCard({ carpark, carparkLots, loading }) {
                   navigation.goBack();
                   navigation.navigate("ReportFault", {
                     carpark: carpark.car_park_no,
+                    address: carpark.address,
                   });
                 }}
               >
