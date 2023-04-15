@@ -120,25 +120,27 @@ const styles = StyleSheet.create({
   page: {
     backgroundColor: "white",
     flex: 1,
+    paddingHorizontal: 20,
+    paddingBottom: 20, // Add paddingBottom to prevent content from being hidden by the keyboard
   },
   topContent: {
     flexDirection: "row",
-    marginVertical: 40,
+    marginVertical: 20, // Decrease marginVertical to fit better on smaller screens
     alignItems: "center",
+    marginTop: 60,
   },
   title: {
-    marginTop: 20,
-    marginLeft: (width - componentWidth) / 9.1,
+    flex: 1, // Add flex: 1 to make sure title takes up remaining space
+    marginLeft: 10, // Decrease marginLeft to fit better on smaller screens
     fontFamily: "OpenSans_700Bold",
     fontSize: 22,
   },
   inputConfig: {
-    marginHorizontal: "5%",
-    flexDirection: "column",
+    marginVertical: 20, // Decrease marginVertical to fit better on smaller screens
   },
   inputStyles: {
     borderRadius: 6,
-    fontSize: 13,
+    fontSize: 16, // Increase fontSize to improve legibility
     padding: 12,
     borderColor: "#DBE2E7",
     backgroundColor: "#FFFFFF",
@@ -147,6 +149,12 @@ const styles = StyleSheet.create({
     fontFamily: "OpenSans_400Regular",
   },
   buttonContainer: {
-    marginVertical: 30,
+    marginBottom: 20, // Add marginBottom to prevent button from being hidden by the keyboard
+  },
+  infoText: {
+    marginTop: 10, // Add marginTop to separate from input field
+    fontFamily: "OpenSans_600SemiBold",
+    fontSize: 16, // Increase fontSize to improve legibility
+    color: "#0D668D",
   },
 });

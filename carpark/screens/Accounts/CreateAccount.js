@@ -174,9 +174,10 @@ const styles = StyleSheet.create({
   form: {
     backgroundColor: "#052736",
     flex: 1,
+    paddingHorizontal: 20, // Add paddingHorizontal to ensure content fits on smaller screens
   },
   bigdescription: {
-    marginTop: deviceHeight < 380 ? 60 : 150,
+    marginTop: deviceHeight < 380 ? 60 : deviceHeight * 0.25, // Use deviceHeight to dynamically adjust marginTop for smaller screens
     marginLeft: 15,
   },
   title: {
@@ -189,14 +190,13 @@ const styles = StyleSheet.create({
     marginTop: 20,
   },
   inputText: {
-    width: "95%",
+    width: "100%", // Change width to take up full width of parent container
     backgroundColor: "white",
     color: "grey",
     padding: 15,
     borderRadius: 12,
     fontSize: 15,
-    marginHorizontal: 10,
-    marginVertical: 8,
+    marginVertical: 8, // Remove marginHorizontal to ensure input fields are centered
   },
   iconButton: {
     position: "absolute",
@@ -228,17 +228,7 @@ const styles = StyleSheet.create({
     marginTop: 15,
     marginHorizontal: 20,
   },
-  forgetpassword: {
-    alignItems: "center",
-    marginTop: 60,
-    marginBottom: 30,
-  },
-  socialmedia: {
-    alignItems: "center",
-    marginTop: 60,
-  },
-  socialMediaButton: {
-    marginTop: 20,
-    flexDirection: "row",
+  buttonContainer: {
+    marginVertical: 20, // Add marginVertical to ensure button is not hidden by keyboard
   },
 });

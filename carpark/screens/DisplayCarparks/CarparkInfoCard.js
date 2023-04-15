@@ -261,11 +261,13 @@ function CarparkInfoCard({ carpark, carparkLots, loading }) {
   );
 }
 
+const windowHeight = Dimensions.get("window").height;
+
 const styles = StyleSheet.create({
   card: {
     backgroundColor: "white",
     paddingTop: 16,
-    paddingBottom: Dimensions.get("window").height / 5,
+    paddingBottom: windowHeight * 0.2, // Use 20% of the screen height
     borderTopLeftRadius: 30,
     borderTopRightRadius: 30,
     shadowColor: "#000000",
@@ -312,7 +314,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   title: {
-    fontSize: 16,
+    fontSize: 20,
     marginLeft: 16,
     marginBottom: 8,
     color: "#5C5B5B",
@@ -352,7 +354,6 @@ const styles = StyleSheet.create({
     width: "34%",
     alignSelf: "center",
     marginTop: 20,
-    marginBottom: 20,
     borderRadius: 5,
     paddingVertical: 15,
     paddingHorizontal: 25,
@@ -370,6 +371,7 @@ const styles = StyleSheet.create({
     alignSelf: "center",
     justifyContent: "space-between",
     width: "90%",
+    marginRight: 20,
   },
 });
 

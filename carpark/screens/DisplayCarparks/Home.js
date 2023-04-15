@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState, useRef } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import {
   Text,
   StyleSheet,
@@ -7,6 +7,7 @@ import {
   TextInput,
   ImageBackground,
   Dimensions,
+  Animated,
 } from "react-native";
 import axios from "axios";
 import { AuthContext } from "../../store/context/user-context";
@@ -16,7 +17,6 @@ import CarparkBackground from "../../assets/CarparkBackground.jpg";
 import { searchCarpark } from "./SearchCarpark";
 import ShowFaults from "../Home/ShowFaults";
 import { fetchSevereFaults } from "../../util/realtime/realTimeStorage";
-import { isLoading } from "expo-font";
 
 function HomeScreen({ navigation }) {
   const API_KEY = "AIzaSyCX5cIGMG23hoatqCPLZnSQJX_6klMLbRk";
@@ -25,53 +25,43 @@ function HomeScreen({ navigation }) {
   const [email, setEmail] = useState("");
   const [searchText, setSearchText] = useState("");
   const [searchResults, setSearchResults] = useState([]);
+  const [faultCardOpacity] = useState(new Animated.Value(0));
   const [faultCard, setFaultCard] = useState(false);
   const [faults, setFaults] = useState([]);
   const [loading, setLoading] = useState(false);
-  const [currentFaultCard, setCurrentFaultCard] = useState(null);
-  const prevFaultCardRef = useRef(null);
 
   useEffect(() => {
     const token = authCtx.token;
     const url = `https://identitytoolkit.googleapis.com/v1/accounts:lookup?key=${API_KEY}`;
+
     async function getDisplayName() {
-      const response = await axios
-        .post(url, { idToken: token })
-        .then((response) => {
-          if (!authCtx.display_name) {
-            setDisplayName(response.data.users[0].displayName);
-          } else {
-            setDisplayName(authCtx.display_name);
-          }
-          if (!authCtx.email) {
-            setEmail(response.data.users[0].email);
-          } else {
-            setEmail(authCtx.email);
-          }
-        })
-        .catch((error) => {
-          console.log(error.message);
-        });
+      try {
+        const response = await axios.post(url, { idToken: token });
+        const user = response.data.users[0];
+        setDisplayName(authCtx.display_name || user.displayName);
+        setEmail(authCtx.email || user.email);
+      } catch (error) {
+        console.log(error.message);
+      }
     }
+
     getDisplayName();
   }, []);
 
   useEffect(() => {
-    const intervalId = setInterval(() => {
-      setFaultCard((prevFaultCard) => {
-        const newFaultCard = !prevFaultCard;
-        if (newFaultCard !== prevFaultCardRef.current) {
-          prevFaultCardRef.current = newFaultCard;
-          navigation.setParams({ faultCard: newFaultCard });
-          return newFaultCard;
-        }
-        return prevFaultCard;
-      });
-    }, 5000);
-  
-    return () => clearInterval(intervalId);
-  }, []);
+    const focusListener = navigation.addListener("focus", () => {
+      setFaultCard(true);
+    });
 
+    const blurListener = navigation.addListener("blur", () => {
+      setFaultCard(false);
+    });
+
+    return () => {
+      focusListener.remove();
+      blurListener.remove();
+    };
+  }, []);
 
   return displayName ? (
     <View style={styles.container}>
@@ -115,7 +105,11 @@ function HomeScreen({ navigation }) {
       </View>
       <View style={styles.body}>
         <Text style={styles.reportText}>Carparks to avoid:</Text>
-        {loading ? <LoadingScreen/> : <ShowFaults key={faultCard} faults={faults}/>}
+        {loading ? (
+          <LoadingScreen />
+        ) : (
+          <ShowFaults key={faultCard.toString()} faults={faults} />
+        )}
       </View>
     </View>
   ) : (
@@ -147,7 +141,7 @@ const styles = StyleSheet.create({
     marginTop: height / 10,
   },
   header: {
-    marginLeft: 30,
+    marginLeft: 25,
   },
   headerText: {
     fontSize: 35,
