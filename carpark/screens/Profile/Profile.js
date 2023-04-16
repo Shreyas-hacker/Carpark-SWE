@@ -17,31 +17,34 @@ function Profile({ navigation }) {
   const [email, setEmail] = useState(null);
   const [image, setImage] = useState(null);
 
-  useEffect(() => {
+  useEffect(()=>{
     const token = authCtx.token;
     const url = `https://identitytoolkit.googleapis.com/v1/accounts:lookup?key=${API_KEY}`;
-    async function getDisplayName() {
-      const response = await axios
-        .post(url, { idToken: token })
-        .then((response) => {
+    async function getDisplayName(){
+      const response = await axios.post(url,{idToken:token}).then((response)=>{
+        console.log(authCtx.photo)
+        if(!authCtx.display_name){
+          setDisplayName(response.data.users[0].displayName);
+          authCtx.handleDisplayName(response.data.users[0].displayName);
+        }else{
+          setDisplayName(authCtx.display_name);
+        }
+        if(!authCtx.photo){
           setImage(response.data.users[0].photoUrl);
-          if (!authCtx.display_name) {
-            setDisplayName(response.data.users[0].displayName);
-            authCtx.handleDisplayName(response.data.users[0].displayName);
-          } else {
-            setDisplayName(authCtx.display_name);
-          }
-          setEmail(authCtx.email);
-        })
-        .catch((error) => {
-          console.log(error.message);
-        })
-        .catch((error) => {
-          console.log(error.message);
-        });
+          authCtx.handlePhotoURL(response.data.users[0].photoUrl);
+        }else{
+          setImage(authCtx.photo);
+        }
+        setEmail(authCtx.email)
+      }).catch((error)=>{
+          console.log(error.message)
+      })
+      .catch((error) => {
+        console.log(error.message);
+      });
     }
     getDisplayName();
-  });
+});
 
   function LogOut() {
     Alert.alert("Log Out", "Are you sure you want to log out?", [

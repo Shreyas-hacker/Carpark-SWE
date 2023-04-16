@@ -34,7 +34,6 @@ function HomeScreen({ navigation }) {
     const url = `https://identitytoolkit.googleapis.com/v1/accounts:lookup?key=${API_KEY}`;
 
     async function getDisplayName() {
-      console.log(authCtx.display_name);
       const response = await axios
         .post(url, { idToken: token })
         .then((response) => {
