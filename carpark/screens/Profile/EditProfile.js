@@ -21,7 +21,6 @@ import {
   PermissionStatus,
 } from "expo-image-picker";
 import Icon from "react-native-vector-icons/FontAwesome";
-import { Button } from "react-native-elements";
 
 let componentWidth = 0;
 const width = Dimensions.get("window").width;
