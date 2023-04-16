@@ -1,70 +1,79 @@
-import { TouchableOpacity, Alert,Image } from 'react-native';
-import {useState} from 'react';
-import Icon from 'react-native-vector-icons/FontAwesome';
-import { launchCameraAsync, useCameraPermissions,PermissionStatus } from 'expo-image-picker';
+import { TouchableOpacity, Alert, Image } from "react-native";
+import { useState } from "react";
+import Icon from "react-native-vector-icons/FontAwesome";
+import {
+  launchCameraAsync,
+  useCameraPermissions,
+  PermissionStatus,
+} from "expo-image-picker";
 import { useNavigation } from "@react-navigation/native";
 
-function AddPhoto({}){
-    const [cameraPermission, askCameraPermission] = useCameraPermissions();
-    const [image, setImage] = useState("");
+function AddPhoto({}) {
+  const [cameraPermission, askCameraPermission] = useCameraPermissions();
+  const [image, setImage] = useState("");
 
-    const navigation = useNavigation();
+  const navigation = useNavigation();
 
-    async function verifyPermissions(){
-        if(cameraPermission.status === PermissionStatus.UNDETERMINED){
-            const permissionResponse = await askCameraPermission();
-            return permissionResponse.granted;
-        }
-        if(cameraPermission.status === PermissionStatus.DENIED){
-            Alert.alert(
-                'Insufficient permissions!',
-                'You need to grant camera permissions to use this app.',
-                [{ text: 'Okay', style: 'destructive' }]
-            );
-            return false;
-        }
-        return true;
+  async function verifyPermissions() {
+    if (cameraPermission.status === PermissionStatus.UNDETERMINED) {
+      const permissionResponse = await askCameraPermission();
+      return permissionResponse.granted;
     }
-
-    async function takeImageHandler(){
-        const hasPermission = await verifyPermissions();
-
-        if(!hasPermission){
-            return;
-        }
-        const imageTaken = await launchCameraAsync({
-            allowsEditing: true,
-            aspect: [16, 9],
-            quality: 0.5
-        });
-        setImage(imageTaken.uri);
-        console.log(image);
+    if (cameraPermission.status === PermissionStatus.DENIED) {
+      Alert.alert(
+        "Insufficient permissions!",
+        "You need to grant camera permissions to use this app.",
+        [{ text: "Okay", style: "destructive" }]
+      );
+      return false;
     }
+    return true;
+  }
 
-    if(image){
-        navigation.navigate('EditProfile',{image: image})
+  async function takeImageHandler() {
+    const hasPermission = await verifyPermissions();
+
+    if (!hasPermission) {
+      return;
     }
+    const imageTaken = await launchCameraAsync({
+      allowsEditing: true,
+      aspect: [16, 9],
+      quality: 0.5,
+    });
+    setImage(imageTaken.uri);
+    console.log(image);
+  }
 
-    return (
-        <>
-        {image && image !== "" ? <Image source={{ uri: image }} style={{ width: '100%', height: '100%',borderRadius: 50 }} /> :
-            <TouchableOpacity
-            style={{
-                width: 100,
-                height: 100,
-                borderRadius: 50,
-                backgroundColor: '#fff',
-                justifyContent: 'center',
-                alignItems: 'center',
-                position: 'absolute',
-            }}
-            onPress={takeImageHandler}
+  if (image) {
+    navigation.navigate("EditProfile", { image: image });
+  }
+
+  return (
+    <>
+      {image && image !== "" ? (
+        <Image
+          source={{ uri: image }}
+          style={{ width: "100%", height: "100%", borderRadius: 50 }}
+        />
+      ) : (
+        <TouchableOpacity
+          style={{
+            width: 100,
+            height: 100,
+            borderRadius: 50,
+            backgroundColor: "#fff",
+            justifyContent: "center",
+            alignItems: "center",
+            position: "absolute",
+          }}
+          onPress={takeImageHandler}
         >
-            <Icon name="camera" size={40} color="#000" />
-            </TouchableOpacity>
-        }
-        </>
-    )
+          <Icon name="camera" size={40} color="#000" />
+        </TouchableOpacity>
+      )}
+    </>
+  );
 }
 
 export default AddPhoto;
