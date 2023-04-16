@@ -92,7 +92,7 @@ function ForgetPassword({ navigation }) {
             onChangeText={emailHandler}
             placeholder="Enter your email address"
           />
-          <Text style={[{ color: "#57636C" }]}>
+          <Text style={[{ color: "#57636C", fontFamily: 'OpenSans_400Regular', fontSize: 14}]}>
             We will need to verify your email with our database to reset your
             password, please enter the email associated with your account above.
           </Text>
@@ -111,6 +111,8 @@ function ForgetPassword({ navigation }) {
 
 export default ForgetPassword;
 
+const height = Dimensions.get("window").height;
+
 const styles = StyleSheet.create({
   page: {
     backgroundColor: "white",
@@ -118,11 +120,23 @@ const styles = StyleSheet.create({
   },
   topContent: {
     flexDirection: "row",
-    marginVertical: 40,
+    marginTop: 45,
+    alignContent: "center",
+    width: "100%",
+    flexDirection: "row",
+    top: height / 50,
+    marginRight: width / 3.75,
+    alignSelf: "center",
+    justifyContent: "center",
     alignItems: "center",
+    textAlignVertical: "center",
+    alignContent: "center",
+    marginBottom: 50,
   },
   title: {
-    marginLeft: (width - componentWidth) / 5,
+    marginLeft: (width - componentWidth) / 7,
+    fontFamily: "OpenSans_700Bold",
+    fontSize: 20
   },
   inputConfig: {
     marginHorizontal: "5%",
@@ -132,10 +146,11 @@ const styles = StyleSheet.create({
     borderRadius: 6,
     fontSize: 14,
     padding: 12,
-    borderColor: "#DBE2E7",
-    backgroundColor: "#FFFFFF",
+    borderColor: "#DEDEDC",
+    backgroundColor: "#FDFDFD",
     borderWidth: 2,
     marginBottom: 20,
+    fontFamily: "OpenSans_400Regular",
   },
   buttonContainer: {
     marginVertical: 30,
