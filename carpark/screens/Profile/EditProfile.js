@@ -132,27 +132,42 @@ function EditProfile({ navigation, route }) {
           </Text>
         </View>
         <View style={styles.imageButton}>
-        {image && image !== "" ? (
-          <>
-          <Image
-            source={{ uri: image }}
-            style={{
-              width: 100,
-              height: 100,
-              borderRadius: 50,
-              resizeMode: "contain",
-              justifyContent: "center",
-              alignItems: "center",
-            }}
-          />
-          <TouchableOpacity style={{
-            width: 150,
-            height: 50
-          }} onPress={takeImageHandler}>
-            <Text style={{marginTop: 10,textAlign:'center',borderColor: 'black',borderWidth: 3,fontSize: 18,borderRadius: 16}}>Change photo</Text>
-          </TouchableOpacity>
-          </>
-        ) : (
+          {image && image !== "" ? (
+            <>
+              <Image
+                source={{ uri: image }}
+                style={{
+                  width: 100,
+                  height: 100,
+                  borderRadius: 50,
+                  resizeMode: "contain",
+                  justifyContent: "center",
+                  alignItems: "center",
+                }}
+              />
+              <TouchableOpacity
+                style={{
+                  width: 150,
+                  height: 50,
+                }}
+                onPress={takeImageHandler}
+              >
+                <Text
+                  style={{
+                    marginTop: 10,
+                    textAlign: "center",
+                    borderColor: "black",
+                    borderWidth: 2,
+                    fontSize: 18,
+                    borderRadius: 14,
+                    padding: 3,
+                  }}
+                >
+                  Change photo
+                </Text>
+              </TouchableOpacity>
+            </>
+          ) : (
             <TouchableOpacity
               style={{
                 width: 100,
