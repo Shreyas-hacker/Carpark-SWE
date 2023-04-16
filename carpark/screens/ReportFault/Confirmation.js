@@ -37,31 +37,25 @@ function ConfirmationPage({ navigation, route }) {
     });
   }
 
-  async function submit() {
-    print(route.params.photoPreview);
+  async function submit(){
     var photoURL = "";
-    if (route.params.photoPreview) {
-      photoURL = await uploadImage(
-        route.params.photoPreview.uri,
-        route.params.carpark
-      );
+    if(route.params.photoPreview){
+        photoURL = await uploadImage(route.params.photoPreview,route.params.carpark);
     }
     const data = {
-      user_id: email,
-      carpark_no: route.params.carpark,
-      address: route.params.address,
-      fault_type: route.params.fault,
-      severity: route.params.severity,
-      description: route.params.description,
-      photo: photoURL,
-      dateOfCreation: new Date().toISOString().slice(0, 10),
+        user_id: email,
+        carpark_no: route.params.carpark,
+        address: route.params.address,
+        fault_type: route.params.fault,
+        severity: route.params.severity,
+        description: route.params.description,
+        photo: photoURL,
+        dateOfCreation: new Date().toISOString().slice(0, 10),
     };
     storeReport(data);
 
-    Alert.alert("Fault Reported", "Thank you for your feedback!", [
-      { text: "OK", onPress: () => navigation.navigate("Tab") },
-    ]);
-  }
+    Alert.alert("Fault Reported", "Thank you for your feedback!", [{ text: "OK", onPress: () => navigation.navigate("Tab") }]);
+}
 
   const height = Dimensions.get("window").height;
   const width = Dimensions.get("window").width;
@@ -94,7 +88,7 @@ function ConfirmationPage({ navigation, route }) {
         <Text style={[styles.reportText]}>{route.params.description}</Text>
         <Text style={styles.reportTitle}>Image taken:</Text>
         {route.params.photoPreview ? (
-          <Image style={styles.preview} source={route.params.photoPreview} />
+          <Image style={styles.preview} source={{uri: route.params.photoPreview}} />
         ) : (
           <Text style={styles.reportText}>No image taken</Text>
         )}

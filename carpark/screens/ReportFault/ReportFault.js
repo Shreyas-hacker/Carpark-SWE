@@ -14,6 +14,11 @@ import DropDownPicker from "react-native-dropdown-picker";
 import PrimaryButton from "../../components/PrimaryButton";
 import IconButton from "../../components/IconButton";
 import { AuthContext } from "../../store/context/user-context";
+import {
+  launchCameraAsync,
+  useCameraPermissions,
+  PermissionStatus,
+} from "expo-image-picker";
 
 const backColor = "#F8F8F8";
 const deviceWidth = Dimensions.get("window").width;
@@ -41,7 +46,8 @@ function ReportFault({ navigation, route }) {
   const [carpark, setCarpark] = useState(route.params.carpark);
   const [filled, setfilled] = useState(false);
   const [description, setDescription] = useState("");
-  const [photoPreview, setPhotoPreview] = useState(null);
+  const [image, setImage] = useState("");
+  const [cameraPermission, askCameraPermission] = useCameraPermissions();
 
   var email = authCtx.email;
 
@@ -53,17 +59,47 @@ function ReportFault({ navigation, route }) {
     ) {
       setfilled(true);
     }else{
-        setfilled(false);
+      setfilled(false);
     }
   }, [description]);
 
   useEffect(() => {
     if (route.params !== undefined) {
-      setPhotoPreview(route.params.photoPreview);
+      setImage(route.params.photoPreview);
     } else {
-      setPhotoPreview(null);
+      setImage(null);
     }
   }, [route.params]);
+
+  async function verifyPermissions() {
+      if (cameraPermission.status === PermissionStatus.UNDETERMINED) {
+          const permissionResponse = await askCameraPermission();
+          return permissionResponse.granted;
+      }
+      if (cameraPermission.status === PermissionStatus.DENIED) {
+      Alert.alert(
+          "Insufficient permissions!",
+          "You need to grant camera permissions to use this app.",
+          [{ text: "Okay", style: "destructive" }]
+      );
+      return false;
+      }
+      return true;
+  }
+
+  async function takeImageHandler() {
+    const hasPermission = await verifyPermissions();
+
+    if (!hasPermission) {
+        return;
+    }
+    const imageTaken = await launchCameraAsync({
+        allowsEditing: true,
+        aspect: [16, 9],
+        quality: 0.5,
+    });
+    setImage(imageTaken.assets[0].uri);
+  }
 
   function descriptionHandler(enteredDescription) {
     setDescription(enteredDescription);
@@ -78,7 +114,7 @@ function ReportFault({ navigation, route }) {
   }
 
   function confirmation(){
-    navigation.navigate("Confirmation", {carpark: carpark, fault: Fault, severity: Severity, description: description, photoPreview: photoPreview, address: route.params.address})
+    navigation.navigate("Confirmation", {carpark: carpark, fault: Fault, severity: Severity, description: description, photoPreview: image, address: route.params.address})
   }
 
   return (
@@ -199,15 +235,13 @@ function ReportFault({ navigation, route }) {
 
         <View style={styles.cameraContainer}>
           <IconButton
-            onPress={() => {
-              navigation.navigate("Camera",{carpark: carpark,address: route.params.address});
-            }}
+            onPress={takeImageHandler}
             icon="camera"
             size={35}
             color="#45D8CC"
           />
         </View>
-        {photoPreview && <Text style={styles.imageText}>Image Stored</Text>}
+        {image && image !== "" && <Text style={styles.imageText}>Image Stored</Text>}
         <View style={styles.buttonContainer}>
           <PrimaryButton text="Submit" onSuccess={filled} onAttempt={confirmation} />
         </View>

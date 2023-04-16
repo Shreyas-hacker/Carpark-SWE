@@ -34,8 +34,8 @@ function CreateProfile({navigation}){
     //changing state function
     async function verifyPermissions() {
         if (cameraPermission.status === PermissionStatus.UNDETERMINED) {
-        const permissionResponse = await askCameraPermission();
-        return permissionResponse.granted;
+            const permissionResponse = await askCameraPermission();
+            return permissionResponse.granted;
         }
         if (cameraPermission.status === PermissionStatus.DENIED) {
         Alert.alert(
@@ -52,12 +52,12 @@ function CreateProfile({navigation}){
         const hasPermission = await verifyPermissions();
 
         if (!hasPermission) {
-        return;
+            return;
         }
         const imageTaken = await launchCameraAsync({
-        allowsEditing: true,
-        aspect: [16, 9],
-        quality: 0.5,
+            allowsEditing: true,
+            aspect: [16, 9],
+            quality: 0.5,
         });
         setImage(imageTaken.assets[0].uri);
     }

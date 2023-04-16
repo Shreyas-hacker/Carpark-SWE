@@ -54,7 +54,7 @@ function Profile({ navigation }) {
   return (
     <>
       <StatusBar />
-      {displayName && email ? (
+      {displayName && email && image ? (
         <View style={{ backgroundColor: "white", flex: 1 }}>
           <View style={styles.profileContainer}>
             {image ? <Image
