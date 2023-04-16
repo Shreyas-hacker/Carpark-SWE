@@ -1,12 +1,14 @@
-import { TouchableOpacity, Alert } from 'react-native';
+import { TouchableOpacity, Alert,Image } from 'react-native';
 import {useState} from 'react';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { launchCameraAsync, useCameraPermissions,PermissionStatus } from 'expo-image-picker';
-import {AuthContext} from '../store/context/user-context';
+import { useNavigation } from "@react-navigation/native";
 
-function AddPhoto({navigation}){
+function AddPhoto({}){
     const [cameraPermission, askCameraPermission] = useCameraPermissions();
     const [image, setImage] = useState("");
+
+    const navigation = useNavigation();
 
     async function verifyPermissions(){
         if(cameraPermission.status === PermissionStatus.UNDETERMINED){
@@ -36,15 +38,16 @@ function AddPhoto({navigation}){
             quality: 0.5
         });
         setImage(imageTaken.uri);
+        console.log(image);
     }
 
     if(image){
-        navigation.navigate('EditProfile', {image: image})
+        navigation.navigate('EditProfile',{image: image})
     }
 
     return (
         <>
-        {image && image !== "" ? <Image source={{ uri: image }} style={{ width: '100%', height: '100%' }} /> :
+        {image && image !== "" ? <Image source={{ uri: image }} style={{ width: '100%', height: '100%',borderRadius: 50 }} /> :
             <TouchableOpacity
             style={{
                 width: 100,

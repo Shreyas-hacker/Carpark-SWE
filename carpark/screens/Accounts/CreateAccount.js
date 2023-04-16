@@ -28,6 +28,8 @@ function CreateAccount({ navigation }) {
   useEffect(() => {
     if (username !== "" && password !== "" && confirmPassword !== "") {
       setfilled(true);
+    }else{
+        setfilled(false);
     }
   }, [username, password, confirmPassword]);
 

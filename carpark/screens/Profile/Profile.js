@@ -25,6 +25,7 @@ function Profile({ navigation }) {
             setImage(response.data.users[0].photoUrl)
             if(!authCtx.display_name){
                 setDisplayName(response.data.users[0].displayName);
+                setImage(response.data.users[0].photoUrl)
             }else{
                 setDisplayName(authCtx.display_name);
             }
@@ -57,7 +58,7 @@ function Profile({ navigation }) {
         <View style={{ backgroundColor: "white", flex: 1 }}>
           <View style={styles.profileContainer}>
             {image ? <Image
-              source={ProfilePicture}
+              source={{uri: image}}
               style={{ width: 100, height: 100, borderRadius: 100 / 2 }}
             /> : <Icon name="user" size={100} color="#F0F5F6" />}
             <View style={{ marginTop: 20 }}>

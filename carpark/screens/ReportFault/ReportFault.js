@@ -52,6 +52,8 @@ function ReportFault({ navigation, route }) {
       description !== ""
     ) {
       setfilled(true);
+    }else{
+        setfilled(false);
     }
   }, [description]);
 

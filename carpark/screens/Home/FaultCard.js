@@ -1,6 +1,6 @@
-import { View, Text, StyleSheet, Button, Image } from "react-native";
+import { View, Text, StyleSheet, Button, Image, TouchableOpacity } from "react-native";
 import { useState } from "react";
-import { Overlay } from "react-native-elements";
+import { Icon, Overlay } from "react-native-elements";
 
 function FaultCard({ fault }) {
   const [visible, setVisible] = useState(false);
@@ -12,7 +12,10 @@ function FaultCard({ fault }) {
   return (
     <View style={styles.container}>
       <View style={styles.card}>
-        <Text style={styles.title}>{fault.carpark}</Text>
+        <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
+          <Text style={styles.title}>{fault.carpark}</Text>
+          <Text style={styles.text}>{fault.date}</Text>
+        </View>
         <Text style={styles.text}>Address: {fault.address}</Text>
         <Text style={styles.text}>
           Description:{" "}
@@ -20,7 +23,12 @@ function FaultCard({ fault }) {
             {fault.description}
           </Text>
         </Text>
-        <Button title="View" onPress={toggleOverlay} />
+        <TouchableOpacity style={{
+          flexDirection: 'row',
+          justifyContent: 'flex-end',
+        }}>
+          <Icon name="image" type="font-awesome" onPress={toggleOverlay} />
+        </TouchableOpacity>
         {/* <Text style={styles.text}>
           Report Count:{" "}
           <Text style={styles.boldText} numberOfLines={2}>
@@ -60,10 +68,10 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   title: {
-    fontSize: 24,
+    fontSize: 20,
     fontFamily: "OpenSans_700Bold",
     marginBottom: 5,
-    textAlign: "center",
+    textAlign: "left",
     color: "#444444",
   },
   text: {

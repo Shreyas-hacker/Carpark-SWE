@@ -1,14 +1,15 @@
 import { useContext, useEffect, useState } from "react";
-import { Alert, Dimensions,StyleSheet, TextInput, View, TouchableWithoutFeedback, Keyboard } from "react-native";
-import { Text } from "react-native";
+import { Text, Alert, Dimensions,StyleSheet, TextInput, View, TouchableWithoutFeedback, Keyboard,TouchableOpacity,Image } from "react-native";
 import { AuthContext } from "../../store/context/user-context";
 import { updateAccount } from "../../util/AuthManager";
 import PrimaryButton from "../../components/PrimaryButton";
 import { StatusBar } from "expo-status-bar";
-import { Image } from "react-native";
-import ProfilePicture from "../../assets/ProfilePicture.png";
-import AddPhoto from "../../components/AddPhoto";
-
+import {
+    launchCameraAsync,
+    useCameraPermissions,
+    PermissionStatus,
+  } from "expo-image-picker";
+import Icon from "react-native-vector-icons/FontAwesome";
 let componentWidth = 0;
 const width = Dimensions.get('window').width;
 
@@ -17,15 +18,50 @@ function CreateProfile({navigation}){
     const [age, setAge] = useState('');
     const [phoneNumber,setPhoneNumber] = useState('');
     const [filled, setFilled] = useState(false);
+    const [image, setImage] = useState("");
+    const [cameraPermission, askCameraPermission] = useCameraPermissions();
     const authCtx = useContext(AuthContext);
     
     useEffect(()=>{
         if(fullName !=='' && age !=='' && phoneNumber !==''){
             setFilled(true);
-        } 
+        }else{
+            setFilled(false);
+        }
     },[fullName,age,phoneNumber]);
 
     //changing state function
+    //changing state function
+    async function verifyPermissions() {
+        if (cameraPermission.status === PermissionStatus.UNDETERMINED) {
+        const permissionResponse = await askCameraPermission();
+        return permissionResponse.granted;
+        }
+        if (cameraPermission.status === PermissionStatus.DENIED) {
+        Alert.alert(
+            "Insufficient permissions!",
+            "You need to grant camera permissions to use this app.",
+            [{ text: "Okay", style: "destructive" }]
+        );
+        return false;
+        }
+        return true;
+    }
+
+    async function takeImageHandler() {
+        const hasPermission = await verifyPermissions();
+
+        if (!hasPermission) {
+        return;
+        }
+        const imageTaken = await launchCameraAsync({
+        allowsEditing: true,
+        aspect: [16, 9],
+        quality: 0.5,
+        });
+        setImage(imageTaken.uri);
+    }
+
     function fullNameHandler(enteredName){
         setFullName(enteredName)
     }
@@ -51,7 +87,7 @@ function CreateProfile({navigation}){
                 [{text: 'Okay',style:'destructive'}]
         )
         }else{
-            await updateAccount(authCtx.token,fullName);
+            await updateAccount(authCtx.token,fullName,image);
             authCtx.handleDisplayName(fullName);
             authCtx.setAuth();
         }
@@ -69,7 +105,36 @@ function CreateProfile({navigation}){
                         measureView(event);
                     }}>Create your Profile</Text>
                 </View>
-                <AddPhoto />
+                <View style={styles.imageButton}>
+        {image && image !== "" ? (
+          <Image
+            source={{ uri: image }}
+            style={{
+              width: 100,
+              height: 100,
+              borderRadius: 50,
+              resizeMode: "contain",
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          />
+        ) : (
+            <TouchableOpacity
+              style={{
+                width: 100,
+                height: 100,
+                borderRadius: 50,
+                backgroundColor: "#fff",
+                justifyContent: "center",
+                alignItems: "center",
+                position: "absolute",
+              }}
+              onPress={takeImageHandler}
+            >
+              <Icon name="camera" size={40} color="#000" />
+            </TouchableOpacity>
+        )}
+        </View>
                 <View style={styles.inputContainer}>
                     <TextInput style={styles.inputText} onChangeText={fullNameHandler} placeholder='Display Name here..' value={fullName}/>
                     <TextInput style={styles.inputText} onChangeText={ageHandler} placeholder='Enter your age here'value={age} keyboardType="decimal-pad" maxLength={2}/>
@@ -102,6 +167,12 @@ const styles = StyleSheet.create({
         marginTop: 40,
         fontSize: 24,
         fontFamily: 'OpenSans_700Bold'
+    },
+    imageButton:{
+        flex:1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginVertical: 40,
     },
     inputContainer:{
         marginTop : 30

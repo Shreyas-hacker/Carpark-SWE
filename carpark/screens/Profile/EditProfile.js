@@ -1,5 +1,6 @@
 import { useContext, useEffect, useState } from "react";
 import {
+  Text,
   Dimensions,
   StyleSheet,
   TextInput,
@@ -7,15 +8,19 @@ import {
   Image,
   TouchableWithoutFeedback,
   Keyboard,
+  TouchableOpacity,
+  Alert,
 } from "react-native";
-import { Text } from "react-native";
 import { AuthContext } from "../../store/context/user-context";
 import { updateAccount } from "../../util/AuthManager";
 import PrimaryButton from "../../components/PrimaryButton";
 import IconButton from "../../components/IconButton";
-import ProfilePicture from "../../assets/ProfilePicture.png";
-import { Alert } from "react-native";
-import AddPhoto from "../../components/AddPhoto";
+import {
+  launchCameraAsync,
+  useCameraPermissions,
+  PermissionStatus,
+} from "expo-image-picker";
+import Icon from "react-native-vector-icons/FontAwesome";
 
 let componentWidth = 0;
 const width = Dimensions.get("window").width;
@@ -25,17 +30,48 @@ function EditProfile({ navigation, route }) {
   const [fullName, setFullName] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
   const [filled, setFilled] = useState(false);
-  const [image, setImage] = useState(route.params.image);
+  const [cameraPermission, askCameraPermission] = useCameraPermissions();
+  const [image, setImage] = useState("");
   const authCtx = useContext(AuthContext);
-  const idToken = authCtx.token;
 
   useEffect(() => {
     if (fullName !== "" && phoneNumber !== "") {
       setFilled(true);
+    }else{
+        setFilled(false);
     }
   }, [fullName, phoneNumber]);
 
   //changing state function
+  async function verifyPermissions() {
+    if (cameraPermission.status === PermissionStatus.UNDETERMINED) {
+      const permissionResponse = await askCameraPermission();
+      return permissionResponse.granted;
+    }
+    if (cameraPermission.status === PermissionStatus.DENIED) {
+      Alert.alert(
+        "Insufficient permissions!",
+        "You need to grant camera permissions to use this app.",
+        [{ text: "Okay", style: "destructive" }]
+      );
+      return false;
+    }
+    return true;
+  }
+
+  async function takeImageHandler() {
+    const hasPermission = await verifyPermissions();
+
+    if (!hasPermission) {
+      return;
+    }
+    const imageTaken = await launchCameraAsync({
+      allowsEditing: true,
+      aspect: [16, 9],
+      quality: 0.5,
+    });
+    setImage(imageTaken.uri);
+  }
   function fullNameHandler(enteredName) {
     setFullName(enteredName);
   }
@@ -54,28 +90,36 @@ function EditProfile({ navigation, route }) {
 
   //create profile fuction
   async function updateProfileAttempt() {
-    if(fullName === authCtx.display_name){
+    if (fullName === authCtx.display_name) {
       setFullName("");
-      Alert.alert("Same Display name","Please enter a new display name that is different from your current display name",[{text:"OK",style:"destructive"}]);
-    }
-    else if (fullName !== "" && phoneNumber !== "") {
-      const token = await updateAccount(authCtx.token, fullName,image);
+      Alert.alert(
+        "Same Display name",
+        "Please enter a new display name that is different from your current display name",
+        [{ text: "OK", style: "destructive" }]
+      );
+    } else if (fullName !== "" && phoneNumber !== "") {
+      const token = await updateAccount(authCtx.token, fullName, image);
       authCtx.handleDisplayName(fullName);
-      Alert.alert("Successful","Profile updated successfully!",[{text:"OK",onPress:()=>{navigation.navigate("Profile")}}]);
+      Alert.alert("Successful", "Profile updated successfully!", [
+        {
+          text: "OK",
+          onPress: () => {
+            navigation.navigate("Profile");
+          },
+        },
+      ]);
     }
   }
   return (
-    <TouchableWithoutFeedback onPress={() =>
-      Keyboard.dismiss()
-    }>
-      <View> 
+    <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
+      <View>
         <View style={styles.topContent}>
-            <IconButton
-                onPress={goBack}
-                icon="arrow-back"
-                size={28}
-                color="black"
-            />
+          <IconButton
+            onPress={goBack}
+            icon="arrow-back"
+            size={28}
+            color="black"
+          />
           <Text
             style={styles.title}
             onLayout={(event) => {
@@ -85,10 +129,36 @@ function EditProfile({ navigation, route }) {
             Edit Profile
           </Text>
         </View>
-        {(!image && image === "") ? 
         <View style={styles.imageButton}>
-          <AddPhoto />
-        </View> : <Image source={image} style={{width: 100, height: 100, borderRadius: 50, alignSelf: "center", marginTop: 40}}/>}
+        {image && image !== "" ? (
+          <Image
+            source={{ uri: image }}
+            style={{
+              width: 100,
+              height: 100,
+              borderRadius: 50,
+              resizeMode: "contain",
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          />
+        ) : (
+            <TouchableOpacity
+              style={{
+                width: 100,
+                height: 100,
+                borderRadius: 50,
+                backgroundColor: "#fff",
+                justifyContent: "center",
+                alignItems: "center",
+                position: "absolute",
+              }}
+              onPress={takeImageHandler}
+            >
+              <Icon name="camera" size={40} color="#000" />
+            </TouchableOpacity>
+        )}
+        </View>
         <View style={styles.inputContainer}>
           <TextInput
             style={styles.inputText}
@@ -143,12 +213,12 @@ const styles = StyleSheet.create({
     marginLeft: (width - componentWidth) / 5,
     marginTop: 40,
     fontSize: 20,
-    fontFamily: "OpenSans_700Bold"
+    fontFamily: "OpenSans_700Bold",
   },
-  imageButton:{
-    flex:1,
-    justifyContent: 'center',
-    alignItems: 'center',
+  imageButton: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
     marginVertical: 40,
   },
   inputContainer: {
