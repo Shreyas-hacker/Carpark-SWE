@@ -1,6 +1,15 @@
 import { StatusBar } from "expo-status-bar";
 import { useEffect, useState } from "react";
-import { Dimensions, TextInput, StyleSheet, Text, View, Alert, Keyboard, TouchableWithoutFeedback,} from "react-native";
+import {
+  Dimensions,
+  TextInput,
+  StyleSheet,
+  Text,
+  View,
+  Alert,
+  Keyboard,
+  TouchableWithoutFeedback,
+} from "react-native";
 import IconButton from "../../components/IconButton";
 import PrimaryButton from "../../components/PrimaryButton";
 import { resetPassword } from "../../util/AuthManager";
@@ -121,27 +130,27 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
     flex: 1,
     paddingHorizontal: 20,
-    paddingBottom: 20, 
+    paddingBottom: 20,
   },
   topContent: {
     flexDirection: "row",
-    marginVertical: 20, 
+    marginVertical: 20,
     alignItems: "center",
     marginTop: 60,
   },
   title: {
-    flex: 1, 
+    flex: 1,
     textAlign: "center",
     fontFamily: "OpenSans_700Bold",
     fontSize: 22,
     marginRight: width / 7,
   },
   inputConfig: {
-    marginVertical: 20, 
+    marginVertical: 20,
   },
   inputStyles: {
     borderRadius: 6,
-    fontSize: 16, 
+    fontSize: 16,
     padding: 12,
     borderColor: "#DBE2E7",
     backgroundColor: "#FFFFFF",
@@ -150,12 +159,12 @@ const styles = StyleSheet.create({
     fontFamily: "OpenSans_400Regular",
   },
   buttonContainer: {
-    marginBottom: 20, 
+    marginBottom: 20,
   },
   infoText: {
-    marginTop: 10, 
+    marginTop: 10,
     fontFamily: "OpenSans_600SemiBold",
-    fontSize: 16, 
+    fontSize: 16,
     color: "#0D668D",
   },
 });
