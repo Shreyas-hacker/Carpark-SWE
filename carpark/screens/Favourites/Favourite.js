@@ -19,20 +19,23 @@ function Favourite({ navigation }) {
   const [favourites, setFavourites] = useState([]);
   const authCtx = useContext(AuthContext);
 
-
   useEffect(() => {
-    async function getFavourites() {
-      try{
-        var email = authCtx.email;
-        const response = await fetchFavs(email);
-        setFavourites(response);
-        setHasFavourites(true);
-      }catch(error){
-        console.log(error);
+    const unsubscribe = navigation.addListener('focus', () => {
+      async function getFavourites() {
+        try{
+          var email = authCtx.email;
+          const response = await fetchFavs(email);
+          setFavourites(response);
+          setHasFavourites(true);
+        }catch(error){
+          console.log(error);
+        }
       }
-    }
-    getFavourites();
-  },[])
+      getFavourites();
+    });
+
+    return unsubscribe;
+  }, [navigation])
 
   function goBack(){
     navigation.goBack();
