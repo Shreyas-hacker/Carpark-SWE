@@ -21,6 +21,7 @@ import {
   PermissionStatus,
 } from "expo-image-picker";
 import Icon from "react-native-vector-icons/FontAwesome";
+import { Button } from "react-native-elements";
 
 let componentWidth = 0;
 const width = Dimensions.get("window").width;
@@ -31,7 +32,7 @@ function EditProfile({ navigation, route }) {
   const [phoneNumber, setPhoneNumber] = useState("");
   const [filled, setFilled] = useState(false);
   const [cameraPermission, askCameraPermission] = useCameraPermissions();
-  const [image, setImage] = useState("");
+  const [image, setImage] = useState(route.params.image);
   const authCtx = useContext(AuthContext);
 
   useEffect(() => {
@@ -100,6 +101,7 @@ function EditProfile({ navigation, route }) {
     } else if (fullName !== "" && phoneNumber !== "") {
       const token = await updateAccount(authCtx.token, fullName, image);
       authCtx.handleDisplayName(fullName);
+      authCtx.handlePhotoURL(image);
       Alert.alert("Successful", "Profile updated successfully!", [
         {
           text: "OK",
@@ -130,19 +132,27 @@ function EditProfile({ navigation, route }) {
           </Text>
         </View>
         <View style={styles.imageButton}>
-          {image && image !== "" ? (
-            <Image
-              source={{ uri: image }}
-              style={{
-                width: 100,
-                height: 100,
-                borderRadius: 50,
-                resizeMode: "contain",
-                justifyContent: "center",
-                alignItems: "center",
-              }}
-            />
-          ) : (
+        {image && image !== "" ? (
+          <>
+          <Image
+            source={{ uri: image }}
+            style={{
+              width: 100,
+              height: 100,
+              borderRadius: 50,
+              resizeMode: "contain",
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          />
+          <TouchableOpacity style={{
+            width: 150,
+            height: 50
+          }} onPress={takeImageHandler}>
+            <Text style={{marginTop: 10,textAlign:'center',borderColor: 'black',borderWidth: 3,fontSize: 18,borderRadius: 16}}>Change photo</Text>
+          </TouchableOpacity>
+          </>
+        ) : (
             <TouchableOpacity
               style={{
                 width: 100,
@@ -219,7 +229,8 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    marginVertical: 40,
+    marginTop: 50,
+    marginBottom: 60,
   },
   inputContainer: {
     marginTop: 30,

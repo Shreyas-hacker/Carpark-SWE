@@ -103,6 +103,7 @@ function CreateProfile({ navigation }) {
     } else {
       await updateAccount(authCtx.token, fullName, image);
       authCtx.handleDisplayName(fullName);
+      authCtx.handlePhotoURL(image);
       authCtx.setAuth();
     }
     console.log("Profile created");
