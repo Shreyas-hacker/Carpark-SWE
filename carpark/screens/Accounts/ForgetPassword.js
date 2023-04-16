@@ -12,6 +12,7 @@ import PrimaryButton from "../../components/PrimaryButton";
 import { resetPassword } from "../../util/AuthManager";
 import { emailChecker } from "../../util/helper";
 import { TouchableWithoutFeedback, Keyboard } from "react-native";
+import { StatusBar } from "expo-status-bar";
 
 let componentWidth = 0;
 const width = Dimensions.get("window").width;
@@ -67,45 +68,57 @@ function ForgetPassword({ navigation }) {
   }, [email]);
 
   return (
-    <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
-      <View style={styles.page}>
-        <View style={styles.topContent}>
-          <IconButton
-            onPress={goBack}
-            icon="arrow-back"
-            size={28}
-            color="black"
-          />
-          <Text
-            style={styles.title}
-            onLayout={(event) => {
-              measureView(event);
-            }}
-          >
-            Forget Password
-          </Text>
+    <>
+      <StatusBar />
+      <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
+        <View style={styles.page}>
+          <View style={styles.topContent}>
+            <IconButton
+              onPress={goBack}
+              icon="arrow-back"
+              size={28}
+              color="black"
+            />
+            <Text
+              style={styles.title}
+              onLayout={(event) => {
+                measureView(event);
+              }}
+            >
+              Forget Password
+            </Text>
+          </View>
+          <View style={styles.inputConfig}>
+            <TextInput
+              style={styles.inputStyles}
+              value={email}
+              onChangeText={emailHandler}
+              placeholder="Enter your email address"
+            />
+            <Text
+              style={[
+                {
+                  color: "#57636C",
+                  fontFamily: "OpenSans_400Regular",
+                  fontSize: 14,
+                },
+              ]}
+            >
+              We will need to verify your email with our database to reset your
+              password, please enter the email associated with your account
+              above.
+            </Text>
+          </View>
+          <View style={styles.buttonContainer}>
+            <PrimaryButton
+              text="Verify email"
+              onSuccess={filled}
+              onAttempt={sendEmail}
+            />
+          </View>
         </View>
-        <View style={styles.inputConfig}>
-          <TextInput
-            style={styles.inputStyles}
-            value={email}
-            onChangeText={emailHandler}
-            placeholder="Enter your email address"
-          />
-          <Text style={[{ color: "#57636C", fontFamily: 'OpenSans_400Regular', fontSize: 14}]}>
-            We will need to verify your email with our database to reset your
-            password, please enter the email associated with your account above.
-          </Text>
-        </View>
-        <View style={styles.buttonContainer}>
-          <PrimaryButton
-            text="Verify email"
-            onSuccess={filled}
-            onAttempt={sendEmail}
-          />
-        </View>
-      </View>
-    </TouchableWithoutFeedback>
+      </TouchableWithoutFeedback>
+    </>
   );
 }
 
@@ -136,7 +149,7 @@ const styles = StyleSheet.create({
   title: {
     marginLeft: (width - componentWidth) / 7,
     fontFamily: "OpenSans_700Bold",
-    fontSize: 20
+    fontSize: 20,
   },
   inputConfig: {
     marginHorizontal: "5%",
