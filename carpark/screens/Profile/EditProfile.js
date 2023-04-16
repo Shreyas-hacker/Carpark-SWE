@@ -175,6 +175,7 @@ function EditProfile({ navigation, route }) {
             onChangeText={fullNameHandler}
             placeholder="New Display Name here.."
             value={fullName}
+            maxLength={15}
           />
           <TextInput
             style={styles.inputText}

@@ -159,6 +159,7 @@ function CreateProfile({ navigation }) {
               onChangeText={fullNameHandler}
               placeholder="Display Name here.."
               value={fullName}
+              maxLength={15}
             />
             <TextInput
               style={styles.inputText}
