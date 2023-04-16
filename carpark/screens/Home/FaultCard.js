@@ -91,7 +91,7 @@ const styles = StyleSheet.create({
     fontSize: 14,
     marginBottom: 5,
     color: "#444444",
-    fontFamily: "OpenSans_400Regular",
+    fontFamily: "OpenSans_700Bold",
   },
   preview: {
     width: 300,
