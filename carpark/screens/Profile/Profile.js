@@ -25,7 +25,7 @@ function Profile({ navigation }) {
             setImage(response.data.users[0].photoUrl)
             if(!authCtx.display_name){
                 setDisplayName(response.data.users[0].displayName);
-                setImage(response.data.users[0].photoUrl)
+                authCtx.handleDisplayName(response.data.users[0].displayName);
             }else{
                 setDisplayName(authCtx.display_name);
             }

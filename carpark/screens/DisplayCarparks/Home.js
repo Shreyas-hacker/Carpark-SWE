@@ -34,14 +34,25 @@ function HomeScreen({ navigation }) {
     const url = `https://identitytoolkit.googleapis.com/v1/accounts:lookup?key=${API_KEY}`;
 
     async function getDisplayName() {
-      try {
-        const response = await axios.post(url, { idToken: token });
-        const user = response.data.users[0];
-        setDisplayName(authCtx.display_name || user.displayName);
-        setEmail(authCtx.email || user.email);
-      } catch (error) {
-        console.log(error.message);
-      }
+      console.log(authCtx.display_name);
+      const response = await axios
+        .post(url, { idToken: token })
+        .then((response) => {
+          if (!authCtx.display_name) {
+            setDisplayName(response.data.users[0].displayName);
+            authCtx.handleDisplayName(response.data.users[0].displayName);
+          } else {
+            setDisplayName(authCtx.display_name);
+          }
+          if (!authCtx.email) {
+            setEmail(response.data.users[0].email);
+          } else {
+            setEmail(authCtx.email);
+          }
+        })
+        .catch((error) => {
+          console.log(error.message);
+        });
     }
 
     getDisplayName();
@@ -49,6 +60,7 @@ function HomeScreen({ navigation }) {
 
   const focusListener = navigation.addListener("focus", () => {
     setFaultCard((prevState) => true);
+    setDisplayName(authCtx.display_name);
   });
   
   const blurListener = navigation.addListener("blur", () => {
