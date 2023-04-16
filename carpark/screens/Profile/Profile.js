@@ -80,13 +80,13 @@ function Profile({ navigation }) {
               }}
             />
             <LongButton
-              text="View Reports Made"
+              text="View Report History"
               onPress={() => {
                 navigation.navigate("ReportsMade");
               }}
             />
             <LongButton
-              text="Favourite"
+              text="Favourites"
               onPress={() => {
                 navigation.navigate("Favourite");
               }}

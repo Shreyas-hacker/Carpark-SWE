@@ -196,7 +196,7 @@ const styles = StyleSheet.create({
   },
   topContent: {
     flexDirection: "row",
-    marginTop: 30,
+    marginTop: 45,
     alignContent: "center",
     width: "100%",
     flexDirection: "row",
@@ -211,8 +211,8 @@ const styles = StyleSheet.create({
   },
   title: {
     marginLeft: (width - componentWidth) / 5,
-    marginTop: 40,
-    fontSize: 20,
+    marginTop: 10,
+    fontSize: 22,
     fontFamily: "OpenSans_700Bold",
   },
   imageButton: {

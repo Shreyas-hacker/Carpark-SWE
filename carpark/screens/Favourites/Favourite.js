@@ -56,8 +56,8 @@ function Favourite({ navigation }) {
           size={28}
           color="black"
         />
+        <Text style={styles.title}>Favourites</Text>
       </View>
-      <Text style={styles.title}>Favourites</Text>
       {
         !hasFavourites ? (<LoadingScreen/> ) : (favourites.length > 0 ? (
           <FlatList
@@ -84,7 +84,8 @@ function Favourite({ navigation }) {
     
 
 
-const deviceHeight = Dimensions.get("window").height;
+const height = Dimensions.get("window").height;
+const width = Dimensions.get("window").width;
 
 const styles = StyleSheet.create({
   container: {
@@ -93,17 +94,18 @@ const styles = StyleSheet.create({
   },
   topContent:{
     flexDirection:'row',
-    marginTop: 40,
+    marginTop: height/13,
+    marginLeft: width/20,
   },
   title:{
-    fontSize: 18,
+    marginLeft: width/6,
     fontWeight: 'bold',
     textAlign: 'center',
     fontFamily: 'OpenSans_700Bold',
     fontSize: 24,
   },
   imageContainer:{
-    marginTop: deviceHeight/3,
+    marginTop: height/3,
   },
   noReportsText:{
     alignSelf: "center",

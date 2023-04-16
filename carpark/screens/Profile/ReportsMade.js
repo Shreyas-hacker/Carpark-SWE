@@ -39,8 +39,8 @@ function ReportsMade({navigation}){
             size={28}
             color="black"
           />
+          <Text style={styles.title}>Reports Made</Text>
         </View>
-        <Text style={styles.title}>Reports Made</Text>
         {!reportsDone ? (<LoadingScreen/> ) : (reports.length > 0 ? (
           <FlatList
             data={reports}
@@ -63,20 +63,24 @@ function ReportsMade({navigation}){
 }
 
 const height  = Dimensions.get('window').height;
+const width  = Dimensions.get('window').width;
 
 const styles = StyleSheet.create({
     container:{
         flex: 1,
-        backgroundColor: '#F0F5F6'
+        backgroundColor: '#F0F5F6',
     },
     topContent:{
         flexDirection:'row',
-        marginTop: 40,
+        marginTop: height/13,
+        marginLeft: 10,
+        
     },
     title:{
-        fontSize: 18,
+        fontSize: 22,
         fontWeight: 'bold',
-        textAlign: 'center',
+        marginLeft: width / 6,
+        fontFamily: "OpenSans_700Bold",
     },
     imageContainer:{
         marginTop: height/3,
