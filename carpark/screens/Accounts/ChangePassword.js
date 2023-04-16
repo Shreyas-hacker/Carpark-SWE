@@ -100,9 +100,9 @@ function ChangePassword({ navigation }) {
             />
             <Text
               style={{
-                color: "#57636C",
                 fontFamily: "OpenSans_600SemiBold",
-                color: "#0D668D",
+                color: "#3E8AAA",
+                fontSize: 14,
               }}
             >
               We will send you an email with our database to reset your

@@ -98,8 +98,8 @@ function ForgetPassword({ navigation }) {
             <Text
               style={[
                 {
-                  color: "#57636C",
-                  fontFamily: "OpenSans_400Regular",
+                  color: "#3E8AAA",
+                  fontFamily: "OpenSans_600SemiBold",
                   fontSize: 14,
                 },
               ]}
@@ -130,42 +130,42 @@ const styles = StyleSheet.create({
   page: {
     backgroundColor: "white",
     flex: 1,
+    paddingHorizontal: 20,
+    paddingBottom: 20,
   },
   topContent: {
     flexDirection: "row",
-    marginTop: 45,
-    alignContent: "center",
-    width: "100%",
-    flexDirection: "row",
-    top: height / 50,
-    marginRight: width / 3.75,
-    alignSelf: "center",
-    justifyContent: "center",
+    marginVertical: 20,
     alignItems: "center",
-    textAlignVertical: "center",
-    alignContent: "center",
-    marginBottom: 50,
+    marginTop: 60,
   },
   title: {
-    marginLeft: (width - componentWidth) / 7,
+    flex: 1,
+    textAlign: "center",
     fontFamily: "OpenSans_700Bold",
-    fontSize: 20,
+    fontSize: 22,
+    marginRight: width / 7,
   },
   inputConfig: {
-    marginHorizontal: "5%",
-    flexDirection: "column",
+    marginVertical: 20,
   },
   inputStyles: {
     borderRadius: 6,
-    fontSize: 14,
+    fontSize: 16,
     padding: 12,
-    borderColor: "#DEDEDC",
-    backgroundColor: "#FDFDFD",
+    borderColor: "#DBE2E7",
+    backgroundColor: "#FFFFFF",
     borderWidth: 2,
     marginBottom: 20,
     fontFamily: "OpenSans_400Regular",
   },
   buttonContainer: {
-    marginVertical: 30,
+    marginBottom: 20,
+  },
+  infoText: {
+    marginTop: 10,
+    fontFamily: "OpenSans_600SemiBold",
+    fontSize: 16,
+    color: "#0D668D",
   },
 });
