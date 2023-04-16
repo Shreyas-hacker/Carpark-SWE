@@ -16,7 +16,6 @@ import LoadingScreen from "../../components/LoadingScreen";
 import CarparkBackground from "../../assets/CarparkBackground.jpg";
 import { searchCarpark } from "./SearchCarpark";
 import ShowFaults from "../Home/ShowFaults";
-import { fetchSevereFaults } from "../../util/realtime/realTimeStorage";
 
 function HomeScreen({ navigation }) {
   const API_KEY = "AIzaSyCX5cIGMG23hoatqCPLZnSQJX_6klMLbRk";
@@ -48,20 +47,13 @@ function HomeScreen({ navigation }) {
     getDisplayName();
   }, []);
 
-  useEffect(() => {
-    const focusListener = navigation.addListener("focus", () => {
-      setFaultCard(true);
-    });
-
-    const blurListener = navigation.addListener("blur", () => {
-      setFaultCard(false);
-    });
-
-    return () => {
-      focusListener.remove();
-      blurListener.remove();
-    };
-  }, []);
+  const focusListener = navigation.addListener("focus", () => {
+    setFaultCard((prevState) => true);
+  });
+  
+  const blurListener = navigation.addListener("blur", () => {
+    setFaultCard((prevState) => false);
+  });
 
   return displayName ? (
     <View style={styles.container}>

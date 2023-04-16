@@ -15,7 +15,7 @@ import PrimaryButton from "../../components/PrimaryButton";
 import IconButton from "../../components/IconButton";
 import { AuthContext } from "../../store/context/user-context";
 
-const backColor = "#FFFFFF";
+const backColor = "#F8F8F8";
 const deviceWidth = Dimensions.get("window").width;
 const deviceHeight = Dimensions.get("window").height;
 let componentWidth = 0;
@@ -204,7 +204,7 @@ function ReportFault({ navigation, route }) {
             }}
             icon="camera"
             size={35}
-            color="black"
+            color="#45D8CC"
           />
         </View>
         {photoPreview && <Text style={styles.imageText}>Image Stored</Text>}
@@ -242,6 +242,7 @@ const styles = StyleSheet.create({
     fontSize: 20,
     marginHorizontal: (deviceWidth - componentWidth) / 5.2,
     fontFamily: "OpenSans_700Bold",
+    color: "black",
   },
   carparkTitle: {
     fontSize: 30,
@@ -253,12 +254,9 @@ const styles = StyleSheet.create({
     marginBottom: 8,
     marginTop: 9,
     fontSize: 21,
-    fontWeight: "regular",
-    color: "black",
-    justifyContent: "center",
     alignItems: "center",
-    textAlignVertical: "center",
     fontFamily: "OpenSans_400Regular",
+    color: "black",
   },
   reportDescription: {
     fontSize: 15,
@@ -271,6 +269,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     textAlignVertical: "center",
     alignContent: "center",
+    color: "black",
   },
   inputContainer: {
     borderColor: "black",
@@ -280,11 +279,11 @@ const styles = StyleSheet.create({
     marginTop: 10,
     marginBottom: 10,
     maxHeight: 150,
-    backgroundColor: "white",
+    backgroundColor: backColor,
     fontFamily: "OpenSans_400Regular",
   },
   inputText: {
-    backgroundColor: "white",
+    backgroundColor: backColor,
     color: "black",
     textAlignVertical: "top",
     textAlign: "left",
