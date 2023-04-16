@@ -29,7 +29,11 @@ function CarparkInfoCard({ carpark, carparkLots, loading }) {
   const [reports, setReports] = useState([]);
 
   const [isHidden, setIsHidden] = useState(false);
-  const [iconColor, setIconColor] = useState("black");
+  const [iconColor, setIconColor] = useState(
+    favCarpark.findIndex((fav) => fav.car_park_no === carpark.car_park_no) !== -1
+      ? "orange"
+      : "black"
+  );
 
   useEffect(() => {
     async function getReports() {
@@ -41,16 +45,17 @@ function CarparkInfoCard({ carpark, carparkLots, loading }) {
       }
     }
     getReports();
-    console.log(carpark);
   }, [carpark]);
 
   useEffect(() => {
-    const fetchFav = async () => {
+    async function fetchFav() {
       const fav = await fetchFavs(authCtx.email);
       setFavCarpark(fav);
-    };
+      const isFavourited = fav.findIndex((fav) => fav.car_park_no === carpark.car_park_no) !== -1;
+      setIconColor(isFavourited ? "orange" : "black");
+    }
     fetchFav();
-  }, [favCarpark]);
+  }, [authCtx.email, carpark.car_park_no]);
 
   const toggleCard = () => {
     Animated.timing(slideAnimation, {
@@ -61,10 +66,6 @@ function CarparkInfoCard({ carpark, carparkLots, loading }) {
     setArrowDirection(arrowDirection === "up" ? "down" : "up");
     setIsHidden(!isHidden);
   };
-
-  useEffect(() => {
-    setIconColor("black");
-  }, [carpark]);
 
   const slidePosition = slideAnimation.interpolate({
     inputRange: [0, 1],
@@ -119,7 +120,6 @@ function CarparkInfoCard({ carpark, carparkLots, loading }) {
       if (favCarpark.length === 0) {
         setFavCarpark([...favCarpark, carpark.car_park_no]);
         storeFav({ user_id: authCtx.email, favouritedCarpark: [carpark] });
-        setIconColor("orange");
         Alert.alert(
           "Added to Favourites",
           "This carpark has been added to your favourites list!",
@@ -132,13 +132,13 @@ function CarparkInfoCard({ carpark, carparkLots, loading }) {
       ) {
         setFavCarpark([...favCarpark, carpark]);
         updateFavorite([...favCarpark, carpark], authCtx.email);
-        setIconColor("orange");
         Alert.alert(
           "Added to Favourites",
           "This carpark has been added to your favourites list!",
           [{ text: "Ok", style: "destructive" }]
         );
       }
+      setIconColor("orange");
     } else {
       setIconColor("black");
       const index = favCarpark.findIndex(
