@@ -9,7 +9,7 @@ function Map({ carparks, region }) {
   const [isCoordinateArraySet, setIsCoordinateArraySet] = useState(false);
   const [selectedCarpark, setSelectedCarpark] = useState(null);
   const [carparkLots, setCarparkLots] = useState([]);
-  const [isLoading,setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const mapRef = useRef(null);
 
@@ -36,17 +36,19 @@ function Map({ carparks, region }) {
     if (selectedCarpark) {
       setIsLoading(true);
       const fetchCarparkLots = async () => {
-        const carpark_data  = await searchCarparkLots(selectedCarpark.car_park_no);
+        const carpark_data = await searchCarparkLots(
+          selectedCarpark.car_park_no
+        );
         const availableLots =
           carpark_data[0]?.carpark_info[0]?.lots_available ?? "N/A";
         const totalLots = carpark_data[0]?.carpark_info[0]?.total_lots ?? "N/A";
-        setCarparkLots([availableLots,totalLots]);
+        setCarparkLots([availableLots, totalLots]);
         setIsLoading(false);
       };
       fetchCarparkLots();
     }
   }, [selectedCarpark]);
-  
+
   const handleMarkerPress = (carpark) => {
     setSelectedCarpark(carpark);
   };
@@ -79,22 +81,22 @@ function Map({ carparks, region }) {
                   coordinate={coordinateArray[index]}
                   title={carpark.address}
                   description={`Free parking time: ${carpark.free_parking}`}
-                  onPress={handleMarkerPress.bind(this,carpark)}
+                  onPress={handleMarkerPress.bind(this, carpark)}
                 />
               );
             })}
         </MapView>
       )}
-      {(selectedCarpark && carparkLots) ? (
+      {selectedCarpark && carparkLots ? (
         <View style={styles.cardContainer}>
           <CarparkInfoCard
             carpark={selectedCarpark}
             carparkLots={carparkLots}
-            loading = {isLoading}
+            loading={isLoading}
           />
         </View>
-      ): null}
-      {!isCoordinateArraySet && isLoading &&(
+      ) : null}
+      {!isCoordinateArraySet && isLoading && (
         <View style={styles.loadingContainer}>
           <ActivityIndicator size="large" color="#0000ff" />
         </View>

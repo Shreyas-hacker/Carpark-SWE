@@ -27,7 +27,7 @@ function Login({ navigation }) {
   useEffect(() => {
     if (username !== "" && password !== "") {
       setfilled(true);
-    }else{
+    } else {
       setfilled(false);
     }
   }, [username, password]);

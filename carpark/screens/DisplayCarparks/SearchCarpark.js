@@ -36,19 +36,20 @@ export async function convertLatLong(easting, northing) {
   }
 }
 
-export async function searchCarparkLots(carparkNo){
-  try{
+export async function searchCarparkLots(carparkNo) {
+  try {
     const response = await axios({
       method: "get",
       url: "https://api.data.gov.sg/v1/transport/carpark-availability",
     });
 
     const carparks = response.data.items[0].carpark_data;
-    const searchCarpark = carparks.filter((carpark) => carpark.carpark_number === carparkNo);
+    const searchCarpark = carparks.filter(
+      (carpark) => carpark.carpark_number === carparkNo
+    );
     return searchCarpark;
-
-  }catch(error){
+  } catch (error) {
     console.log(error);
-    return {}
+    return {};
   }
 }

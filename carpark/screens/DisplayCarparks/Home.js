@@ -62,7 +62,7 @@ function HomeScreen({ navigation }) {
     setFaultCard((prevState) => true);
     setDisplayName(authCtx.display_name);
   });
-  
+
   const blurListener = navigation.addListener("blur", () => {
     setFaultCard((prevState) => false);
   });

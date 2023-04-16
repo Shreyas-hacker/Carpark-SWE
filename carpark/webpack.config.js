@@ -1,5 +1,5 @@
-const createExpoWebpackConfigAsync = require('@expo/webpack-config');
-const { getDefaultConfig } = require('@expo/metro-config');
+const createExpoWebpackConfigAsync = require("@expo/webpack-config");
+const { getDefaultConfig } = require("@expo/metro-config");
 
 module.exports = async function (env, argv) {
   const config = await createExpoWebpackConfigAsync(env, argv);
@@ -8,6 +8,6 @@ module.exports = async function (env, argv) {
 };
 
 const defaultConfig = getDefaultConfig(__dirname);
-defaultConfig.resolver.assetExts.push('cjs');
+defaultConfig.resolver.assetExts.push("cjs");
 
 module.exports = defaultConfig;

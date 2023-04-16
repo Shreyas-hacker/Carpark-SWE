@@ -1,4 +1,11 @@
-import { View, Text, StyleSheet, Button, Image, TouchableOpacity } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  Button,
+  Image,
+  TouchableOpacity,
+} from "react-native";
 import { useState } from "react";
 import { Icon, Overlay } from "react-native-elements";
 
@@ -12,7 +19,7 @@ function FaultCard({ fault }) {
   return (
     <View style={styles.container}>
       <View style={styles.card}>
-        <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
+        <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
           <Text style={styles.title}>{fault.carpark}</Text>
           <Text style={styles.text}>{fault.date}</Text>
         </View>
@@ -23,10 +30,12 @@ function FaultCard({ fault }) {
             {fault.description}
           </Text>
         </Text>
-        <TouchableOpacity style={{
-          flexDirection: 'row',
-          justifyContent: 'flex-end',
-        }}>
+        <TouchableOpacity
+          style={{
+            flexDirection: "row",
+            justifyContent: "flex-end",
+          }}
+        >
           <Icon name="image" type="font-awesome" onPress={toggleOverlay} />
         </TouchableOpacity>
         {/* <Text style={styles.text}>
@@ -37,7 +46,11 @@ function FaultCard({ fault }) {
         </Text> */}
 
         <Overlay isVisible={visible} onBackdropPress={toggleOverlay}>
-          {fault.photo !== "" ? <Image style={styles.preview} source={{ uri: fault.photo }}></Image> : <Text>No image taken</Text>}
+          {fault.photo !== "" ? (
+            <Image style={styles.preview} source={{ uri: fault.photo }}></Image>
+          ) : (
+            <Text>No image taken</Text>
+          )}
         </Overlay>
       </View>
     </View>

@@ -8,7 +8,7 @@ import {
   TouchableWithoutFeedback,
   Keyboard,
 } from "react-native";
-import { React, useEffect, useState,useContext } from "react";
+import { React, useEffect, useState, useContext } from "react";
 import CarparkBackground from "../../assets/CarparkBackground.jpg";
 import DropDownPicker from "react-native-dropdown-picker";
 import PrimaryButton from "../../components/PrimaryButton";
@@ -58,7 +58,7 @@ function ReportFault({ navigation, route }) {
       description !== ""
     ) {
       setfilled(true);
-    }else{
+    } else {
       setfilled(false);
     }
   }, [description]);
@@ -72,31 +72,31 @@ function ReportFault({ navigation, route }) {
   }, [route.params]);
 
   async function verifyPermissions() {
-      if (cameraPermission.status === PermissionStatus.UNDETERMINED) {
-          const permissionResponse = await askCameraPermission();
-          return permissionResponse.granted;
-      }
-      if (cameraPermission.status === PermissionStatus.DENIED) {
+    if (cameraPermission.status === PermissionStatus.UNDETERMINED) {
+      const permissionResponse = await askCameraPermission();
+      return permissionResponse.granted;
+    }
+    if (cameraPermission.status === PermissionStatus.DENIED) {
       Alert.alert(
-          "Insufficient permissions!",
-          "You need to grant camera permissions to use this app.",
-          [{ text: "Okay", style: "destructive" }]
+        "Insufficient permissions!",
+        "You need to grant camera permissions to use this app.",
+        [{ text: "Okay", style: "destructive" }]
       );
       return false;
-      }
-      return true;
+    }
+    return true;
   }
 
   async function takeImageHandler() {
     const hasPermission = await verifyPermissions();
 
     if (!hasPermission) {
-        return;
+      return;
     }
     const imageTaken = await launchCameraAsync({
-        allowsEditing: true,
-        aspect: [16, 9],
-        quality: 0.5,
+      allowsEditing: true,
+      aspect: [16, 9],
+      quality: 0.5,
     });
     setImage(imageTaken.assets[0].uri);
   }
@@ -113,8 +113,15 @@ function ReportFault({ navigation, route }) {
     navigation.navigate("DisplayCarpark", { searchTerm: route.params.carpark });
   }
 
-  function confirmation(){
-    navigation.navigate("Confirmation", {carpark: carpark, fault: Fault, severity: Severity, description: description, photoPreview: image, address: route.params.address})
+  function confirmation() {
+    navigation.navigate("Confirmation", {
+      carpark: carpark,
+      fault: Fault,
+      severity: Severity,
+      description: description,
+      photoPreview: image,
+      address: route.params.address,
+    });
   }
 
   return (
@@ -139,7 +146,7 @@ function ReportFault({ navigation, route }) {
             color="black"
           />
           <View>
-          <Text style={[styles.reportTitle]}>Report Faults</Text>
+            <Text style={[styles.reportTitle]}>Report Faults</Text>
           </View>
         </View>
 
@@ -148,9 +155,7 @@ function ReportFault({ navigation, route }) {
         </Text>
 
         <View style={styles.helpFault}>
-          <Text style={[styles.helpFault]}>
-            How can we help?
-          </Text>
+          <Text style={[styles.helpFault]}>How can we help?</Text>
         </View>
 
         <View
@@ -241,9 +246,15 @@ function ReportFault({ navigation, route }) {
             color="#45D8CC"
           />
         </View>
-        {image && image !== "" && <Text style={styles.imageText}>Image Stored</Text>}
+        {image && image !== "" && (
+          <Text style={styles.imageText}>Image Stored</Text>
+        )}
         <View style={styles.buttonContainer}>
-          <PrimaryButton text="Submit" onSuccess={filled} onAttempt={confirmation} />
+          <PrimaryButton
+            text="Submit"
+            onSuccess={filled}
+            onAttempt={confirmation}
+          />
         </View>
       </View>
     </TouchableWithoutFeedback>

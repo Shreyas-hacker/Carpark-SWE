@@ -44,11 +44,11 @@ export async function getCurrentLocation() {
   }
 }
 
-export async function getPostalAddress(location){
-  try{
+export async function getPostalAddress(location) {
+  try {
     let address = await Location.reverseGeocodeAsync(location);
     return address;
-  }catch(error){
+  } catch (error) {
     console.log(error);
     return false;
   }

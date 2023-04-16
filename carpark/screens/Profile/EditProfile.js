@@ -37,8 +37,8 @@ function EditProfile({ navigation, route }) {
   useEffect(() => {
     if (fullName !== "" && phoneNumber !== "") {
       setFilled(true);
-    }else{
-        setFilled(false);
+    } else {
+      setFilled(false);
     }
   }, [fullName, phoneNumber]);
 
@@ -130,19 +130,19 @@ function EditProfile({ navigation, route }) {
           </Text>
         </View>
         <View style={styles.imageButton}>
-        {image && image !== "" ? (
-          <Image
-            source={{ uri: image }}
-            style={{
-              width: 100,
-              height: 100,
-              borderRadius: 50,
-              resizeMode: "contain",
-              justifyContent: "center",
-              alignItems: "center",
-            }}
-          />
-        ) : (
+          {image && image !== "" ? (
+            <Image
+              source={{ uri: image }}
+              style={{
+                width: 100,
+                height: 100,
+                borderRadius: 50,
+                resizeMode: "contain",
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+            />
+          ) : (
             <TouchableOpacity
               style={{
                 width: 100,
@@ -157,7 +157,7 @@ function EditProfile({ navigation, route }) {
             >
               <Icon name="camera" size={40} color="#000" />
             </TouchableOpacity>
-        )}
+          )}
         </View>
         <View style={styles.inputContainer}>
           <TextInput

@@ -17,7 +17,7 @@ import { createUser } from "../../util/AuthManager";
 import { AuthContext } from "../../store/context/user-context";
 
 function CreateAccount({ navigation }) {
-  const [filled, setfilled] = useState(false); // state to manage if all fields in the form has been filled
+  const [filled, setfilled] = useState(false);
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPasword] = useState("");

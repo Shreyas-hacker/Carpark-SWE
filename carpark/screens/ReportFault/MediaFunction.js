@@ -16,7 +16,7 @@ import * as MediaLibrary from "expo-media-library";
 const deviceWidth = Dimensions.get("window").width;
 const deviceHeight = Dimensions.get("window").height;
 
-export default function App({ navigation,route }) {
+export default function App({ navigation, route }) {
   let cameraRef = useRef();
   const [hasCameraPermission, setHasCameraPermission] = useState();
   const [hasMediaLibraryPermission, setHasMediaLibraryPermission] = useState();
@@ -61,26 +61,30 @@ export default function App({ navigation,route }) {
   if (photo) {
     let savePhoto = () => {
       MediaLibrary.saveToLibraryAsync(photo.uri).then(() => {
-        navigation.navigate("ReportFault", { photoPreview: photo, carpark: route.params.carpark,address: route.params.address });
+        navigation.navigate("ReportFault", {
+          photoPreview: photo,
+          carpark: route.params.carpark,
+          address: route.params.address,
+        });
       });
     };
 
     return (
       <>
-      <StatusBar style="light"/>
-      <SafeAreaView style={styles.container}>
-        <Image
-          style={styles.preview}
-          source={{ uri: "data:image/jpg;base64," + photo.base64 }}
-        />
+        <StatusBar style="light" />
+        <SafeAreaView style={styles.container}>
+          <Image
+            style={styles.preview}
+            source={{ uri: "data:image/jpg;base64," + photo.base64 }}
+          />
 
-        {hasMediaLibraryPermission ? (
-          <Button title="Retake Photo" onPress={retakePicture} />
-        ) : undefined}
-        {hasMediaLibraryPermission ? (
-          <Button title="Submit Photo" onPress={savePhoto} />
-        ) : undefined}
-      </SafeAreaView>
+          {hasMediaLibraryPermission ? (
+            <Button title="Retake Photo" onPress={retakePicture} />
+          ) : undefined}
+          {hasMediaLibraryPermission ? (
+            <Button title="Submit Photo" onPress={savePhoto} />
+          ) : undefined}
+        </SafeAreaView>
       </>
     );
   }
@@ -115,7 +119,10 @@ export default function App({ navigation,route }) {
           style={styles.backButton}
           color={"#fff"}
           onPress={() => {
-            navigation.navigate("ReportFault",{carpark: route.params.carpark,address: route.params.address});
+            navigation.navigate("ReportFault", {
+              carpark: route.params.carpark,
+              address: route.params.address,
+            });
           }}
         ></Button>
       </View>

@@ -30,7 +30,8 @@ function CarparkInfoCard({ carpark, carparkLots, loading }) {
 
   const [isHidden, setIsHidden] = useState(false);
   const [iconColor, setIconColor] = useState(
-    favCarpark.findIndex((fav) => fav.car_park_no === carpark.car_park_no) !== -1
+    favCarpark.findIndex((fav) => fav.car_park_no === carpark.car_park_no) !==
+      -1
       ? "orange"
       : "black"
   );
@@ -51,7 +52,8 @@ function CarparkInfoCard({ carpark, carparkLots, loading }) {
     async function fetchFav() {
       const fav = await fetchFavs(authCtx.email);
       setFavCarpark(fav);
-      const isFavourited = fav.findIndex((fav) => fav.car_park_no === carpark.car_park_no) !== -1;
+      const isFavourited =
+        fav.findIndex((fav) => fav.car_park_no === carpark.car_park_no) !== -1;
       setIconColor(isFavourited ? "orange" : "black");
     }
     fetchFav();

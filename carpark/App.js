@@ -21,8 +21,9 @@ import ConfirmationPage from "./screens/ReportFault/Confirmation";
 import MyTabs from "./screens/Tabs";
 import AuthContextProvider, { AuthContext } from "./store/context/user-context";
 
-
-import { useFonts, OpenSans_300Light,
+import {
+  useFonts,
+  OpenSans_300Light,
   OpenSans_300Light_Italic,
   OpenSans_400Regular,
   OpenSans_400Regular_Italic,
@@ -31,13 +32,14 @@ import { useFonts, OpenSans_300Light,
   OpenSans_700Bold,
   OpenSans_700Bold_Italic,
   OpenSans_800ExtraBold,
-  OpenSans_800ExtraBold_Italic, } from '@expo-google-fonts/open-sans';
+  OpenSans_800ExtraBold_Italic,
+} from "@expo-google-fonts/open-sans";
 
 const Stack = createNativeStackNavigator();
 
 function AuthStack() {
   return (
-    <Stack.Navigator screenOptions={{ headerShown: false }}>  
+    <Stack.Navigator screenOptions={{ headerShown: false }}>
       <Stack.Screen name="Login" component={Login} />
       <Stack.Screen name="CreateAccount" component={CreateAccount} />
       <Stack.Screen name="ForgetPassword" component={ForgetPassword} />
@@ -65,7 +67,7 @@ function AuthenticatedStack() {
         name="DisplayCarpark"
         component={DisplayCarpark}
         options={{
-          presentation:"modal",
+          presentation: "modal",
         }}
       />
       <Stack.Screen name="Confirmation" component={ConfirmationPage} />
@@ -82,9 +84,7 @@ function Navigation() {
   return (
     <NavigationContainer>
       {!authCtx.isAuthenticated && <AuthStack />}
-      {authCtx.isAuthenticated && (
-          <AuthenticatedStack />
-      )}
+      {authCtx.isAuthenticated && <AuthenticatedStack />}
     </NavigationContainer>
   );
 }

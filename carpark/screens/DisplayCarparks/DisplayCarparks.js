@@ -32,7 +32,7 @@ const DisplayCarpark = ({ route }) => {
         const street = postalAdress[0].street.toUpperCase();
         const carparks = await searchCarpark(district);
         const filteredCarparks = carparks.filter((carpark) => {
-          return carpark.address.includes(street)
+          return carpark.address.includes(street);
         });
         setFilteredCarparks(filteredCarparks);
         setSelectedCarpark(null);
@@ -43,7 +43,7 @@ const DisplayCarpark = ({ route }) => {
             setErrorMessage("");
           }, 2000);
         }
-      }else{
+      } else {
         handleSearchCarpark();
       }
     }
@@ -76,29 +76,29 @@ const DisplayCarpark = ({ route }) => {
 
   return (
     <>
-    <StatusBar style="light"/>
-    <View style={styles.container}>
-      {mapRegion && (
-        <Map
-          region={mapRegion}
-          carparks={filteredCarparks}
-          onCarparkSelect={handleCarparkSelect}
-          searchTerm={searchTerm}
-        />
-      )}
-      <View style={styles.searchBar}>
-        <SearchBar
-          onSearchTermChange={handleSearch}
-          searchTerm={searchTerm}
-          onSearch={handleSearchCarpark}
-        />
-      </View>
-      {errorMessage !== "" && (
-        <View style={styles.errorBox}>
-          <Text style={styles.errorText}>{errorMessage}</Text>
+      <StatusBar style="light" />
+      <View style={styles.container}>
+        {mapRegion && (
+          <Map
+            region={mapRegion}
+            carparks={filteredCarparks}
+            onCarparkSelect={handleCarparkSelect}
+            searchTerm={searchTerm}
+          />
+        )}
+        <View style={styles.searchBar}>
+          <SearchBar
+            onSearchTermChange={handleSearch}
+            searchTerm={searchTerm}
+            onSearch={handleSearchCarpark}
+          />
         </View>
-      )}
-    </View>
+        {errorMessage !== "" && (
+          <View style={styles.errorBox}>
+            <Text style={styles.errorText}>{errorMessage}</Text>
+          </View>
+        )}
+      </View>
     </>
   );
 };
