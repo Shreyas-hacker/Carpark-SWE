@@ -17,7 +17,7 @@ import { AuthContext } from "../../store/context/user-context";
 import { login } from "../../util/AuthManager";
 
 function Login({ navigation }) {
-  const [filled, setfilled] = useState(false);
+  const [filled, setfilled] = useState(null);
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [show, setShow] = useState(true);

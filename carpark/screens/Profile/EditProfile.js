@@ -70,7 +70,7 @@ function EditProfile({ navigation, route }) {
       aspect: [16, 9],
       quality: 0.5,
     });
-    setImage(imageTaken.uri);
+    setImage(imageTaken.assets[0].uri);
   }
   function fullNameHandler(enteredName) {
     setFullName(enteredName);
