@@ -157,10 +157,11 @@ function EditProfile({ navigation, route }) {
                     marginTop: 10,
                     textAlign: "center",
                     borderColor: "black",
-                    borderWidth: 2,
+                    borderWidth: 1,
                     fontSize: 18,
                     borderRadius: 14,
                     padding: 3,
+                    fontFamily: "OpenSans_600SemiBold",
                   }}
                 >
                   Change photo
